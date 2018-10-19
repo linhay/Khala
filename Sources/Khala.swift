@@ -1,0 +1,7 @@
+
+class Khala: NSObject {
+  
+  
+  
+  
+}
