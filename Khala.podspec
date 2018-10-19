@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.author    = { 'linhey' => 'is.linhay@outlook.com' }
   s.source    = { :git => 'https://github.com/linhay/Routable.git', :tag => s.version.to_s }
   
-  s.swift_version = '4.0'
+  s.swift_version = '4.2'
 
   s.ios.deployment_target = '8.0'
   s.ios.deployment_target = '8.0'

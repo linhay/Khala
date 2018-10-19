@@ -2,6 +2,4 @@
 class Khala: NSObject {
   
   
-  
-  
 }
