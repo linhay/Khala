@@ -1,0 +1,16 @@
+PODS:
+  - Khala (0.0.1)
+
+DEPENDENCIES:
+  - Khala (from `../`)
+
+EXTERNAL SOURCES:
+  Khala:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Khala: 4458e0c4bb9e4454e51e2376fca36c9f4a5a93fc
+
+PODFILE CHECKSUM: b627059fac49e8cbc11247049affe291055e5280
+
+COCOAPODS: 1.5.3
