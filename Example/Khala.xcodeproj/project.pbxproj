@@ -7,125 +7,186 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD7EE97B2179E02300800B3D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EE97A2179E02300800B3D /* main.swift */; };
-		CE555A2D4FB52C707E9BBD31 /* Pods_Khala_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE6707EDD6ECAD7B8FAAB73 /* Pods_Khala_Example.framework */; };
+		3DB512C0C15FF5E9104F7E6A /* Pods_Khala_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D134BE1C370B9320C1A1A8C /* Pods_Khala_Tests.framework */; };
+		6F3EA26A6BBC833221E8E09C /* Pods_Khala_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A2ADB3AA498F953001F65B6 /* Pods_Khala_Example.framework */; };
+		CDA6E9AF217F050B00D6DC5A /* TestSuperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA6E9AE217F050B00D6DC5A /* TestSuperClass.swift */; };
+		CDA6E9B1217F051600D6DC5A /* TestClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA6E9B0217F051600D6DC5A /* TestClass.swift */; };
+		ED83F67C20348A760038D96B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED83F67B20348A760038D96B /* AppDelegate.swift */; };
+		ED83F67E20348A760038D96B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED83F67D20348A760038D96B /* ViewController.swift */; };
+		ED83F68020348A760038D96B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED83F67F20348A760038D96B /* Assets.xcassets */; };
+		ED83F68320348A760038D96B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED83F68120348A760038D96B /* Main.storyboard */; };
+		ED83F68F20348A760038D96B /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED83F68E20348A760038D96B /* Tests.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		CD7EE9762179E02300800B3D /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
+/* Begin PBXContainerItemProxy section */
+		ED83F68B20348A760038D96B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED83F67020348A760038D96B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED83F67720348A760038D96B;
+			remoteInfo = Khala;
 		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0002872B948EDF72C8C1465A /* Pods-Khala_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Khala_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Khala_Tests/Pods-Khala_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		01E36D15BE6F909F333F8204 /* Pods-Khala_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Khala_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Khala_Example/Pods-Khala_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		1198C7C05AC2A5B88007FD7E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		1AE6707EDD6ECAD7B8FAAB73 /* Pods_Khala_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Khala_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		22666FB3EBD478BE575242E0 /* Pods-Khala_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Khala_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Khala_Example/Pods-Khala_Example.release.xcconfig"; sourceTree = "<group>"; };
-		27609157A3DCA684EF8A3F57 /* Pods_Khala_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Khala_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		81F2AFEA5A1593368F8C86A2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		AFBF88C9A18295705D013757 /* Khala.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Khala.podspec; path = ../Khala.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		B1FFB5B90E54BAA26C44068B /* Pods-Khala_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Khala_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Khala_Tests/Pods-Khala_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		CD7EE9782179E02300800B3D /* Khala_Example */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Khala_Example; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD7EE97A2179E02300800B3D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		0B28B80629E142790995257B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		11F177AA8E8D9D1A49CE5A75 /* Khala.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Khala.podspec; path = ../Khala.podspec; sourceTree = "<group>"; };
+		2A8EE13D570FF2672F2D56D7 /* Pods-Khala_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Khala_Example.debug.xcconfig"; path = "Target Support Files/Pods-Khala_Example/Pods-Khala_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		3E0AC0B33201CCD31403F51C /* Pods-Khala_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Khala_Tests.release.xcconfig"; path = "Target Support Files/Pods-Khala_Tests/Pods-Khala_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		4A2ADB3AA498F953001F65B6 /* Pods_Khala_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Khala_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D134BE1C370B9320C1A1A8C /* Pods_Khala_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Khala_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E344B020E917BFF29558146 /* Pods-Khala_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Khala_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Khala_Tests/Pods-Khala_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		87D28D23B523B32F29296EAC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		B629291F156F51EDD1EE8A94 /* Pods-Khala_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Khala_Example.release.xcconfig"; path = "Target Support Files/Pods-Khala_Example/Pods-Khala_Example.release.xcconfig"; sourceTree = "<group>"; };
+		CDA6E9AE217F050B00D6DC5A /* TestSuperClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSuperClass.swift; sourceTree = "<group>"; };
+		CDA6E9B0217F051600D6DC5A /* TestClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClass.swift; sourceTree = "<group>"; };
+		ED83F67820348A760038D96B /* Khala_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Khala_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED83F67B20348A760038D96B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ED83F67D20348A760038D96B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ED83F67F20348A760038D96B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ED83F68220348A760038D96B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ED83F68420348A760038D96B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED83F68520348A760038D96B /* Khala.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Khala.entitlements; sourceTree = "<group>"; };
+		ED83F68A20348A760038D96B /* Khala_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Khala_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED83F68E20348A760038D96B /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		ED83F69020348A760038D96B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CD7EE9752179E02300800B3D /* Frameworks */ = {
+		ED83F67520348A760038D96B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE555A2D4FB52C707E9BBD31 /* Pods_Khala_Example.framework in Frameworks */,
+				6F3EA26A6BBC833221E8E09C /* Pods_Khala_Example.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED83F68720348A760038D96B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DB512C0C15FF5E9104F7E6A /* Pods_Khala_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C0299C2B6539C1CABADA642 /* Frameworks */ = {
+		D1533AAAB3BE6437FB778FA3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1AE6707EDD6ECAD7B8FAAB73 /* Pods_Khala_Example.framework */,
-				27609157A3DCA684EF8A3F57 /* Pods_Khala_Tests.framework */,
+				2A8EE13D570FF2672F2D56D7 /* Pods-Khala_Example.debug.xcconfig */,
+				B629291F156F51EDD1EE8A94 /* Pods-Khala_Example.release.xcconfig */,
+				6E344B020E917BFF29558146 /* Pods-Khala_Tests.debug.xcconfig */,
+				3E0AC0B33201CCD31403F51C /* Pods-Khala_Tests.release.xcconfig */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7B8BBFB640D0A03DD81D1EAD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				01E36D15BE6F909F333F8204 /* Pods-Khala_Example.debug.xcconfig */,
-				22666FB3EBD478BE575242E0 /* Pods-Khala_Example.release.xcconfig */,
-				0002872B948EDF72C8C1465A /* Pods-Khala_Tests.debug.xcconfig */,
-				B1FFB5B90E54BAA26C44068B /* Pods-Khala_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		CD7EE9792179E02300800B3D /* Khala_Example */ = {
-			isa = PBXGroup;
-			children = (
-				CD7EE97A2179E02300800B3D /* main.swift */,
-			);
-			path = Khala_Example;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		ED83F66F20348A760038D96B = {
 			isa = PBXGroup;
 			children = (
 				ED83F69A20348B650038D96B /* Podspec Metadata */,
-				CD7EE9792179E02300800B3D /* Khala_Example */,
+				ED83F67A20348A760038D96B /* Khala */,
+				ED83F68D20348A760038D96B /* Tests */,
 				ED83F67920348A760038D96B /* Products */,
-				7B8BBFB640D0A03DD81D1EAD /* Pods */,
-				6C0299C2B6539C1CABADA642 /* Frameworks */,
+				D1533AAAB3BE6437FB778FA3 /* Pods */,
+				FD7530E7CB775ACB1317A558 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		ED83F67920348A760038D96B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CD7EE9782179E02300800B3D /* Khala_Example */,
+				ED83F67820348A760038D96B /* Khala_Example.app */,
+				ED83F68A20348A760038D96B /* Khala_Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		ED83F67A20348A760038D96B /* Khala */ = {
+			isa = PBXGroup;
+			children = (
+				ED83F67B20348A760038D96B /* AppDelegate.swift */,
+				ED83F67D20348A760038D96B /* ViewController.swift */,
+				ED83F67F20348A760038D96B /* Assets.xcassets */,
+				ED83F68120348A760038D96B /* Main.storyboard */,
+				ED83F68420348A760038D96B /* Info.plist */,
+				ED83F68520348A760038D96B /* Khala.entitlements */,
+				CDA6E9AE217F050B00D6DC5A /* TestSuperClass.swift */,
+				CDA6E9B0217F051600D6DC5A /* TestClass.swift */,
+			);
+			path = Khala;
+			sourceTree = "<group>";
+		};
+		ED83F68D20348A760038D96B /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				ED83F68E20348A760038D96B /* Tests.swift */,
+				ED83F69020348A760038D96B /* Info.plist */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		ED83F69A20348B650038D96B /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				AFBF88C9A18295705D013757 /* Khala.podspec */,
-				81F2AFEA5A1593368F8C86A2 /* README.md */,
-				1198C7C05AC2A5B88007FD7E /* LICENSE */,
+				11F177AA8E8D9D1A49CE5A75 /* Khala.podspec */,
+				0B28B80629E142790995257B /* README.md */,
+				87D28D23B523B32F29296EAC /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		FD7530E7CB775ACB1317A558 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A2ADB3AA498F953001F65B6 /* Pods_Khala_Example.framework */,
+				6D134BE1C370B9320C1A1A8C /* Pods_Khala_Tests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CD7EE9772179E02300800B3D /* Khala_Example */ = {
+		ED83F67720348A760038D96B /* Khala_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD7EE97C2179E02300800B3D /* Build configuration list for PBXNativeTarget "Khala_Example" */;
+			buildConfigurationList = ED83F69320348A760038D96B /* Build configuration list for PBXNativeTarget "Khala_Example" */;
 			buildPhases = (
-				24A1BDDF46D500F61AD051E0 /* [CP] Check Pods Manifest.lock */,
-				CD7EE9742179E02300800B3D /* Sources */,
-				CD7EE9752179E02300800B3D /* Frameworks */,
-				CD7EE9762179E02300800B3D /* CopyFiles */,
+				6FBA6D6FE6C706038F254D48 /* [CP] Check Pods Manifest.lock */,
+				ED83F67420348A760038D96B /* Sources */,
+				ED83F67520348A760038D96B /* Frameworks */,
+				ED83F67620348A760038D96B /* Resources */,
+				F8167E512A1B3987EAD82660 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Khala_Example;
-			productName = Khala_Example;
-			productReference = CD7EE9782179E02300800B3D /* Khala_Example */;
-			productType = "com.apple.product-type.tool";
+			productName = Khala;
+			productReference = ED83F67820348A760038D96B /* Khala_Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ED83F68920348A760038D96B /* Khala_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED83F69620348A760038D96B /* Build configuration list for PBXNativeTarget "Khala_Tests" */;
+			buildPhases = (
+				9F63B674E5B47D1496D579E1 /* [CP] Check Pods Manifest.lock */,
+				ED83F68620348A760038D96B /* Sources */,
+				ED83F68720348A760038D96B /* Frameworks */,
+				ED83F68820348A760038D96B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ED83F68C20348A760038D96B /* PBXTargetDependency */,
+			);
+			name = Khala_Tests;
+			productName = KhalaTests;
+			productReference = ED83F68A20348A760038D96B /* Khala_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -133,13 +194,20 @@
 		ED83F67020348A760038D96B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
-					CD7EE9772179E02300800B3D = {
-						CreatedOnToolsVersion = 10.0;
+					ED83F67720348A760038D96B = {
+						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
+					};
+					ED83F68920348A760038D96B = {
+						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
+						TestTargetID = ED83F67720348A760038D96B;
 					};
 				};
 			};
@@ -156,13 +224,33 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CD7EE9772179E02300800B3D /* Khala_Example */,
+				ED83F67720348A760038D96B /* Khala_Example */,
+				ED83F68920348A760038D96B /* Khala_Tests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		ED83F67620348A760038D96B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED83F68020348A760038D96B /* Assets.xcassets in Resources */,
+				ED83F68320348A760038D96B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED83F68820348A760038D96B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXShellScriptBuildPhase section */
-		24A1BDDF46D500F61AD051E0 /* [CP] Check Pods Manifest.lock */ = {
+		6FBA6D6FE6C706038F254D48 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -184,51 +272,96 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9F63B674E5B47D1496D579E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Khala_Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8167E512A1B3987EAD82660 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Khala_Example/Pods-Khala_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DarkTemplar/DarkTemplar.framework",
+				"${BUILT_PRODUCTS_DIR}/Khala/Khala.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DarkTemplar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Khala.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Khala_Example/Pods-Khala_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CD7EE9742179E02300800B3D /* Sources */ = {
+		ED83F67420348A760038D96B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD7EE97B2179E02300800B3D /* main.swift in Sources */,
+				CDA6E9B1217F051600D6DC5A /* TestClass.swift in Sources */,
+				ED83F67E20348A760038D96B /* ViewController.swift in Sources */,
+				ED83F67C20348A760038D96B /* AppDelegate.swift in Sources */,
+				CDA6E9AF217F050B00D6DC5A /* TestSuperClass.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED83F68620348A760038D96B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED83F68F20348A760038D96B /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		ED83F68C20348A760038D96B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED83F67720348A760038D96B /* Khala_Example */;
+			targetProxy = ED83F68B20348A760038D96B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ED83F68120348A760038D96B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED83F68220348A760038D96B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
-		CD7EE97D2179E02300800B3D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01E36D15BE6F909F333F8204 /* Pods-Khala_Example.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3L8RM3MDLS;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-			};
-			name = Debug;
-		};
-		CD7EE97E2179E02300800B3D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22666FB3EBD478BE575242E0 /* Pods-Khala_Example.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3L8RM3MDLS;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-			};
-			name = Release;
-		};
 		ED83F69120348A760038D96B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -285,7 +418,6 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -337,27 +469,101 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		ED83F69420348A760038D96B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A8EE13D570FF2672F2D56D7 /* Pods-Khala_Example.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Khala/Khala.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Khala/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.Khala;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		ED83F69520348A760038D96B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B629291F156F51EDD1EE8A94 /* Pods-Khala_Example.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Khala/Khala.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Khala/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.Khala;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		ED83F69720348A760038D96B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E344B020E917BFF29558146 /* Pods-Khala_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.Khala-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "";
+			};
+			name = Debug;
+		};
+		ED83F69820348A760038D96B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E0AC0B33201CCD31403F51C /* Pods-Khala_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.Khala-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CD7EE97C2179E02300800B3D /* Build configuration list for PBXNativeTarget "Khala_Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CD7EE97D2179E02300800B3D /* Debug */,
-				CD7EE97E2179E02300800B3D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		ED83F67320348A760038D96B /* Build configuration list for PBXProject "Khala" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ED83F69120348A760038D96B /* Debug */,
 				ED83F69220348A760038D96B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED83F69320348A760038D96B /* Build configuration list for PBXNativeTarget "Khala_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED83F69420348A760038D96B /* Debug */,
+				ED83F69520348A760038D96B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED83F69620348A760038D96B /* Build configuration list for PBXNativeTarget "Khala_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED83F69720348A760038D96B /* Debug */,
+				ED83F69820348A760038D96B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

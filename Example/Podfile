@@ -3,5 +3,9 @@ use_frameworks!
 target 'Khala_Example' do
   pod 'Khala', :path => '../'
 
+  target 'Khala_Tests' do
+    inherit! :search_paths
 
+    
+  end
 end

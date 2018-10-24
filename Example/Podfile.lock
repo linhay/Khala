@@ -1,16 +1,23 @@
 PODS:
-  - Khala (0.0.1)
+  - DarkTemplar (0.0.1)
+  - Khala (0.0.1):
+    - DarkTemplar (= 0.0.1)
 
 DEPENDENCIES:
   - Khala (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - DarkTemplar
 
 EXTERNAL SOURCES:
   Khala:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Khala: 2261d5fa594598d84a2240a033a7bc466a890df9
+  DarkTemplar: cbb964159163198ad769b07421f82ad204cfeced
+  Khala: c8e51ab1c4959bdd8053a835a59472d7ce51d1a0
 
-PODFILE CHECKSUM: 450d98f9d1976cc840e3681f7db8967312878523
+PODFILE CHECKSUM: b627059fac49e8cbc11247049affe291055e5280
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0.beta.2

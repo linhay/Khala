@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD7EE9772179E02300800B3D"
-               BuildableName = "Khala_Example"
+               BlueprintIdentifier = "ED83F67720348A760038D96B"
+               BuildableName = "Khala_Example.app"
                BlueprintName = "Khala_Example"
                ReferencedContainer = "container:Khala.xcodeproj">
             </BuildableReference>
@@ -42,8 +42,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD7EE9772179E02300800B3D"
-            BuildableName = "Khala_Example"
+            BlueprintIdentifier = "ED83F67720348A760038D96B"
+            BuildableName = "Khala_Example.app"
             BlueprintName = "Khala_Example"
             ReferencedContainer = "container:Khala.xcodeproj">
          </BuildableReference>
@@ -65,8 +65,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD7EE9772179E02300800B3D"
-            BuildableName = "Khala_Example"
+            BlueprintIdentifier = "ED83F67720348A760038D96B"
+            BuildableName = "Khala_Example.app"
             BlueprintName = "Khala_Example"
             ReferencedContainer = "container:Khala.xcodeproj">
          </BuildableReference>
@@ -84,8 +84,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD7EE9772179E02300800B3D"
-            BuildableName = "Khala_Example"
+            BlueprintIdentifier = "ED83F67720348A760038D96B"
+            BuildableName = "Khala_Example.app"
             BlueprintName = "Khala_Example"
             ReferencedContainer = "container:Khala.xcodeproj">
          </BuildableReference>
