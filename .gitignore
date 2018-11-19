@@ -36,3 +36,5 @@ Carthage/Build
 #
 # Pods/
 Example/Pods
+Khala/Pods
+Podfile.lock

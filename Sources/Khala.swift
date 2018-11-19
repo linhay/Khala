@@ -1,13 +1,8 @@
 import Foundation
 
-class Khala: NSObject {
-  
-  static let historiographer = Historiographer()
-  static let herald = Herald()
-  static let diplomat = Diplomat()
-  static let archon = Archon()
-  
+public typealias KhalaBlock = @convention(block) (_ useInfo: [String: Any]) -> Void
 
+class Khala: NSObject {
 
 }
 
