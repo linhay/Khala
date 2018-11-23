@@ -12,4 +12,5 @@ import DarkTemplar
 @objc(TestClass)
 class TestClass: TestSuperClass {
 
+  
 }

@@ -711,7 +711,7 @@
                         <gestureRecognizers>
                             <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="86b-Eu-Xco">
                                 <connections>
-                                    <action selector="tapEvent:" target="XfG-lQ-9wD" id="2lv-EA-ecc"/>
+                                    <action selector="tapEvent:" target="XfG-lQ-9wD" id="job-IW-ZeN"/>
                                 </connections>
                             </clickGestureRecognizer>
                         </gestureRecognizers>

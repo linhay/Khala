@@ -10,10 +10,13 @@ import Cocoa
 import Khala
 import BLFoundation
 
+
 class ViewController: NSViewController {
   
+
   @IBAction func tapEvent(_ sender: NSClickGestureRecognizer) {
-    testIvars()
+    let value = Khala(url: "kl://TestClass/double?test=666")?.call()
+    print(value)
   }
   
   func testIvars() {
@@ -32,9 +35,9 @@ class ViewController: NSViewController {
     
     insten.send(method: insten.methodLists["setBool:"]!, args: true)
     print(insten.send(method: insten.methodLists["bool"]!)!)
-    
-    insten.send(method: insten.methodLists["setNull:"]!, args: 12)
-    print(insten.send(method: insten.methodLists["null"]!)!)
+    //    给 id 类型 必须继承自 NSObject(暂时如此)
+    //    insten.send(method: insten.methodLists["setNull:"]!, args: 12)
+    //    print(insten.send(method: insten.methodLists["null"]!)!)
     
     insten.send(method: insten.methodLists["setNull:"]!, args: "1235")
     print(insten.send(method: insten.methodLists["null"]!)!)

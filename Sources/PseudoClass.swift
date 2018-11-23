@@ -8,7 +8,7 @@
 import Cocoa
 import DarkTemplar
 
-public class PseudoClass {
+public class PseudoClass: NSObject {
   
   static var cache = [String: PseudoClass]()
   
@@ -34,17 +34,13 @@ public class PseudoClass {
     }else {
       return nil
     }
+    super.init()
     methods()
     PseudoClass.cache[self.name] = self
   }
   
-  public convenience init?(url: URL) {
-    guard let host = url.host, !host.isEmpty else { return nil }
-    self.init(name: host)
-  }
-  
   @discardableResult public func send(method: PseudoMethod) -> Any? {
-    return send(method: method, args: 0)
+    return send(method: method, args: [])
   }
   
   @discardableResult public func send(method: PseudoMethod, args: Any...) -> Any? {
@@ -95,6 +91,11 @@ public class PseudoClass {
       return nil
     }
     
+  }
+  
+  
+  public func findMethod(name: String) -> PseudoMethod? {
+   return methodLists[name]
   }
   
   func findSuperClasses() -> [NSObject.Type] {

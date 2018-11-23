@@ -7,11 +7,13 @@
 
 import Cocoa
 
-public struct PseudoMethod {
+public class PseudoMethod: NSObject {
+  
   let selector: Selector
   let paramsTypes: [ObjectType]
   let returnType: ObjectType
   let typeEncoding: String
+  
   init(method: Method) {
     self.selector = method_getName(method)
     
@@ -36,5 +38,7 @@ public struct PseudoMethod {
       free(argumentType)
       return type
     }
+    
+    super.init()
   }
 }
