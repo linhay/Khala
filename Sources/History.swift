@@ -5,7 +5,7 @@
 //  Created by linhey on 2018/11/22.
 //
 
-import Cocoa
+import Foundation
 import Darwin
 
 class History: NSObject {

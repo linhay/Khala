@@ -5,7 +5,7 @@
 //  Created by linhey on 2018/11/19.
 //
 
-import Cocoa
+import Foundation
 import DarkTemplar
 
 public class PseudoClass: NSObject {
