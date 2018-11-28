@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   
   s.homepage  = 'https://github.com/linhay/Khala'
   s.author    = { 'linhey' => 'is.linhay@outlook.com' }
-  s.source    = { :git => 'https://github.com/linhay/Routable.git', :tag => s.version.to_s }
+  s.source    = { :git => 'https://github.com/linhay/Khala.git', :tag => s.version.to_s }
   
   s.swift_version = '4.2'
 
