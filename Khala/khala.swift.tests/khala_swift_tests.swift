@@ -13,8 +13,24 @@ class khala_swift_tests: XCTestCase {
   
   
   func testCallIvars() {
+    Khala.isEnabledAssert = false
     let value = Khala(url: "kl://SwiftClass/double?test=666")?.call()
     print(value)
+  }
+  
+  func testCallFuncs() {
+    Khala.isEnabledAssert = false
+    let expectation = XCTestExpectation(description: "Download apple.com home page")
+
+    let success: KhalaClosure = { (item) in
+      print(item)
+      expectation.fulfill()
+    }
+    
+    let value = Khala(url: "kl://SwiftClass/definition3?test=666")?.call(blocks: success)
+
+    wait(for: [expectation], timeout: 10.0)
+    
   }
   
 

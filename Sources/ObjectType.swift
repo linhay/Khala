@@ -7,7 +7,7 @@
 
 import Cocoa
 
-enum ObjectType: String {
+enum ObjectType: String,Hashable {
   case void     = "v"   //void类型   v
   case sel      = ":"   //selector  :
   case object   = "@"   //对象类型   "@"

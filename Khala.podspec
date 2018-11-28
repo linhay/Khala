@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name    = 'Khala'
   s.version = '0.0.1'
   s.license = 'MIT'
-  s.summary = '神圣的卡拉连接着我们.(For we are bound by the Khala.)'
+  s.summary = 'For we are bound by the Khala.(神圣的卡拉连接着我们.)'
   
   s.homepage  = 'https://github.com/linhay/Khala'
   s.author    = { 'linhey' => 'is.linhay@outlook.com' }

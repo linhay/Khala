@@ -14,10 +14,11 @@ public class PseudoClass: NSObject {
   
   let name: String
   let type: NSObject.Type
+  
   public var instance: NSObject
   public var methodLists = [String: PseudoMethod]()
   
-  public init?(name: String) {
+  public init?(name: String,smartMatch: Bool = false) {
     self.name = name
     let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String ?? ""
     if let value = PseudoClass.cache[self.name] {
@@ -39,18 +40,81 @@ public class PseudoClass: NSObject {
     PseudoClass.cache[self.name] = self
   }
   
+  func methods() {
+    findSuperClasses().forEach { (`class`) in
+      var methodNum: UInt32 = 0
+      let methods = class_copyMethodList(`class`, &methodNum)
+      for index in (0..<numericCast(methodNum)) {
+        guard let method = methods?[index] else { continue }
+        let pseudoMethod = PseudoMethod(method: method)
+        self.methodLists[pseudoMethod.selector.description] = pseudoMethod
+      }
+      free(methods)
+    }
+  }
+  
+}
+
+
+// MARK: - 智能匹配
+extension PseudoClass {
+  /// 智能匹配 default: false
+  static var isSmartMatch = false{
+    didSet{
+      if isSmartMatch {
+        smartList = getSmartClass()
+      }else {
+        smartList.removeAll()
+      }
+      
+    }
+  }
+  
+  /// 待匹配列表
+  static var smartList = [String: NSObject.Type]()
+  
+  static func getSmartClass() -> [String: NSObject.Type] {
+    let typeCount = Int(objc_getClassList(nil, 0))
+    //存放class的已分配好的空间的数组指针
+    let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)
+    //存放class的已分配好的空间的可选数组指针
+    let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
+    //获取已注册的类存放到types里
+    
+    objc_getClassList(autoreleasingTypes, Int32(typeCount))
+    
+    var list = [String: NSObject.Type]()
+    for index in 0..<typeCount {
+      if let type = types[index] as? KhalaProtocol.Type {
+        let name = String(cString: class_getName(type))
+        list[name] = type as? NSObject.Type
+      }
+    }
+    types.deallocate()
+    return list
+  }
+}
+
+
+// MARK: - send
+extension PseudoClass {
+  
   @discardableResult public func send(method: PseudoMethod) -> Any? {
     return send(method: method, args: [])
   }
   
-  @discardableResult public func send(method: PseudoMethod, args: Any...) -> Any? {
+  @discardableResult public func send(method: PseudoMethod, args: [Any]) -> Any? {
     
     let sig = instance.methodSignature(method.selector)
     let inv = Invocation(methodSignature: sig)
     inv?.target = instance
     inv?.selector = method.selector
+        
+    if args.count != method.paramsTypes.count - 2 {
+      Khala.failure("[Khala] 参数数量不一致")
+      return nil
+    }
     
-    print(method.selector,args)
     method.paramsTypes.dropFirst(2).enumerated().forEach { (item) in
       var value = args[item.offset]
       let offset = item.offset + 2
@@ -93,9 +157,24 @@ public class PseudoClass: NSObject {
     
   }
   
-  
-  public func findMethod(name: String) -> PseudoMethod? {
-   return methodLists[name]
+}
+
+//- key : "definition:success:failure:other:"
+//- key : "definition::::"
+//- key : "definitionWithInfo:success:failure:other:"
+
+// MARK: - find
+extension PseudoClass {
+  public func findMethod(name: String) -> [PseudoMethod]? {
+    let methods = methodLists.compactMap({ (item) -> PseudoMethod? in
+      if let function = item.key.split(separator: ":").first, function == name {
+        return item.value
+      }
+      return nil
+    })
+    
+    if methods.isEmpty { return nil }
+    return methods
   }
   
   func findSuperClasses() -> [NSObject.Type] {
@@ -109,18 +188,4 @@ public class PseudoClass: NSObject {
     _ = classes.popLast()
     return classes.reversed()
   }
-  
-  func methods() {
-    findSuperClasses().forEach { (`class`) in
-      var methodNum: UInt32 = 0
-      let methods = class_copyMethodList(`class`, &methodNum)
-      for index in (0..<numericCast(methodNum)) {
-        guard let method = methods?[index] else { continue }
-        let pseudoMethod = PseudoMethod(method: method)
-        self.methodLists[pseudoMethod.selector.description] = pseudoMethod
-      }
-      free(methods)
-    }
-  }
-  
 }

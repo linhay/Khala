@@ -1,18 +1,10 @@
 import Foundation
 
-public typealias KhalaBlock = @convention(block) (_ useInfo: [String: Any]) -> Void
-public typealias URLValue = (url: URL, params: [AnyHashable: Any])
+public protocol KhalaProtocol: NSObjectProtocol { }
 
-public class KhalaClose: NSObject {
-  
-  var block: KhalaBlock?
-  
-  init(_ block: @escaping KhalaBlock) {
-    super.init()
-    self.block = block
-  }
-  
-}
+
+public typealias KhalaClosure =  @convention(block) (_ useInfo: [String: Any]) -> Void
+public typealias URLValue = (url: URL, params: [AnyHashable: Any])
 
 public class Khala: NSObject {
   
@@ -37,7 +29,7 @@ public class Khala: NSObject {
   }
   
   /// 是否开启断言, 默认开启
-  static var isEnabledAssert = true
+  public static var isEnabledAssert = true
   
   /// 失败断言
   ///
@@ -45,7 +37,7 @@ public class Khala: NSObject {
   ///   - message: 描述
   ///   - file: 文件
   ///   - line: 行数
-  public static func failure(_ message: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
+  static func failure(_ message: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
     if !Khala.isEnabledAssert { return }
     assertionFailure(message,file: file,line: line)
   }
@@ -53,8 +45,6 @@ public class Khala: NSObject {
   var history = History()
   
   public var urlValue: URLValue
-  
-  var queue: DispatchQueue? = nil
   
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
     urlValue = Khala.separate((url,params))
@@ -67,63 +57,85 @@ public class Khala: NSObject {
     super.init()
   }
   
-  /// url 与 params 转换
-  func rewrite(value: URLValue) -> URLValue {
+}
+
+// MARK: - middleware
+extension Khala {
+  
+  private func rewrite(value: URLValue) -> URLValue {
     return Khala.rewrite.redirect(value)
   }
   
-  public func queue(_ value: DispatchQueue) -> Self {
-    self.queue = value
-    return self
+  private func middle(value: URLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
+    history.write(value)
+    
+    guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
+      let message = "[Khala] url有误:\(urlValue.url)"
+      Khala.failure(message)
+      return nil
+    }
+    
+    guard let insten = PseudoClass(name: host) else {
+      let message = "[Khala] 未匹配到该类:\(host)"
+      Khala.failure(message)
+      return nil
+    }
+    
+    guard var methods = insten.findMethod(name: firstPath) else {
+      let message = "[Khala] 未匹配到该函数[\(firstPath)]:\n" + insten.methodLists.map({ $0.key }).joined(separator: "\n") + "\n"
+      Khala.failure(message)
+      return nil
+    }
+    
+    
+    methods = methods.filter({ (item) -> Bool in
+      let count = item.paramsTypes.filter({ $0 == ObjectType.block }).count
+      return blockCount >= count
+    })
+    
+    
+    guard methods.count == 1 else {
+      let message = "[Khala] 匹配到多个函数[\(firstPath)]:\n" + methods.map({ $0.selector.description }).joined(separator: "\n") + "\n"
+      Khala.failure(message)
+      return nil
+    }
+    
+    guard let method = methods.first else { return nil }
+    
+    return (insten: insten,method: method)
   }
   
-  
+  func send(insten: PseudoClass, method: PseudoMethod, args: [Any]) -> Any? {
+    var args: [Any] = args
+    
+    if let index = method.paramsTypes.dropFirst(2).enumerated().first(where: { $0.element == ObjectType.object })?.offset {
+      args.insert(self.urlValue.params, at: index)
+    }
+    
+    let value = insten.send(method: method, args: args)
+    return value
+  }
+}
+
+public extension Khala {
   
   @discardableResult
   public func call() -> Any? {
-    history.write(urlValue)
-    
-    guard let host = urlValue.url.host else { return nil }
-    guard let firstPath = urlValue.url.pathComponents.last else { return nil }
-    
-    guard let insten = PseudoClass(name: host) else { return nil }
-    guard let method = insten.findMethod(name: firstPath) else { return nil }
-    
-    let value = insten.send(method: method, args: urlValue.params)
-    
-    return value
-  }
-  
-  
-  @discardableResult
-  public func call(block: KhalaBlock) -> Any? {
-    history.write(urlValue)
-    return nil
+    guard let middle = self.middle(value: self.urlValue, blockCount: 0) else { return nil }
+    return send(insten: middle.insten, method: middle.method, args: [])
+
   }
   
   @discardableResult
-  public func call(blocks: [KhalaBlock]) -> Any? {
-    let url = self.urlValue.url
-    let paths = url.pathComponents
-    guard let className = url.host else {
-      Khala.failure("Khala: url 格式错误 " + url.absoluteString)
-      return nil
-    }
-    
-    guard var pseudoClass = PseudoClass(name: className) else {
-      Khala.failure("Khala: 无法创建对应路由类" + url.absoluteString)
-      return nil
-    }
-    
-    
-    guard let methodName = paths.first, let method = pseudoClass.methodLists[methodName] else {
-      return nil
-    }
-    
-    
-    return nil
+  public func call(block: @escaping KhalaClosure) -> Any? {
+    guard let middle = self.middle(value: self.urlValue, blockCount: 1) else { return nil }
+    return send(insten: middle.insten, method: middle.method, args: [block])
   }
   
+  @discardableResult
+  public func call(blocks: KhalaClosure...) -> Any? {
+    guard let middle = self.middle(value: self.urlValue, blockCount: blocks.count) else { return nil }
+    return send(insten: middle.insten, method: middle.method, args: blocks)
+  }
   
 }
-

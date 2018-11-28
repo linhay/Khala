@@ -8,9 +8,14 @@
 
 import Cocoa
 import DarkTemplar
+import Khala
 
 @objc(TestClass)
-class TestClass: TestSuperClass {
-
+class TestClass: TestSuperClass,KhalaProtocol {
+  
+  
+  @objc func post(closure: KhalaClosure) {
+    
+  }
   
 }
