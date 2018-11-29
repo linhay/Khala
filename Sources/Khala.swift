@@ -8,25 +8,27 @@ public typealias URLValue = (url: URL, params: [AnyHashable: Any])
 
 public class Khala: NSObject {
   
-  static var rewrite = Rewrite()
+  public var rewrite = Rewrite.default
+
+  private var history = History()
   
-  /// 拆分 url 与 params
-  static func separate(_ value: URLValue) -> URLValue {
-    var value = value
-    var components = URLComponents(url: value.url, resolvingAgainstBaseURL: true)
-    components?.queryItems?.forEach({ (item) in
-      if value.params[item.name] == nil {
-        value.params[item.name] = item.value
-      }
-    })
-    components?.queryItems?.removeAll()
-    
-    guard let redirectURL = components?.url else {
-      return value
-    }
-    value.url = redirectURL
-    return value
+  public var urlValue: URLValue
+  
+  public init(url: URL, params: [AnyHashable: Any] = [:]) {
+    urlValue = rewrite.separate((url,params))
+    super.init()
   }
+  
+  public init?(url: String, params: [AnyHashable: Any] = [:]) {
+    guard let tempURL = URL(string: url) else { return nil }
+    urlValue = rewrite.separate((tempURL,params))
+    super.init()
+  }
+  
+}
+
+// MARK: - static
+extension Khala {
   
   /// 是否开启断言, 默认开启
   public static var isEnabledAssert = true
@@ -41,32 +43,12 @@ public class Khala: NSObject {
     if !Khala.isEnabledAssert { return }
     assertionFailure(message,file: file,line: line)
   }
-  
-  var history = History()
-  
-  public var urlValue: URLValue
-  
-  public init(url: URL, params: [AnyHashable: Any] = [:]) {
-    urlValue = Khala.separate((url,params))
-    super.init()
-  }
-  
-  public init?(url: String, params: [AnyHashable: Any] = [:]) {
-    guard let tempURL = URL(string: url) else { return nil }
-    urlValue = Khala.separate((tempURL,params))
-    super.init()
-  }
-  
 }
 
 // MARK: - middleware
 extension Khala {
   
-  private func rewrite(value: URLValue) -> URLValue {
-    return Khala.rewrite.redirect(value)
-  }
-  
-  private func middle(value: URLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
+  private func middleForCall(value: URLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
     history.write(value)
     
     guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
@@ -105,7 +87,7 @@ extension Khala {
     return (insten: insten,method: method)
   }
   
-  func send(insten: PseudoClass, method: PseudoMethod, args: [Any]) -> Any? {
+  private func send(insten: PseudoClass, method: PseudoMethod, args: [Any]) -> Any? {
     var args: [Any] = args
     
     if let index = method.paramsTypes.dropFirst(2).enumerated().first(where: { $0.element == ObjectType.object })?.offset {
@@ -117,24 +99,26 @@ extension Khala {
   }
 }
 
+
+// call
 public extension Khala {
   
   @discardableResult
   public func call() -> Any? {
-    guard let middle = self.middle(value: self.urlValue, blockCount: 0) else { return nil }
+    guard let middle = self.middleForCall(value: self.urlValue, blockCount: 0) else { return nil }
     return send(insten: middle.insten, method: middle.method, args: [])
 
   }
   
   @discardableResult
   public func call(block: @escaping KhalaClosure) -> Any? {
-    guard let middle = self.middle(value: self.urlValue, blockCount: 1) else { return nil }
+    guard let middle = self.middleForCall(value: self.urlValue, blockCount: 1) else { return nil }
     return send(insten: middle.insten, method: middle.method, args: [block])
   }
   
   @discardableResult
   public func call(blocks: KhalaClosure...) -> Any? {
-    guard let middle = self.middle(value: self.urlValue, blockCount: blocks.count) else { return nil }
+    guard let middle = self.middleForCall(value: self.urlValue, blockCount: blocks.count) else { return nil }
     return send(insten: middle.insten, method: middle.method, args: blocks)
   }
   
