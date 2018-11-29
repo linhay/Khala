@@ -14,6 +14,7 @@
 		CD3EA8E721ACE08D009BFC06 /* SwiftClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF907E21A7E0D9000A322F /* SwiftClass.swift */; };
 		CDD10AA321A691D800D6DE5A /* data.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDD10AA221A691D800D6DE5A /* data.txt */; };
 		CDD21E6321AE41C60008020F /* Khala.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CDD21E6221AE41C60008020F /* Khala.podspec */; };
+		CDD21E8021AFDFBE0008020F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CDD21E7F21AFDFBE0008020F /* LICENSE */; };
 		CDEF907721A7E0AB000A322F /* khala_swift_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF907621A7E0AB000A322F /* khala_swift_tests.swift */; };
 		CDEF907F21A7E0D9000A322F /* SwiftClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF907E21A7E0D9000A322F /* SwiftClass.swift */; };
 		CDF405C221A29B15003758C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF405C121A29B15003758C2 /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		BECBB315437BF3DC6281983B /* Pods_khala_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD10AA221A691D800D6DE5A /* data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
 		CDD21E6221AE41C60008020F /* Khala.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Khala.podspec; path = ../Khala.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		CDD21E7F21AFDFBE0008020F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		CDEF907421A7E0AB000A322F /* khala.swift.tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = khala.swift.tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDEF907621A7E0AB000A322F /* khala_swift_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = khala_swift_tests.swift; sourceTree = "<group>"; };
 		CDEF907821A7E0AB000A322F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		CDF4058B21A29ABD003758C2 = {
 			isa = PBXGroup;
 			children = (
+				CDD21E7F21AFDFBE0008020F /* LICENSE */,
 				CDD21E6221AE41C60008020F /* Khala.podspec */,
 				CDF405C021A29B15003758C2 /* khala.swift */,
 				CDF405E821A29D7B003758C2 /* khala.objc */,
@@ -311,6 +314,7 @@
 				CDF405C921A29B15003758C2 /* Main.storyboard in Resources */,
 				CDD21E6321AE41C60008020F /* Khala.podspec in Resources */,
 				CDD10AA321A691D800D6DE5A /* data.txt in Resources */,
+				CDD21E8021AFDFBE0008020F /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

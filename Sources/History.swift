@@ -1,20 +1,35 @@
 //
-//  Historiographer.swift
-//  BLFoundation
+//  Khala
 //
-//  Created by linhey on 2018/11/22.
+//  Copyright (c) 2018 linhay - https://github.com/linhay
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
 import Foundation
 import Darwin
 
-class History: NSObject {
+open class History: NSObject {
   
-  let dirPath = NSHomeDirectory() + "/Documents/khala/logs/"
-  let fileManager = FileManager.default
-  lazy var filehandle: FileHandle? = openFile()
+  private let dirPath = NSHomeDirectory() + "/Documents/khala/logs/"
+  private let fileManager = FileManager.default
+  private lazy var filehandle: FileHandle? = openFile()
   
-  override init() {
+  public override init() {
     super.init()
     // create directory
     if !fileManager.fileExists(atPath: dirPath) {
@@ -22,7 +37,7 @@ class History: NSObject {
     }
   }
   
-  func openFile() -> FileHandle? {
+  private func openFile() -> FileHandle? {
     let date = Date().description[...String.Index(encodedOffset: 9)]
     let filePath = dirPath + date + ".log"
     if !fileManager.fileExists(atPath: filePath) {
@@ -34,7 +49,7 @@ class History: NSObject {
     return handle
   }
   
-  func write(_ value: URLValue) {
+  open func write(_ value: URLValue) {
     var str = "\n"
     str += Date().description[...String.Index(encodedOffset: 18)]
     str += "  "
@@ -60,37 +75,37 @@ class History: NSObject {
   }
   
   
-//  func log(with mmap: Bool) {
-//    let manager = FileManager.default
-//
-//    let MEM_SIZE:Int = Int(getpagesize())
-//    let filePath = Bundle.main.path(forResource: "data", ofType: "txt")!
-//
-//    // let filePath = NSHomeDirectory() + "/Documents/khala/logs/2018-11-22.log"
-//    let fhIn = FileHandle(forReadingAtPath: filePath)!
-//    ftruncate(fhIn.fileDescriptor, off_t(1024))
-//    sync()
-//    // 获取文件大小
-//    let fileSize = fhIn.seekToEndOfFile()
-//
-//    var part = mmap(UnsafeMutableRawPointer(bitPattern: 0),
-//                    Int(MEM_SIZE),
-//                    PROT_READ,
-//                    MAP_SHARED,
-//                    fhIn.fileDescriptor,
-//                    off_t(0 * MEM_SIZE))!
-//
-//
-//    if part == MAP_FAILED {
-//      assertionFailure("[Khala] Create mmap failed: \(errno)")
-//      return
-//    }
-//    let buf = malloc(Int(MEM_SIZE))
-//    memcpy(buf, part, Int(MEM_SIZE))
-//    var data = Data(bytes: buf!, count: Int(MEM_SIZE))
-//    print(String.init(data: data, encoding: String.Encoding.utf8))
-//    munmap(part,MEM_SIZE)
-//  }
+  //  func log(with mmap: Bool) {
+  //    let manager = FileManager.default
+  //
+  //    let MEM_SIZE:Int = Int(getpagesize())
+  //    let filePath = Bundle.main.path(forResource: "data", ofType: "txt")!
+  //
+  //    // let filePath = NSHomeDirectory() + "/Documents/khala/logs/2018-11-22.log"
+  //    let fhIn = FileHandle(forReadingAtPath: filePath)!
+  //    ftruncate(fhIn.fileDescriptor, off_t(1024))
+  //    sync()
+  //    // 获取文件大小
+  //    let fileSize = fhIn.seekToEndOfFile()
+  //
+  //    var part = mmap(UnsafeMutableRawPointer(bitPattern: 0),
+  //                    Int(MEM_SIZE),
+  //                    PROT_READ,
+  //                    MAP_SHARED,
+  //                    fhIn.fileDescriptor,
+  //                    off_t(0 * MEM_SIZE))!
+  //
+  //
+  //    if part == MAP_FAILED {
+  //      assertionFailure("[Khala] Create mmap failed: \(errno)")
+  //      return
+  //    }
+  //    let buf = malloc(Int(MEM_SIZE))
+  //    memcpy(buf, part, Int(MEM_SIZE))
+  //    var data = Data(bytes: buf!, count: Int(MEM_SIZE))
+  //    print(String.init(data: data, encoding: String.Encoding.utf8))
+  //    munmap(part,MEM_SIZE)
+  //  }
   
   
 }
