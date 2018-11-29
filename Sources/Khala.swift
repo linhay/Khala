@@ -1,8 +1,6 @@
 import Foundation
 
 public protocol KhalaProtocol: NSObjectProtocol { }
-
-
 public typealias KhalaClosure =  @convention(block) (_ useInfo: [String: Any]) -> Void
 
 @objcMembers

@@ -11,7 +11,7 @@ import DarkTemplar
 public class PseudoClass: NSObject {
   
   static var cache = [String: PseudoClass]()
-  
+
   let name: String
   let type: NSObject.Type
   
@@ -52,49 +52,8 @@ public class PseudoClass: NSObject {
       free(methods)
     }
   }
-  
+
 }
-
-
-// MARK: - 智能匹配
-extension PseudoClass {
-  /// 智能匹配 default: false
-  static var isSmartMatch = false{
-    didSet{
-      if isSmartMatch {
-        smartList = getSmartClass()
-      }else {
-        smartList.removeAll()
-      }
-      
-    }
-  }
-  
-  /// 待匹配列表
-  static var smartList = [String: NSObject.Type]()
-  
-  static func getSmartClass() -> [String: NSObject.Type] {
-    let typeCount = Int(objc_getClassList(nil, 0))
-    //存放class的已分配好的空间的数组指针
-    let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)
-    //存放class的已分配好的空间的可选数组指针
-    let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
-    //获取已注册的类存放到types里
-    
-    objc_getClassList(autoreleasingTypes, Int32(typeCount))
-    
-    var list = [String: NSObject.Type]()
-    for index in 0..<typeCount {
-      if let type = types[index] as? KhalaProtocol.Type {
-        let name = String(cString: class_getName(type))
-        list[name] = type as? NSObject.Type
-      }
-    }
-    types.deallocate()
-    return list
-  }
-}
-
 
 // MARK: - send
 extension PseudoClass {
