@@ -23,17 +23,28 @@
 import Foundation
 import DarkTemplar
 
+@objcMembers
 public class PseudoClass: NSObject {
   
-  static var cache = [String: PseudoClass]()
-
+  /// 伪类缓存
+  public static var cache = [String: PseudoClass]()
+  
+  /// 类名
   let name: String
+  
+  /// 实例类型
   let type: NSObject.Type
   
+  /// 实例
   public var instance: NSObject
-  public var methodLists = [String: PseudoMethod]()
   
-  public init?(name: String,smartMatch: Bool = false) {
+  /// 函数列表
+  public lazy var methodLists = getMethods()
+  
+  /// 初始化函数
+  ///
+  /// - Parameter name: 类名
+  public init?(name: String) {
     self.name = name
     let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String ?? ""
     if let value = PseudoClass.cache[self.name] {
@@ -51,39 +62,48 @@ public class PseudoClass: NSObject {
       return nil
     }
     super.init()
-    methods()
+    self.methodLists = getMethods()
     PseudoClass.cache[self.name] = self
   }
   
-  func methods() {
+  /// 获取对象函数列表
+  ///
+  /// - Returns: [String: PseudoMethod]
+  func getMethods() -> [String: PseudoMethod] {
+    var list = [String: PseudoMethod]()
     findSuperClasses().forEach { (`class`) in
       var methodNum: UInt32 = 0
       let methods = class_copyMethodList(`class`, &methodNum)
       for index in (0..<numericCast(methodNum)) {
         guard let method = methods?[index] else { continue }
         let pseudoMethod = PseudoMethod(method: method)
-        self.methodLists[pseudoMethod.selector.description] = pseudoMethod
+        if list[pseudoMethod.selector.description] != nil { continue }
+        list[pseudoMethod.selector.description] = pseudoMethod
       }
       free(methods)
     }
+    return list
   }
-
+  
 }
 
 // MARK: - send
 extension PseudoClass {
   
-  @discardableResult public func send(method: PseudoMethod) -> Any? {
-    return send(method: method, args: [])
-  }
-  
-  @discardableResult public func send(method: PseudoMethod, args: [Any]) -> Any? {
+  /// 函数调用
+  ///
+  /// - Parameters:
+  ///   - method: 函数
+  ///   - args: 函数参数
+  /// - Returns: 返回值
+  @discardableResult
+  func send(method: PseudoMethod, args: [Any] = []) -> Any? {
     
     let sig = instance.methodSignature(method.selector)
     let inv = Invocation(methodSignature: sig)
     inv?.target = instance
     inv?.selector = method.selector
-        
+    
     if args.count != method.paramsTypes.count - 2 {
       Khala.failure("[Khala] 参数数量不一致")
       return nil
@@ -133,13 +153,14 @@ extension PseudoClass {
   
 }
 
-//- key : "definition:success:failure:other:"
-//- key : "definition::::"
-//- key : "definitionWithInfo:success:failure:other:"
-
 // MARK: - find
 extension PseudoClass {
-  public func findMethod(name: String) -> [PseudoMethod]? {
+  
+  /// 搜索匹配函数
+  ///
+  /// - Parameter name: 函数名称(不包括参数名)
+  /// - Returns: 返回匹配函数
+  func findMethod(name: String) -> [PseudoMethod]? {
     let methods = methodLists.compactMap({ (item) -> PseudoMethod? in
       if let function = item.key.split(separator: ":").first, function == name {
         return item.value
@@ -151,6 +172,9 @@ extension PseudoClass {
     return methods
   }
   
+  /// 搜索当前类与父类
+  ///
+  /// - Returns: 类列表(不包括NSObject)
   func findSuperClasses() -> [NSObject.Type] {
     var classes = [NSObject.Type]()
     var anyclass: NSObject.Type? = type
@@ -162,4 +186,5 @@ extension PseudoClass {
     _ = classes.popLast()
     return classes.reversed()
   }
+  
 }

@@ -24,10 +24,10 @@ import Foundation
 
 public class PseudoMethod: NSObject {
   
-  let selector: Selector
+  public let selector: Selector
   let paramsTypes: [ObjectType]
   let returnType: ObjectType
-  let typeEncoding: String
+  public let typeEncoding: String
   
   init(method: Method) {
     self.selector = method_getName(method)

@@ -25,10 +25,12 @@ import Foundation
 @objcMembers
 public class URLValue: NSObject {
   
+  /// URL
   public var url: URL
+  /// query
   public var params: [AnyHashable: Any]
   
-  public init(url: URL, params: [AnyHashable: Any]) {
+  init(url: URL, params: [AnyHashable: Any]) {
     self.url = url
     self.params = params
     super.init()
