@@ -6,6 +6,7 @@
 //
 import Foundation
 
+@objcMembers
 public class RewriteFilter: NSObject {
   
   let closure: (_ value: URLValue) -> URLValue
@@ -17,12 +18,13 @@ public class RewriteFilter: NSObject {
   
 }
 
+@objcMembers
 public class Rewrite: NSObject {
   
-  static let `default` = Rewrite()
+  public static let shared = Rewrite()
   
-  public func separate(_ value: URLValue) -> URLValue {
-    var value = value
+  func separate(_ value: URLValue) -> URLValue {
+    let value = value
     var components = URLComponents(url: value.url, resolvingAgainstBaseURL: true)
     components?.queryItems?.forEach({ (item) in
       if value.params[item.name] == nil {
@@ -35,12 +37,13 @@ public class Rewrite: NSObject {
       return value
     }
     value.url = redirectURL
-    return value
+    
+    return redirect(value)
   }
   
   public var filters = [RewriteFilter]()
-  
-  public func redirect(_ value: URLValue) -> URLValue {
+    
+  func redirect(_ value: URLValue) -> URLValue {
     return filters.reduce(value) { (result, filter) -> URLValue in
       return filter.closure(result)
     }

@@ -7,19 +7,21 @@
 
 import Foundation
 
+
+@objcMembers
 public class KhalaNotify: NSObject {
-  
   let urlValue: URLValue
-  var rewrite = Rewrite.default
+  
+  public var rewrite = Rewrite.shared
   
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
-    urlValue = rewrite.separate((url,params))
+    urlValue = rewrite.separate(URLValue(url: url,params: params))
     super.init()
   }
   
-  public init?(url: String, params: [AnyHashable: Any] = [:]) {
-    guard let tempURL = URL(string: url) else { return nil }
-    urlValue = rewrite.separate((tempURL,params))
+  public init?(str: String, params: [AnyHashable: Any] = [:]) {
+    guard let tempURL = URL(string: str) else { return nil }
+    urlValue = rewrite.separate(URLValue(url: tempURL,params: params))
     super.init()
   }
   
@@ -37,12 +39,10 @@ extension KhalaNotify {
         return list.isEmpty ? nil : pseudo.key
       }
       .compactMap { (host) -> URLValue? in
-        var components = URLComponents(url: urlValue.url, resolvingAgainstBaseURL: true)
-        guard let componentsHost = components?.host else { return nil }
-        components?.path = componentsHost
-        components?.host = host.description
-        guard let url = components?.url else { return nil }
-        return (url: url, params: urlValue.params)
+        guard let scheme = urlValue.url.scheme, let path = urlValue.url.host else { return nil }
+        let str = scheme + "://" + host + "/" + path
+        guard let url = URL(string: str) else { return nil }
+        return URLValue(url: url, params: urlValue.params)
       }
       .compactMap { Khala(url: $0.url, params: $0.params).call() }
   }

@@ -14,7 +14,7 @@ class khala_swift_tests: XCTestCase {
   
   func testCallIvars() {
     Khala.isEnabledAssert = false
-    let value = Khala(url: "kl://SwiftClass/double?test=666")?.call()
+    let value = Khala(str: "kl://SwiftClass/double?test=666")?.call()
     print(value)
   }
   
@@ -27,15 +27,15 @@ class khala_swift_tests: XCTestCase {
       expectation.fulfill()
     }
     
-    let value = Khala(url: "kl://SwiftClass/definition3?test=666")?.call(blocks: success)
+    let value = Khala(str: "kl://SwiftClass/definition3?test=666")?.call(blocks: success)
     wait(for: [expectation], timeout: 10.0)
     
   }
   
   func testNotifys() {
     Khala.isEnabledAssert = false
-    Khala(url: "kl://SwiftClass/double?test=666")?.call()
-    let value = KhalaNotify(url: "kl://double?test=666")?.call()
+    Khala(str: "kl://SwiftClass/double?test=666")?.call()
+    let value = KhalaNotify(str: "kl://double?test=666")?.call()
     print(value)
   }
   

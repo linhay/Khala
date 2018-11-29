@@ -4,24 +4,38 @@ public protocol KhalaProtocol: NSObjectProtocol { }
 
 
 public typealias KhalaClosure =  @convention(block) (_ useInfo: [String: Any]) -> Void
-public typealias URLValue = (url: URL, params: [AnyHashable: Any])
 
+@objcMembers
+public class URLValue: NSObject {
+  
+  public var url: URL
+  public var params: [AnyHashable: Any]
+  
+  public init(url: URL, params: [AnyHashable: Any]) {
+    self.url = url
+    self.params = params
+    super.init()
+  }
+  
+}
+
+@objcMembers
 public class Khala: NSObject {
   
-  public var rewrite = Rewrite.default
-
+  public var rewrite = Rewrite.shared
+  
   private var history = History()
   
   public var urlValue: URLValue
   
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
-    urlValue = rewrite.separate((url,params))
+    urlValue = rewrite.separate(URLValue(url: url,params: params))
     super.init()
   }
   
-  public init?(url: String, params: [AnyHashable: Any] = [:]) {
-    guard let tempURL = URL(string: url) else { return nil }
-    urlValue = rewrite.separate((tempURL,params))
+  public init?(str: String, params: [AnyHashable: Any] = [:]) {
+    guard let tempURL = URL(string: str) else { return nil }
+    urlValue = rewrite.separate(URLValue(url: tempURL, params: params))
     super.init()
   }
   
@@ -107,7 +121,7 @@ public extension Khala {
   public func call() -> Any? {
     guard let middle = self.middleForCall(value: self.urlValue, blockCount: 0) else { return nil }
     return send(insten: middle.insten, method: middle.method, args: [])
-
+    
   }
   
   @discardableResult
@@ -117,7 +131,7 @@ public extension Khala {
   }
   
   @discardableResult
-  public func call(blocks: KhalaClosure...) -> Any? {
+  public func call(blocks: [KhalaClosure]) -> Any? {
     guard let middle = self.middleForCall(value: self.urlValue, blockCount: blocks.count) else { return nil }
     return send(insten: middle.insten, method: middle.method, args: blocks)
   }

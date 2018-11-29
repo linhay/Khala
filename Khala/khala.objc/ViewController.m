@@ -7,19 +7,25 @@
 //
 
 #import "ViewController.h"
+#import <Khala/Khala.h>
 #import <Khala-umbrella.h>
 
 @implementation ViewController
 
 - (IBAction)tapEvent:(NSClickGestureRecognizer *)sender {
 
-  Class insten = PseudoClass all
+  RewriteFilter * filter = [[RewriteFilter alloc] init:^URLValue * _Nonnull(URLValue * value) {
+    return value;
+  }];
+  Rewrite.shared.filters = @[filter];
   
-  let insten = PseudoClass(name: "TestClass")!
-  let taget = TestClass()
-  insten.instance = taget
+  Khala* khala = [[Khala alloc] initWithUrl: [NSURL URLWithString:@"kl://SwiftClass/double?test=666"] params:@{}];
+  id value = [khala call];
+  NSLog(@"%@",value);
+  
+  KhalaNotify* notify = [[KhalaNotify alloc] initWithStr:@"kl://double?test=666" params:@{}];
+  value = [notify call];
+  NSLog(@"%@",value);
 }
-
-
 
 @end

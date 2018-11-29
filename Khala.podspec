@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.10'
   s.watchos.deployment_target = '2.0'
   
-  s.source_files = ['Sources/*.{swift,h,m}']
-  # s.public_header_files = ['Sources/Khala']
+  s.source_files = ['Sources/*.{swift,h}']
+  s.public_header_files = ['Sources/Khala.h']
   # s.osx.exclude_files = ['Sources/Khala+UIKit.swift']
   # s.watchos.exclude_files = ['Sources/Khala+UIKit.swift']
   # s.tvos.exclude_files = ['Sources/Khala+UIKit.swift']

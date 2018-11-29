@@ -16,7 +16,7 @@ class ViewController: NSViewController {
   
   @IBAction func tapEvent(_ sender: NSClickGestureRecognizer) {
     Khala.isEnabledAssert = false
-    let value = Khala(url: "kl://SwiftClass/double?test=666")?.call()
+    let value = Khala(str: "kl://SwiftClass/double?test=666")?.call()
     print(value)
   }
   
