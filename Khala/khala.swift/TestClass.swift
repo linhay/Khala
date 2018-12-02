@@ -10,12 +10,12 @@ import Cocoa
 import DarkTemplar
 import Khala
 
-@objc(TestClass)
-class TestClass: TestSuperClass,KhalaProtocol {
+
+class TestClass:NSObject, KhalaProtocol {
   
-  
-  @objc func post(closure: KhalaClosure) {
-    
+  override init() {
+    super.init()
+    print("---")
   }
   
 }

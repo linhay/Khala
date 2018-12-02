@@ -22,7 +22,6 @@
 
 import Foundation
 
-public protocol KhalaProtocol: NSObjectProtocol { }
 public typealias KhalaClosure =  @convention(block) (_ useInfo: [String: Any]) -> Void
 
 @objcMembers
@@ -33,6 +32,7 @@ public class Khala: NSObject {
   public var urlValue: URLValue
   
   public var history = History()
+  
   
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
     urlValue = rewrite.separate(URLValue(url: url,params: params))
@@ -52,7 +52,11 @@ extension Khala {
   
   /// 是否开启断言, 默认开启
   public static var isEnabledAssert = true
-  
+  /// 是否开启日志
+  public static var isEnabledLog = false
+  /// 是否开启控制台s输出
+  public static var isEnabledPrint = false
+
   /// 失败断言
   ///
   /// - Parameters:

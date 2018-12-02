@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-@interface ViewController : NSViewController
+#import <Khala/Khala.h>
+#import <Khala-umbrella.h>
+@interface ViewController : NSViewController<KhalaProtocol>
 
 
 @end

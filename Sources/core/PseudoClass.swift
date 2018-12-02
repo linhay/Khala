@@ -45,6 +45,8 @@ public class PseudoClass: NSObject {
   ///
   /// - Parameter name: 类名
   public init?(name: String) {
+    if name.isEmpty { return nil }
+    
     self.name = name
     let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String ?? ""
     if let value = PseudoClass.cache[self.name] {
@@ -64,6 +66,7 @@ public class PseudoClass: NSObject {
     super.init()
     self.methodLists = getMethods()
     PseudoClass.cache[self.name] = self
+    
   }
   
   /// 获取对象函数列表

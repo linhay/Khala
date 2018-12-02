@@ -26,7 +26,6 @@
 		CDF405F021A29D7C003758C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF405EF21A29D7C003758C2 /* Assets.xcassets */; };
 		CDF405F321A29D7C003758C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDF405F121A29D7C003758C2 /* Main.storyboard */; };
 		CDF405F621A29D7C003758C2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF405F521A29D7C003758C2 /* main.m */; };
-		CDFE386921A2A45F00B32AB9 /* TestSuperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE386721A2A45E00B32AB9 /* TestSuperClass.swift */; };
 		CDFE386A21A2A45F00B32AB9 /* TestClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFE386821A2A45E00B32AB9 /* TestClass.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +71,6 @@
 		CDF405F421A29D7C003758C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDF405F521A29D7C003758C2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CDF405F721A29D7C003758C2 /* khala_objc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = khala_objc.entitlements; sourceTree = "<group>"; };
-		CDFE386721A2A45E00B32AB9 /* TestSuperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSuperClass.swift; sourceTree = "<group>"; };
 		CDFE386821A2A45E00B32AB9 /* TestClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestClass.swift; sourceTree = "<group>"; };
 		D691EE50F2CB78EBDD0BEF4D /* Pods_khala_swift_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_swift_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1FAA92BD948173BD425589 /* Pods-khala.objc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.objc.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.objc/Pods-khala.objc.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 			children = (
 				CDF405C121A29B15003758C2 /* AppDelegate.swift */,
 				CDFE386821A2A45E00B32AB9 /* TestClass.swift */,
-				CDFE386721A2A45E00B32AB9 /* TestSuperClass.swift */,
 				CDF405C321A29B15003758C2 /* ViewController.swift */,
 				CDF405C521A29B15003758C2 /* Assets.xcassets */,
 				CDF405C721A29B15003758C2 /* Main.storyboard */,
@@ -492,7 +489,6 @@
 				CDF405C421A29B15003758C2 /* ViewController.swift in Sources */,
 				CDF405C221A29B15003758C2 /* AppDelegate.swift in Sources */,
 				CD3EA8E621ACE08D009BFC06 /* SwiftClass.swift in Sources */,
-				CDFE386921A2A45F00B32AB9 /* TestSuperClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

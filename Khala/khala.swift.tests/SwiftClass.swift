@@ -10,7 +10,7 @@ import Cocoa
 import Khala
 
 @objc(SwiftClass)
-class SwiftClass: NSObject {
+class SwiftClass: NSObject,KhalaProtocol {
   
   // "double"
   // "setDouble:"

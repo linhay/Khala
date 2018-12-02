@@ -15,12 +15,16 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'
   s.watchos.deployment_target = '2.0'
-  
-  s.source_files = ['Sources/*.{swift,h}']
-  s.public_header_files = ['Sources/Khala.h']
-  # s.osx.exclude_files = ['Sources/Khala+UIKit.swift']
-  # s.watchos.exclude_files = ['Sources/Khala+UIKit.swift']
-  # s.tvos.exclude_files = ['Sources/Khala+UIKit.swift']
+
+  s.subspec 'core' do |ss|
+    ss.source_files = ['Sources/core/*.{swift,h}']
+    ss.public_header_files = ['Sources/core/Khala.h']
+  end
+
+  s.subspec 'extension' do |ss|
+    ss.source_files = 'Sources/extension/*.{swift}'
+    ss.dependency 'Khala/core'
+  end
 
   s.dependency 'DarkTemplar', '0.0.1'
   s.requires_arc = true

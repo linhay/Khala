@@ -13,19 +13,21 @@
 @implementation ViewController
 
 - (IBAction)tapEvent:(NSClickGestureRecognizer *)sender {
+  
+  [PseudoClass registWithKhalaProtocol];
 
-  RewriteFilter * filter = [[RewriteFilter alloc] init:^URLValue * _Nonnull(URLValue * value) {
-    return value;
-  }];
-  Rewrite.shared.filters = @[filter];
-  
-  Khala* khala = [[Khala alloc] initWithUrl: [NSURL URLWithString:@"kl://SwiftClass/double?test=666"] params:@{}];
-  id value = [khala call];
-  NSLog(@"%@",value);
-  
-  KhalaNotify* notify = [[KhalaNotify alloc] initWithStr:@"kl://double?test=666" params:@{}];
-  value = [notify call];
-  NSLog(@"%@",value);
+//  RewriteFilter * filter = [[RewriteFilter alloc] init:^URLValue * _Nonnull(URLValue * value) {
+//    return value;
+//  }];
+//  Rewrite.shared.filters = @[filter];
+//  
+//  Khala* khala = [[Khala alloc] initWithUrl: [NSURL URLWithString:@"kl://SwiftClass/double?test=666"] params:@{}];
+//  id value = [khala call];
+//  NSLog(@"%@",value);
+//  
+//  KhalaNotify* notify = [[KhalaNotify alloc] initWithStr:@"kl://double?test=666" params:@{}];
+//  value = [notify call];
+//  NSLog(@"%@",value);
 }
 
 @end
