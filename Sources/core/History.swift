@@ -23,13 +23,19 @@
 import Foundation
 import Darwin
 
-open class History: NSObject {
+@objc public
+protocol KhalaHistory: NSObjectProtocol {
+  func write(_ value: KhalaURLValue)
+}
+
+@objcMembers
+ class History: NSObject, KhalaHistory {
   
   private let dirPath = NSHomeDirectory() + "/Documents/khala/logs/"
   private let fileManager = FileManager.default
   private lazy var filehandle: FileHandle? = openFile()
   
-  public override init() {
+   override init() {
     super.init()
     // create directory
     if !fileManager.fileExists(atPath: dirPath) {
@@ -49,7 +55,7 @@ open class History: NSObject {
     return handle
   }
   
-  open func write(_ value: URLValue) {
+   func write(_ value: KhalaURLValue) {
     var str = "\n"
     str += Date().description[...String.Index(encodedOffset: 18)]
     str += "  "

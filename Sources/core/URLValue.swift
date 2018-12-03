@@ -22,13 +22,19 @@
 
 import Foundation
 
+@objc public
+protocol KhalaURLValue {
+  var url: URL { set get }
+  var params: [AnyHashable: Any] { set get }
+}
+
 @objcMembers
-public class URLValue: NSObject {
+class URLValue: NSObject, KhalaURLValue {
   
   /// URL
-  public var url: URL
+  var url: URL
   /// query
-  public var params: [AnyHashable: Any]
+  var params: [AnyHashable: Any]
   
   init(url: URL, params: [AnyHashable: Any]) {
     self.url = url

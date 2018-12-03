@@ -24,14 +24,16 @@ import Foundation
 
 public typealias KhalaClosure =  @convention(block) (_ useInfo: [String: Any]) -> Void
 
+
+
 @objcMembers
 public class Khala: NSObject {
   
-  public var rewrite = Rewrite.shared
+  public var rewrite: KhalaRewrite = Rewrite.shared
   
-  public var urlValue: URLValue
+  public var urlValue: KhalaURLValue
   
-  public var history = History()
+  public var history: KhalaHistory = History()
   
   
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
@@ -73,7 +75,7 @@ extension Khala {
 // MARK: - private
 extension Khala {
   
-  private func findInstenAndMethod(value: URLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
+  private func findInstenAndMethod(value: KhalaURLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
     history.write(value)
     
     guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {

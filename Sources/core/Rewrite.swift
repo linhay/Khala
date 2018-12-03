@@ -22,12 +22,19 @@
 
 import Foundation
 
+@objc public
+protocol KhalaRewrite {
+  var filters: [RewriteFilter] { get set }
+  func redirect(_ value: KhalaURLValue) -> KhalaURLValue
+  func separate(_ value: KhalaURLValue) -> KhalaURLValue
+}
+
 @objcMembers
 public class RewriteFilter: NSObject {
   
-  let closure: (_ value: URLValue) -> URLValue
+  let closure: (_ value: KhalaURLValue) -> KhalaURLValue
   
-  public init(_ closure: @escaping (_ value: URLValue) -> URLValue) {
+  public init(_ closure: @escaping (_ value: KhalaURLValue) -> KhalaURLValue) {
     self.closure = closure
     super.init()
   }
@@ -35,11 +42,12 @@ public class RewriteFilter: NSObject {
 }
 
 @objcMembers
-public class Rewrite: NSObject {
+class Rewrite: NSObject, KhalaRewrite {
   
-  public static let shared = Rewrite()
-  
-  func separate(_ value: URLValue) -> URLValue {
+  static let shared = Rewrite()
+  var filters = [RewriteFilter]()
+
+  func separate(_ value: KhalaURLValue) -> KhalaURLValue {
     let value = value
     var components = URLComponents(url: value.url, resolvingAgainstBaseURL: true)
     components?.queryItems?.forEach({ (item) in
@@ -57,10 +65,9 @@ public class Rewrite: NSObject {
     return redirect(value)
   }
   
-  public var filters = [RewriteFilter]()
-    
-  func redirect(_ value: URLValue) -> URLValue {
-    return filters.reduce(value) { (result, filter) -> URLValue in
+  
+  func redirect(_ value: KhalaURLValue) -> KhalaURLValue {
+    return filters.reduce(value) { (result, filter) -> KhalaURLValue in
       return filter.closure(result)
     }
   }

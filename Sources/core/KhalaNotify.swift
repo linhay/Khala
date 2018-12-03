@@ -25,9 +25,9 @@ import Foundation
 /// as NSUserNotificationCenter
 @objcMembers
 public class KhalaNotify: NSObject {
-  let urlValue: URLValue
+  let urlValue: KhalaURLValue
   
-  public var rewrite = Rewrite.shared
+  public var rewrite: KhalaRewrite = Rewrite.shared
   
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
     urlValue = rewrite.separate(URLValue(url: url,params: params))
