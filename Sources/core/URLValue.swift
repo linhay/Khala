@@ -22,8 +22,8 @@
 
 import Foundation
 
-@objc public
-protocol KhalaURLValue {
+@objc
+public protocol KhalaURLValue {
   var url: URL { set get }
   var params: [AnyHashable: Any] { set get }
 }

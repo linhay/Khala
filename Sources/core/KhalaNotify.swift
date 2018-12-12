@@ -22,21 +22,30 @@
 
 import Foundation
 
-/// as NSUserNotificationCenter
+/// 通知类
 @objcMembers
 public class KhalaNotify: NSObject {
+  
   let urlValue: KhalaURLValue
-  
-  public var rewrite: KhalaRewrite = Rewrite.shared
-  
+    
+  /// 初始化函数
+  ///
+  /// - Parameters:
+  ///   - url: url
+  ///   - params: 需要传递参数
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
-    urlValue = rewrite.separate(URLValue(url: url,params: params))
+    urlValue = Rewrite.separate(URLValue(url: url,params: params))
     super.init()
   }
   
+  /// 初始化函数
+  ///
+  /// - Parameters:
+  ///   - str: url string 类型
+  ///   - params: 需要传递参数
   public init?(str: String, params: [AnyHashable: Any] = [:]) {
     guard let tempURL = URL(string: str) else { return nil }
-    urlValue = rewrite.separate(URLValue(url: tempURL,params: params))
+    urlValue = Rewrite.separate(URLValue(url: tempURL,params: params))
     super.init()
   }
   

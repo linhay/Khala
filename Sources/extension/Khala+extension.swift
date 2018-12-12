@@ -31,19 +31,46 @@ public typealias View = UIView
 #endif
 
 
+/// 路由类协议
+@objc
+public protocol KhalaProtocol: NSObjectProtocol { }
+
+
 public extension Khala {
+  
+  /// 全量注册 KhalaProtocol 路由类
+  public static func registWithKhalaProtocol() {
+    let typeCount = Int(objc_getClassList(nil, 0))
+    let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)
+    let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
+    objc_getClassList(autoreleasingTypes, Int32(typeCount))
+    for index in 0..<typeCount {
+      if class_conformsToProtocol(types[index], KhalaProtocol.self) {
+        let name = String(cString: class_getName(types[index]))
+        _ = PseudoClass(name: name)
+      }
+    }
+    types.deinitialize(count: typeCount)
+    types.deallocate()
+  }
+  
+}
+
+
+public extension Khala {
+  
   
   /// 获取 viewController
   ///
   /// - Returns: viewController
-  @objc func viewController() -> ViewController? {
+  @objc var viewController: ViewController? {
     return call() as? ViewController
   }
   
   /// 获取 view
   ///
   /// - Returns: view
-  @objc func view() -> View? {
+  @objc var view: View? {
     return call() as? View
   }
   

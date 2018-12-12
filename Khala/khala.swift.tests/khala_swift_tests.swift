@@ -45,7 +45,7 @@ class khala_swift_tests: XCTestCase {
   
   func testRegist() {
     Khala.isEnabledAssert = false
-    PseudoClass.registWithKhalaProtocol()
+    Khala.registWithKhalaProtocol()
     guard let value = KhalaNotify(str: "kl://double?test=666")?.call() as? [Double] else {
       XCTAssertFalse(true)
       return

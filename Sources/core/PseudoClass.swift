@@ -23,23 +23,21 @@
 import Foundation
 import DarkTemplar
 
+/// 伪类
 @objcMembers
 public class PseudoClass: NSObject {
   
   /// 伪类缓存
   public static var cache = [String: PseudoClass]()
+  /// 实例
+  public var instance: NSObject
+  /// 函数列表
+  public lazy var methodLists = getMethods()
   
   /// 类名
   let name: String
-  
   /// 实例类型
   let type: NSObject.Type
-  
-  /// 实例
-  public var instance: NSObject
-  
-  /// 函数列表
-  public lazy var methodLists = getMethods()
   
   /// 初始化函数
   ///

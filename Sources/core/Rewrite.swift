@@ -22,11 +22,12 @@
 
 import Foundation
 
-@objc public
-protocol KhalaRewrite {
+/// Rewrite 类协议
+@objc
+public protocol KhalaRewrite {
   var filters: [RewriteFilter] { get set }
   func redirect(_ value: KhalaURLValue) -> KhalaURLValue
-  func separate(_ value: KhalaURLValue) -> KhalaURLValue
+  static func separate(_ value: KhalaURLValue) -> KhalaURLValue
 }
 
 @objcMembers
@@ -47,7 +48,7 @@ class Rewrite: NSObject, KhalaRewrite {
   static let shared = Rewrite()
   var filters = [RewriteFilter]()
 
-  func separate(_ value: KhalaURLValue) -> KhalaURLValue {
+  class func separate(_ value: KhalaURLValue) -> KhalaURLValue {
     let value = value
     var components = URLComponents(url: value.url, resolvingAgainstBaseURL: true)
     components?.queryItems?.forEach({ (item) in
@@ -62,7 +63,7 @@ class Rewrite: NSObject, KhalaRewrite {
     }
     value.url = redirectURL
     
-    return redirect(value)
+    return value
   }
   
   

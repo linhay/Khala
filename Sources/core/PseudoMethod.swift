@@ -22,14 +22,18 @@
 
 import Foundation
 
+/// 函数伪类
 public class PseudoMethod: NSObject {
   
+  /// 名称
   public let selector: Selector
-  let paramsTypes: [ObjectType]
-  let returnType: ObjectType
+  /// 类型编码
   public let typeEncoding: String
   
-  init(method: Method) {
+  let paramsTypes: [ObjectType]
+  let returnType: ObjectType
+  
+  public init(method: Method) {
     self.selector = method_getName(method)
     
     if let typeEncoding = method_getTypeEncoding(method) {

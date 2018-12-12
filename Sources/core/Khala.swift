@@ -24,26 +24,36 @@ import Foundation
 
 public typealias KhalaClosure =  @convention(block) (_ useInfo: [String: Any]) -> Void
 
-
-
 @objcMembers
 public class Khala: NSObject {
   
+  /// rewrite实体类
   public var rewrite: KhalaRewrite = Rewrite.shared
-  
   public var urlValue: KhalaURLValue
-  
+  /// 日志实体类
   public var history: KhalaHistory = History()
   
   
+  /// 初始化函数
+  ///
+  /// - Parameters:
+  ///   - url: url
+  ///   - params: 需要传递参数
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
-    urlValue = rewrite.separate(URLValue(url: url,params: params))
+    urlValue = Rewrite.separate(URLValue(url: url,params: params))
+    urlValue = rewrite.redirect(urlValue)
     super.init()
   }
   
+  /// 初始化函数
+  ///
+  /// - Parameters:
+  ///   - str: url string 类型
+  ///   - params: 需要传递参数
   public init?(str: String, params: [AnyHashable: Any] = [:]) {
     guard let tempURL = URL(string: str) else { return nil }
-    urlValue = rewrite.separate(URLValue(url: tempURL, params: params))
+    urlValue = Rewrite.separate(URLValue(url: tempURL, params: params))
+    urlValue = rewrite.redirect(urlValue)
     super.init()
   }
   
@@ -75,6 +85,12 @@ extension Khala {
 // MARK: - private
 extension Khala {
   
+  /// 查询路由类实例与路由函数
+  ///
+  /// - Parameters:
+  ///   - value: `KhalaURLValue`
+  ///   - blockCount: block 数量, 用于精确匹配同名函数
+  /// - Returns: 路由类实例与路由函数 or nil
   private func findInstenAndMethod(value: KhalaURLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
     history.write(value)
     
@@ -114,6 +130,13 @@ extension Khala {
     return (insten: insten,method: method)
   }
   
+  /// 调用路由函数
+  ///
+  /// - Parameters:
+  ///   - insten: 伪类实例
+  ///   - method: 函数伪类实例
+  ///   - args: 函数参数
+  /// - Returns: 返回值 or nil
   private func perform(insten: PseudoClass, method: PseudoMethod, args: [Any]) -> Any? {
     var args: [Any] = args
     
@@ -131,6 +154,9 @@ extension Khala {
 // call
 public extension Khala {
   
+  /// 函数调用
+  ///
+  /// - Returns: 返回值 or nil
   @discardableResult
   public func call() -> Any? {
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: 0) else { return nil }
@@ -138,12 +164,20 @@ public extension Khala {
     
   }
   
+  /// 函数调用
+  ///
+  /// - Parameter block: KhalaClosure 形式block
+  /// - Returns: 返回值 or nil
   @discardableResult
   public func call(block: @escaping KhalaClosure) -> Any? {
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: 1) else { return nil }
     return perform(insten: middle.insten, method: middle.method, args: [block])
   }
   
+  /// 函数调用
+  ///
+  /// - Parameter blocks: KhalaClosure 形式 block 数组
+  /// - Returns: 返回值 or nil
   @discardableResult
   public func call(blocks: [KhalaClosure]) -> Any? {
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: blocks.count) else { return nil }
