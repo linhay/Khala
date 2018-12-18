@@ -184,8 +184,8 @@
 				CDD21E6221AE41C60008020F /* Khala.podspec */,
 				CDF405C021A29B15003758C2 /* khala.swift */,
 				CDF405E821A29D7B003758C2 /* khala.objc */,
-				CDEF907521A7E0AB000A322F /* khala.swift.tests */,
 				CDE4ECEE21C1120C00AEED27 /* khala.iOS */,
+				CDEF907521A7E0AB000A322F /* khala.swift.tests */,
 				CDF4059521A29ABD003758C2 /* Products */,
 				409EFFC9FC8C8221AB0936E6 /* Pods */,
 				00C39290012BA3BDB51E0980 /* Frameworks */,
@@ -551,6 +551,8 @@
 				"${PODS_ROOT}/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DarkTemplar-iOS/DarkTemplar.framework",
 				"${BUILT_PRODUCTS_DIR}/Khala-iOS/Khala.framework",
+				"${BUILT_PRODUCTS_DIR}/AModule/AModule.framework",
+				"${BUILT_PRODUCTS_DIR}/BModule/BModule.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -558,6 +560,8 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DarkTemplar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Khala.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AModule.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BModule.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

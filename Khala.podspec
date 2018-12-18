@@ -26,6 +26,6 @@ Pod::Spec.new do |s|
     ss.dependency 'Khala/core'
   end
 
-  s.dependency 'DarkTemplar', '0.0.1'
+  s.dependency 'DarkTemplar', '0.0.3'
   s.requires_arc = true
 end

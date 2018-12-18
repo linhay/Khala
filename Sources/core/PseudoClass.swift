@@ -125,9 +125,7 @@ extension PseudoClass {
       // 目前无法解决不同类型闭包问题
       return nil
     case .object:
-      var value = NSObject()
-      inv?.getReturnValue(&value)
-      if let v = value as? String { return v }
+      let value = inv?.getReturnValue()
       return value
     case .longlong,.point,.int:
       var value: Int = 0

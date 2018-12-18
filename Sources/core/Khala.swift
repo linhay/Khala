@@ -23,17 +23,18 @@
 import Foundation
 
 /// Khala 中指定闭包(block)形式
-public typealias KhalaClosure =  @convention(block) (_ useInfo: [String: Any]) -> Void
+public typealias KhalaClosure = @convention(block) (_ useInfo: [String: Any]) -> Void
 
 /// 路由
 @objcMembers
 public class Khala: NSObject {
   
   /// rewrite实体类
-  public var rewrite: KhalaRewrite = Rewrite.shared
-  public var urlValue: KhalaURLValue
+  public static var rewrite: KhalaRewrite = Rewrite.shared
   /// 日志实体类
-  public var history: KhalaHistory = History()
+  public static var history: KhalaHistory = History()
+  
+  public var urlValue: KhalaURLValue
   
   /// 初始化函数
   ///
@@ -42,7 +43,7 @@ public class Khala: NSObject {
   ///   - params: 需要传递参数
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
     urlValue = Rewrite.separate(URLValue(url: url,params: params))
-    urlValue = rewrite.redirect(urlValue)
+    urlValue = Khala.rewrite.redirect(urlValue)
     super.init()
   }
   
@@ -54,7 +55,7 @@ public class Khala: NSObject {
   public init?(str: String, params: [AnyHashable: Any] = [:]) {
     guard let tempURL = URL(string: str) else { return nil }
     urlValue = Rewrite.separate(URLValue(url: tempURL, params: params))
-    urlValue = rewrite.redirect(urlValue)
+    urlValue = Khala.rewrite.redirect(urlValue)
     super.init()
   }
   
@@ -92,7 +93,7 @@ extension Khala {
   ///   - blockCount: block 数量, 用于精确匹配同名函数
   /// - Returns: 路由类实例与路由函数 or nil
   private func findInstenAndMethod(value: KhalaURLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
-    history.write(value)
+    Khala.history.write(value)
     
     guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
       let message = "[Khala] url有误:\(urlValue.url)"
@@ -107,7 +108,10 @@ extension Khala {
     }
     
     guard var methods = insten.findMethod(name: firstPath) else {
-      let message = "[Khala] 未匹配到该函数[\(firstPath)]:\n" + insten.methodLists.map({ $0.key }).joined(separator: "\n") + "\n"
+      let message = "[Khala] 未在[\(insten.name)]中匹配到函数[\(firstPath)], 请查看函数列表:\n"
+        + insten.methodLists.enumerated()
+          .map({ $0.offset.description + ": " + $0.element.key })
+          .joined(separator: "\n") + "\n"
       Khala.failure(message)
       return nil
     }
