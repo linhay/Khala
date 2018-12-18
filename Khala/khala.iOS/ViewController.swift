@@ -11,12 +11,6 @@ import Khala
 
 class ViewController: UIViewController {
   
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    guard let vc = Khala(str: "kl://AModule/vc?style=0")?.viewController else { return }
-    self.navigationController?.pushViewController(vc, animated: true)
-  }
-  
-  
   @IBAction func event1(_ sender: UIButton) {
     autoreleasepool {
       let value = Khala(str: "kl://AModule/server", params: ["value": 46])?.call() as? Int
@@ -35,7 +29,7 @@ class ViewController: UIViewController {
     Khala(str: "kl://BModule")?.regist()
     
     // 通知
-    let value = KhalaNotify(str: "kl://doSomething?value=888")?.call()
+    let value = KhalaNotify(str: "kl://doSomething")?.call()
     print(value ?? "")
   }
   
@@ -54,5 +48,25 @@ class ViewController: UIViewController {
     
   }
   
+  @IBAction func event4(_ sender: Any) {
+    let filter = RewriteFilter {
+      if $0.url.host == "AModule" {
+        var urlComponents = URLComponents(url: $0.url, resolvingAgainstBaseURL: true)!
+        urlComponents.host = "BModule"
+        $0.url = urlComponents.url!
+      }
+      return $0
+    }
+    Khala.rewrite.filters.append(filter)
+    
+    let value = Khala(str: "kl://AModule/doSomething")?.call()
+    print(value ?? "nil")
+  }
+  
+  
+  @IBAction func event5(_ sender: Any) {
+    guard let vc = Khala(str: "kl://AModule/vc?style=0")?.viewController else { return }
+    self.navigationController?.pushViewController(vc, animated: true)
+  }
 }
 
