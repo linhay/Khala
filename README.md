@@ -117,7 +117,18 @@ pod 'Khala'
        >
        > ps: 调用方 `KhalaClosure` 数目需要比路由函数多或者持平.否则会触发断言.
 
-3. **普通调用**
+3. ***Khala*** 初始化函数
+
+   - `params`中的参数会保持传入的类型,例如传递 `UIImage`等对象.
+
+   ```swift
+   public class Khala: NSObject {
+   	public init(url: URL, params: [AnyHashable: Any] = [:]) { ... }
+   	public init?(str: String, params: [AnyHashable: Any] = [:]) { ... } 
+   }
+   ```
+
+4. **普通调用**
 
    适用于非异步场景.
 
@@ -149,7 +160,7 @@ pod 'Khala'
    // 64
    ```
 
-4. **带block调用**
+5. **带block调用**
 
    适用于延时或者异步场景.
 
@@ -186,7 +197,7 @@ pod 'Khala'
    // forClosure block2: ["failure": "forClosures(_:failure:)"]
    ```
 
-5. **特例调用**
+6. **特例调用**
 
    提供特定类型返回.详情查看: [**快捷函数**](https://linhay.github.io/Khala/Classes/Khala.html#/%E5%BF%AB%E6%8D%B7%E5%87%BD%E6%95%B02)
 
@@ -202,7 +213,7 @@ pod 'Khala'
    // value is UIViewController
    ```
 
-6. **通知调用**
+7. **通知调用**
 
    ```swift
    @objc(AModule) @objcMembers
@@ -243,7 +254,7 @@ pod 'Khala'
    // [<BModule: 0x60000242f230>, <AModule: 0x600002419d10>]
    ```
 
-7. **重定向**
+8. **重定向**
 
    - **使用**
 
@@ -285,7 +296,7 @@ pod 'Khala'
         Khala.rewrite = CustomRewrite()
         ```
 
-8. **日志模块**
+9. **日志模块**
 
    日志模块默认为**关闭**状态,如需开启:
 
@@ -314,7 +325,7 @@ pod 'Khala'
         Khala.history = CustomHistory()
         ```
 
-9. **提前注册路由类**
+10. **提前注册路由类**
 
    该部分内容适合第三方服务模块,在 AppDelegate 中提前注册路由类.
 
@@ -357,12 +368,12 @@ pod 'Khala'
 
    > ps: 使用时启动更为推荐.
 
-10. **其他**
+11. **其他**
 
-  - 当url第一次定位至某一个路由类时,该类的实例将被缓存至 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中, 以提高二次查找性能.该属性权限为 `public`,开发者可以选择惬当的时机修改.
-  - 某个路由类实例化时,该类中的函数列表将被缓存至 [**PseudoClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.该属性权限为 `public`,开发者可以选择惬当的时机修改.或移除位于 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中的路由类缓存.
+   - 当url第一次定位至某一个路由类时,该类的实例将被缓存至 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中, 以提高二次查找性能.该属性权限为 `public`,开发者可以选择惬当的时机修改.
+   - 某个路由类实例化时,该类中的函数列表将被缓存至 [**PseudoClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.该属性权限为 `public`,开发者可以选择惬当的时机修改.或移除位于 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中的路由类缓存.
 
-11. **断言机制**
+12. **断言机制**
 
     为方便开发者使用,添加了部分场景下断言机制,示例:
 
@@ -379,6 +390,28 @@ pod 'Khala'
     Khala.isEnabledAssert = false
     ```
 
+13. **扩展机制**
+
+    ***khala***库中提供了一个空置的类[***KhalaStore***]用于盛放**路由函数**对应的本地函数.来简化本地调用复杂度的问题.
+
+    ```swift
+    extension KhalaStore { 
+     class func aModule_server(value: Int) -> Int {
+        return Khala(str: "kf://AModule/server", params: ["value": value])!.call() as! Int
+      }
+    }
+      
+    @objc(AModule) @objcMembers
+    class AModule: NSObject {
+     func server(_ info: [String: Any]) -> Int {
+        return info["value"] as? Int ?? 0
+      }
+    }
+    
+    let value = KhalaStore.aModule_server(value: 46)
+    ```
+
+    > ps: KhalaStore 扩展文件建议统一放置.
 
 ## 文档
 
