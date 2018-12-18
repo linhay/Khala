@@ -22,8 +22,10 @@
 
 import Foundation
 
+/// Khala 中指定闭包(block)形式
 public typealias KhalaClosure =  @convention(block) (_ useInfo: [String: Any]) -> Void
 
+/// 路由
 @objcMembers
 public class Khala: NSObject {
   
@@ -32,7 +34,6 @@ public class Khala: NSObject {
   public var urlValue: KhalaURLValue
   /// 日志实体类
   public var history: KhalaHistory = History()
-  
   
   /// 初始化函数
   ///
@@ -64,11 +65,9 @@ extension Khala {
   
   /// 是否开启断言, 默认开启
   public static var isEnabledAssert = true
-  /// 是否开启日志
+  /// 是否开启日志, 默认不开启
   public static var isEnabledLog = false
-  /// 是否开启控制台s输出
-  public static var isEnabledPrint = false
-
+  
   /// 失败断言
   ///
   /// - Parameters:
@@ -76,9 +75,10 @@ extension Khala {
   ///   - file: 文件
   ///   - line: 行数
   static func failure(_ message: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
-  if !Khala.isEnabledAssert { return }
-  assertionFailure(message,file: file,line: line)
-}
+    if Khala.isEnabledAssert {
+      assertionFailure(message,file: file,line: line)
+    }
+  }
   
 }
 
@@ -151,7 +151,7 @@ extension Khala {
 }
 
 
-// call
+// MARK: - 函数调用
 public extension Khala {
   
   /// 函数调用

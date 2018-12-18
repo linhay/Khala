@@ -28,8 +28,9 @@ import DarkTemplar
 public class PseudoClass: NSObject {
   
   /// 伪类缓存
+  /// 路由类初始化后会被添加至该属性中缓存,以减少查找与实例化这部分性能.你可以使用该属性释放指定或全部路由类.
   public static var cache = [String: PseudoClass]()
-  /// 实例
+  /// 路由实例
   public var instance: NSObject
   /// 函数列表
   public lazy var methodLists = getMethods()

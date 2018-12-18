@@ -16,6 +16,10 @@ class ViewController: NSViewController {
   
   @IBAction func tapEvent(_ sender: NSClickGestureRecognizer) {
     Khala.registWithKhalaProtocol()
+    
+    guard let vc = Khala(str: "kl://AModule/vc?style=0")?.viewController else { return }
+    self.present(vc, animator: )
+    
 //    Khala.isEnabledAssert = false
 //    let value = Khala(str: "kl://SwiftClass/double?test=666")?.call()
 //    print(value)

@@ -21,13 +21,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
 #if canImport(AppKit)
-public typealias ViewController = NSViewController
-public typealias View = NSView
+public typealias KhalaViewController = NSViewController
+public typealias KhalaView = NSView
 #endif
 
 #if canImport(UIKit)
-public typealias ViewController = UIViewController
-public typealias View = UIView
+public typealias KhalaViewController = UIViewController
+public typealias KhalaView = UIView
 #endif
 
 
@@ -36,6 +36,7 @@ public typealias View = UIView
 public protocol KhalaProtocol: NSObjectProtocol { }
 
 
+// MARK: - 辅助函数
 public extension Khala {
   
   /// 全量注册 KhalaProtocol 路由类
@@ -56,22 +57,22 @@ public extension Khala {
   
 }
 
-
+// MARK: - 快捷函数
 public extension Khala {
   
   
   /// 获取 viewController
   ///
   /// - Returns: viewController
-  @objc var viewController: ViewController? {
-    return call() as? ViewController
+  @objc var viewController: KhalaViewController? {
+    return call() as? KhalaViewController
   }
   
   /// 获取 view
   ///
   /// - Returns: view
-  @objc var view: View? {
-    return call() as? View
+  @objc var view: KhalaView? {
+    return call() as? KhalaView
   }
   
 }
