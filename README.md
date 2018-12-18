@@ -61,6 +61,8 @@ pod 'Khala'
    }
    ```
 
+   > ps: 若非必要,无需提前注册路由类. 
+
 2. **路由函数**
 
    **定义:** 负责处理具体的业务场景/功能.
@@ -211,7 +213,7 @@ pod 'Khala'
        }
        
       func doSomething(_ info: [String: Any]) {
-           print("AModule: ",info["value"])
+       return description
        }
        
    }
@@ -220,7 +222,7 @@ pod 'Khala'
    class BModule: NSObject {
        
       func vc() -> UIViewController {
-           return UIViewController()
+   		return description
        }
        
       func doSomething(_ info: [String: Any]) {
@@ -230,14 +232,15 @@ pod 'Khala'
    }
    
    // AModule 与 BModule 实例化,并缓存
-   _ = Khala(str: "kl://AModule/vc")?.viewController
-   _ = Khala(str: "kl://BModule/vc")?.viewController
-   
+   Khala(str: "kl://AModule")?.regist()
+   Khala(str: "kl://BModule")?.regist()
+       
    // 通知
    let value = KhalaNotify(str: "kl://doSomething?value=888")?.call()
+   print(value ?? "")
+   
    // Print
-   // AModule: 888
-   // BModule: 888
+   // [<BModule: 0x60000242f230>, <AModule: 0x600002419d10>]
    ```
 
 7. **重定向**
@@ -306,30 +309,44 @@ pod 'Khala'
 
    该部分内容适合第三方服务模块,在 AppDelegate 中提前注册路由类.
 
-   需要提前注册的路由类需要遵从[`KhalaProtocol`](https://linhay.github.io/Khala/Protocols.html#/c:@M@Khala@objc(pl)KhalaProtocol)协议, 并在合适的时机调用.
-
    ```swift
-   /// 全量注册 KhalaProtocol 路由类
+   /// 全量注册 KhalaProtocol 路由类需要提前注册的路由类
+   /// 需要遵从`KhalaProtocol`协议, 并在合适的时机调用.
    Khala.registWithKhalaProtocol()
+   /// 单独注册
+   Khala(str: "kl://AModule")?.regist()
    ```
+
+   > [`KhalaProtocol`](https://linhay.github.io/Khala/Protocols.html#/c:@M@Khala@objc(pl)KhalaProtocol)协议
 
    **示例:**
 
    ```swift
    @objc(AModule) @objcMembers
-   class AModule: NSObject {
+   class AModule: NSObject, KhalaProtocol {
    	init(){
    	super.init()
    	//doSomething
        }
    }
    
-   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-       /// 全量注册 KhalaProtocol 路由类
-   	Khala.registWithKhalaProtocol()
-   	return true
+   @objc(BModule) @objcMembers
+   class BModule: NSObject, KhalaProtocol {
+   	init(){
+   	super.init()
+   	//doSomething
+       }
    }
+   
+   /// 全量注册 KhalaProtocol 路由类需要提前注册的路由类
+   /// 需要遵从`KhalaProtocol`协议, 并在合适的时机调用.
+   Khala.registWithKhalaProtocol()
+   /// 单独注册
+   Khala(str: "kl://AModule")?.regist()
+   Khala(str: "kl://BModule")?.regist()
    ```
+
+   > ps: 使用时启动更为推荐.
 
 10. **其他**
 

@@ -31,8 +31,8 @@ class ViewController: UIViewController {
   
   @IBAction func event2(_ sender: Any) {
     // AModule 与 BModule 实例化,并缓存
-    _ = Khala(str: "kl://AModule/vc")?.viewController
-    _ = Khala(str: "kl://BModule/vc")?.viewController
+    Khala(str: "kl://AModule")?.regist()
+    Khala(str: "kl://BModule")?.regist()
     
     // 通知
     let value = KhalaNotify(str: "kl://doSomething?value=888")?.call()
