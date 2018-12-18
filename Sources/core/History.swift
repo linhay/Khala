@@ -69,7 +69,7 @@ protocol KhalaHistory: NSObjectProtocol {
           str += json
         }
       }catch{
-        Khala.failure("[Khala] params parse fail: \(error.localizedDescription)")
+        str += value.params.description
       }
     }
     
