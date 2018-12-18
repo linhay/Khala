@@ -21,12 +21,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
 #if canImport(AppKit)
+/// NSViewController
 public typealias KhalaViewController = NSViewController
+/// NSView
 public typealias KhalaView = NSView
 #endif
 
 #if canImport(UIKit)
+/// UIViewController
 public typealias KhalaViewController = UIViewController
+/// UIView
 public typealias KhalaView = UIView
 #endif
 

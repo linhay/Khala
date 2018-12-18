@@ -22,7 +22,8 @@
 
 import Foundation
 
-/// 通知类
+/** 通知类 - 可同时调用 `PseudoClass.cache` 中所有匹配的路由函数.
+*/
 @objcMembers
 public class KhalaNotify: NSObject {
   
@@ -54,6 +55,9 @@ public class KhalaNotify: NSObject {
 
 extension KhalaNotify {
   
+  /// 通知l调用
+  ///
+  /// - Returns: 所有路由函数的返回值集合
   @discardableResult
   public func call() -> [Any] {
     guard let method = urlValue.url.host else { return [] }

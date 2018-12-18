@@ -30,11 +30,15 @@ public protocol KhalaRewrite {
   static func separate(_ value: KhalaURLValue) -> KhalaURLValue
 }
 
+/// Rewrite 规则单元
 @objcMembers
 public class RewriteFilter: NSObject {
   
   let closure: (_ value: KhalaURLValue) -> KhalaURLValue
   
+  /// 初始化
+  ///
+  /// - Parameter closure: 规则
   public init(_ closure: @escaping (_ value: KhalaURLValue) -> KhalaURLValue) {
     self.closure = closure
     super.init()

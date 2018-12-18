@@ -22,5 +22,7 @@
 
 import Foundation
 
+/** 本地函数主类 - 可通过扩展该类来简化路由函数调用
+ */
 @objc
 public class KhalaStore: NSObject { }
