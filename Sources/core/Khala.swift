@@ -163,14 +163,13 @@ public extension Khala {
   /// - Returns: 是否注册成功
   @discardableResult
   public func regist() -> Bool {
-    
-    guard let host = value.url.host else {
+    guard let host = urlValue.url.host else {
       let message = "[Khala] url有误:\(urlValue.url)"
       Khala.failure(message)
       return false
     }
     
-    guard let insten = PseudoClass(name: host) else {
+    guard PseudoClass(name: host) != nil else {
       let message = "[Khala] 未匹配到该类:\(host)"
       Khala.failure(message)
       return false
