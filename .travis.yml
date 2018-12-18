@@ -10,7 +10,7 @@ env:
     - LC_ALL=en_US.UTF-8
     - XCODE_WORKSPACE=Khala/Khala.xcworkspace
   matrix:
-    - SCHEME="khala.swift"
+    - SCHEME="khala.iOS"
 
 before_install:
   - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
