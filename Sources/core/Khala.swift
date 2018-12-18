@@ -158,6 +158,27 @@ extension Khala {
 // MARK: - 函数调用
 public extension Khala {
   
+  /// 路由类注册
+  ///
+  /// - Returns: 是否注册成功
+  @discardableResult
+  public func regist() -> Bool {
+    
+    guard let host = value.url.host else {
+      let message = "[Khala] url有误:\(urlValue.url)"
+      Khala.failure(message)
+      return false
+    }
+    
+    guard let insten = PseudoClass(name: host) else {
+      let message = "[Khala] 未匹配到该类:\(host)"
+      Khala.failure(message)
+      return false
+    }
+    
+    return true
+  }
+  
   /// 函数调用
   ///
   /// - Returns: 返回值 or nil
