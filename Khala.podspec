@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
     ss.source_files = 'Sources/extension/*.swift'
     ss.osx.exclude_files = ['Sources/extension/Khala+UIKit.swift']
-    ss.watchos.exclude_files = ['Sources/extension/Khala+AppKit.swift']
+    ss.watchos.exclude_files = ['Sources/extension/Khala+AppKit.swift', 'Sources/extension/Khala+UIKit.swift']
     ss.ios.exclude_files = ['Sources/extension/Khala+AppKit.swift']
     ss.tvos.exclude_files = ['Sources/extension/Khala+AppKit.swift']
   end
