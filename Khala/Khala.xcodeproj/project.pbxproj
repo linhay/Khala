@@ -10,6 +10,7 @@
 		55AC43D9CC2EDE509EF37DBB /* Pods_khala_swift_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D691EE50F2CB78EBDD0BEF4D /* Pods_khala_swift_tests.framework */; };
 		9D81DBD17E9551FE721E7D4D /* Pods_khala_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BECBB315437BF3DC6281983B /* Pods_khala_swift.framework */; };
 		A6C4F780399D4EC3B55E2157 /* Pods_khala_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80C15A207FF6F64E47357CB /* Pods_khala_iOS.framework */; };
+		CD15FA0F21C9E37400CDA15E /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = CD15FA0E21C9E37400CDA15E /* .travis.yml */; };
 		CD3EA8E621ACE08D009BFC06 /* SwiftClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF907E21A7E0D9000A322F /* SwiftClass.swift */; };
 		CDD10AA321A691D800D6DE5A /* data.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDD10AA221A691D800D6DE5A /* data.txt */; };
 		CDD21E6321AE41C60008020F /* Khala.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CDD21E6221AE41C60008020F /* Khala.podspec */; };
@@ -47,6 +48,7 @@
 		B1E2DE5396537E2E553E0858 /* Pods-khala.objc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.objc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.objc/Pods-khala.objc.debug.xcconfig"; sourceTree = "<group>"; };
 		BECBB315437BF3DC6281983B /* Pods_khala_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C86B70342F24B3DB2586AD56 /* Pods-khala.iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOS/Pods-khala.iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		CD15FA0E21C9E37400CDA15E /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
 		CDD10AA221A691D800D6DE5A /* data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
 		CDD21E6221AE41C60008020F /* Khala.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Khala.podspec; path = ../Khala.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CDD21E7F21AFDFBE0008020F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		CDF4058B21A29ABD003758C2 = {
 			isa = PBXGroup;
 			children = (
+				CD15FA0E21C9E37400CDA15E /* .travis.yml */,
 				CDD21E7F21AFDFBE0008020F /* LICENSE */,
 				CDD21E6221AE41C60008020F /* Khala.podspec */,
 				CDF405C021A29B15003758C2 /* khala.swift */,
@@ -316,6 +319,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD15FA0F21C9E37400CDA15E /* .travis.yml in Resources */,
 				CDF405C621A29B15003758C2 /* Assets.xcassets in Resources */,
 				CDF405C921A29B15003758C2 /* Main.storyboard in Resources */,
 				CDD21E6321AE41C60008020F /* Khala.podspec in Resources */,
