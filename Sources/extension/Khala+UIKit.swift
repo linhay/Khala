@@ -20,30 +20,26 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
-import Foundation
+#if canImport(UIKit)
+import UIKit
 
-/// 路由类协议
-@objc
-public protocol KhalaProtocol: NSObjectProtocol { }
-
-
-// MARK: - 辅助函数
+// MARK: - UIKit 快捷函数
 public extension Khala {
   
-  /// 全量注册 KhalaProtocol 路由类
-  public static func registWithKhalaProtocol() {
-    let typeCount = Int(objc_getClassList(nil, 0))
-    let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)
-    let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
-    objc_getClassList(autoreleasingTypes, Int32(typeCount))
-    for index in 0..<typeCount {
-      if class_conformsToProtocol(types[index], KhalaProtocol.self) {
-        let name = String(cString: class_getName(types[index]))
-        _ = PseudoClass(name: name)
-      }
-    }
-    types.deinitialize(count: typeCount)
-    types.deallocate()
+  
+  /// 获取 viewController
+  ///
+  /// - Returns: viewController
+  @objc var viewController: UIViewController? {
+    return call() as? UIViewController
+  }
+  
+  /// 获取 view
+  ///
+  /// - Returns: view
+  @objc var view: UIView? {
+    return call() as? UIView
   }
   
 }
+#endif

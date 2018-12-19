@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.swift_version = '4.2'
 
   s.ios.deployment_target = '8.0'
-  s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'
   s.watchos.deployment_target = '2.0'
@@ -22,8 +21,13 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'extension' do |ss|
-    ss.source_files = 'Sources/extension/*.{swift}'
     ss.dependency 'Khala/core'
+
+    ss.source_files = 'Sources/extension/*.swift'
+    ss.osx.exclude_files = ['Sources/extension/Khala+UIKit.swift']
+    ss.watchos.exclude_files = ['Sources/extension/Khala+AppKit.swift']
+    ss.ios.exclude_files = ['Sources/extension/Khala+AppKit.swift']
+    ss.tvos.exclude_files = ['Sources/extension/Khala+AppKit.swift']
   end
 
   s.dependency 'DarkTemplar', '0.0.3'

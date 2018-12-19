@@ -1,15 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'khala.objc' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-  pod 'Khala', :path => '../'
-  pod 'BLFoundation/Tools'
-  # Pods for khala.objc
-
-end
-
 target 'khala.swift' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
@@ -19,17 +10,17 @@ target 'khala.swift' do
 
 end
 
-target 'khala.iOS' do
-  use_frameworks!
-  pod 'Khala', :path => '../'
-  pod 'AModule', :path => './Compents/AModule/'
-  pod 'BModule', :path => './Compents/BModule/'
-end
+#target 'khala.iOS' do
+#  use_frameworks!
+#  pod 'Khala', :path => '../'
+#  pod 'AModule', :path => './Compents/AModule/'
+#  pod 'BModule', :path => './Compents/BModule/'
+#end
 
-target 'khala.swift.tests' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-  pod 'Khala', :path => '../'
-  
-end
+#target 'khala.swift.tests' do
+#  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+#  use_frameworks!
+#  pod 'Khala', :path => '../'
+#  
+#end
 
