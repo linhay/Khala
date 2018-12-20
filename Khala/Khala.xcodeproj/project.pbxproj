@@ -434,6 +434,7 @@
 				"${BUILT_PRODUCTS_DIR}/Khala-iOS/Khala.framework",
 				"${BUILT_PRODUCTS_DIR}/AModule/AModule.framework",
 				"${BUILT_PRODUCTS_DIR}/BModule/BModule.framework",
+				"${BUILT_PRODUCTS_DIR}/KhalaStore/KhalaStore.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -443,6 +444,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Khala.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AModule.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BModule.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KhalaStore.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

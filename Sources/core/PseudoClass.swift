@@ -23,26 +23,25 @@
 import Foundation
 import DarkTemplar
 
-/// 伪类
+/// Packaging class
 @objcMembers
 public class PseudoClass: NSObject {
   
-  /// 伪类缓存
-  /// 路由类初始化后会被添加至该属性中缓存,以减少查找与实例化这部分性能.你可以使用该属性释放指定或全部路由类.
+  /// Cache pool, When the `PseudoClass` is first initialized, it will be added here with `PseudoClass.methodLists()`
   public static var cache = [String: PseudoClass]()
-  /// 路由实例
+  /// Routing class
   public var instance: NSObject
-  /// 函数列表
+  /// Functions in the routing class
   public lazy var methodLists = getMethods()
   
-  /// 类名
+  /// Routing class name
   let name: String
-  /// 实例类型
+  /// Type of Routing class
   let type: NSObject.Type
   
-  /// 初始化函数
+  /// init
   ///
-  /// - Parameter name: 类名
+  /// - Parameter name: Routing class name
   public init?(name: String) {
     if name.isEmpty { return nil }
     
@@ -68,7 +67,7 @@ public class PseudoClass: NSObject {
     
   }
   
-  /// 获取对象函数列表
+  /// Get the list of object functions
   ///
   /// - Returns: [String: PseudoMethod]
   func getMethods() -> [String: PseudoMethod] {
@@ -89,15 +88,15 @@ public class PseudoClass: NSObject {
   
 }
 
-// MARK: - send
+// MARK: - send message
 extension PseudoClass {
   
-  /// 函数调用
+  /// Function call
   ///
   /// - Parameters:
-  ///   - method: 函数
-  ///   - args: 函数参数
-  /// - Returns: 返回值
+  ///   - method: method
+  ///   - args: args
+  /// - Returns: return value
   @discardableResult
   func send(method: PseudoMethod, args: [Any] = []) -> Any? {
     
@@ -156,10 +155,10 @@ extension PseudoClass {
 // MARK: - find
 extension PseudoClass {
   
-  /// 搜索匹配函数
+  /// Search matching function
   ///
-  /// - Parameter name: 函数名称(不包括参数名)
-  /// - Returns: 返回匹配函数
+  /// - Parameter name: Function name (excluding parameter name)
+  /// - Returns: Return matching function
   func findMethod(name: String) -> [PseudoMethod]? {
     let methods = methodLists.compactMap({ (item) -> PseudoMethod? in
       if let function = item.key.split(separator: ":").first, function == name {
@@ -172,9 +171,9 @@ extension PseudoClass {
     return methods
   }
   
-  /// 搜索当前类与父类
+  /// Search for current class and parent class
   ///
-  /// - Returns: 类列表(不包括NSObject)
+  /// - Returns: Class list (not including NSObject)
   func findSuperClasses() -> [NSObject.Type] {
     var classes = [NSObject.Type]()
     var anyclass: NSObject.Type? = type

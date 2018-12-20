@@ -2,7 +2,7 @@
 
 ![](https://s.linhey.com/khala.png)
 
-[![CI Status](https://img.shields.io/travis/linhay/Khala.svg?style=flat)](https://travis-ci.org/linhay/Khala)
+[![CI Status](https://api.travis-ci.com/linhay/Khala.svg)](https://travis-ci.org/linhay/Khala)
 [![Version](https://img.shields.io/cocoapods/v/Khala.svg?style=flat)](https://cocoapods.org/pods/Khala)
 [![License](https://img.shields.io/cocoapods/l/Khala.svg?style=flat)](https://cocoapods.org/pods/Khala)
 [![Platform](https://img.shields.io/cocoapods/p/Khala.svg?style=flat)](https://cocoapods.org/pods/Khala)
@@ -11,12 +11,6 @@
 Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合的调用服务、页面跳转。
 
 > [**English Introduction**](./readme_en.md)
-
-## 任务列表
-
-- [ ] 完善demo示例.
-- [ ] 日志模块采用*mmap*读写(解决crash部分日志未写入文件).
-- [ ] 英文注释与文档.
 
 ## 要求
 
@@ -412,6 +406,12 @@ pod 'Khala'
     ```
 
     > ps: KhalaStore 扩展文件建议统一放置.
+
+## 任务列表
+
+- [ ] 完善demo示例.
+- [ ] 日志模块采用*mmap*读写(解决crash部分日志未写入文件).
+- [ ] 英文注释与文档.
 
 ## 文档
 

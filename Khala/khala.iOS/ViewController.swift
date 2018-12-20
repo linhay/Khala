@@ -24,9 +24,13 @@ class ViewController: UIViewController {
   }
   
   @IBAction func event2(_ sender: Any) {
+    // AModule 与 BModule 移除缓存实例
+    Khala(str: "kl://AModule")?.unregister()
+    Khala(str: "kl://BModule")?.unregister()
+    
     // AModule 与 BModule 实例化,并缓存
-    Khala(str: "kl://AModule")?.regist()
-    Khala(str: "kl://BModule")?.regist()
+    Khala(str: "kl://AModule")?.register()
+    Khala(str: "kl://BModule")?.register()
     
     // 通知
     let value = KhalaNotify(str: "kl://doSomething")?.call()
@@ -65,7 +69,7 @@ class ViewController: UIViewController {
   
   
   @IBAction func event5(_ sender: Any) {
-    guard let vc = Khala(str: "kl://AModule/vc?style=0")?.viewController else { return }
+    guard let vc = Khala(str: "kl://BModule/vc?style=0")?.viewController else { return }
     self.navigationController?.pushViewController(vc, animated: true)
   }
 }

@@ -22,7 +22,6 @@
 
 import Foundation
 
-/** 本地函数主类 - 可通过扩展该类来简化路由函数调用
- */
+/// This class can be used to store local routing functions
 @objc
 public class KhalaStore: NSObject { }

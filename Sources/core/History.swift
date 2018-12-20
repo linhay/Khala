@@ -23,6 +23,8 @@
 import Foundation
 import Darwin
 
+
+/// When you want to customize the Logs module, you need to inherit the protocol.
 @objc public
 protocol KhalaHistory: NSObjectProtocol {
   func write(_ value: KhalaURLValue)

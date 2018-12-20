@@ -8,14 +8,13 @@
 
 import UIKit
 import Khala
+import KhalaStore
 
 @objc(BModule) @objcMembers
 class BModule: NSObject {
   
   func vc() -> UIViewController {
-    let vc = UIViewController()
-    vc.view.backgroundColor = UIColor.red
-    return vc
+    return BModuleVC()
   }
   
   func doSomething(_ info: [String: Any]) -> String {

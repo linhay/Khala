@@ -15,6 +15,7 @@ target 'khala.iOS' do
   pod 'Khala', :path => '../'
   pod 'AModule', :path => './Compents/AModule/'
   pod 'BModule', :path => './Compents/BModule/'
+  pod 'KhalaStore', :path => './Compents/KhalaStore/'
 end
 
 target 'khala.swift.tests' do

@@ -22,36 +22,35 @@
 
 import Foundation
 
-/// Khala 中指定闭包(block)形式
+/// Use it when your routing function needs to support the closure type.
 public typealias KhalaClosure = @convention(block) (_ useInfo: [String: Any]) -> Void
 
-/// 路由
 @objcMembers
 public class Khala: NSObject {
   
-  /// rewrite实体类
+  /// Rewrite module
   public static var rewrite: KhalaRewrite = Rewrite.shared
-  /// 日志实体类
+  /// Logs module
   public static var history: KhalaHistory = History()
-  
+  /// url and params
   public var urlValue: KhalaURLValue
   
-  /// 初始化函数
+  /// init
   ///
   /// - Parameters:
-  ///   - url: url
-  ///   - params: 需要传递参数
+  ///   - url: URL
+  ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
     urlValue = Rewrite.separate(URLValue(url: url,params: params))
     urlValue = Khala.rewrite.redirect(urlValue)
     super.init()
   }
   
-  /// 初始化函数
+  /// init
   ///
   /// - Parameters:
-  ///   - str: url string 类型
-  ///   - params: 需要传递参数
+  ///   - str: String type URL
+  ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init?(str: String, params: [AnyHashable: Any] = [:]) {
     guard let tempURL = URL(string: str) else { return nil }
     urlValue = Rewrite.separate(URLValue(url: tempURL, params: params))
@@ -61,20 +60,23 @@ public class Khala: NSObject {
   
 }
 
-// MARK: - static
+// MARK: - Static variable switch
 extension Khala {
   
-  /// 是否开启断言, 默认开启
+  /// Whether to enable assertions, the default is enabled
   public static var isEnabledAssert = true
-  /// 是否开启日志, 默认不开启
+  /// Whether to enable the log, the default is not enabled
   public static var isEnabledLog = false
   
-  /// 失败断言
+  /// failure assertion
   ///
   /// - Parameters:
-  ///   - message: 描述
-  ///   - file: 文件
-  ///   - line: 行数
+  ///   - message: A string to print in a playground or `-Onone` build. The
+  ///     default is an empty string.
+  ///   - file: The file name to print with `message`. The default is the file
+  ///     where `assertionFailure(_:file:line:)` is called.
+  ///   - line: The line number to print along with `message`. The default is the
+  ///     line number where `assertionFailure(_:file:line:)` is called.
   static func failure(_ message: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
     if Khala.isEnabledAssert {
       assertionFailure(message,file: file,line: line)
@@ -86,12 +88,12 @@ extension Khala {
 // MARK: - private
 extension Khala {
   
-  /// 查询路由类实例与路由函数
+  /// Find routing class instances and routing functions
   ///
   /// - Parameters:
   ///   - value: `KhalaURLValue`
-  ///   - blockCount: block 数量, 用于精确匹配同名函数
-  /// - Returns: 路由类实例与路由函数 or nil
+  ///   - blockCount: The number of blocks used to exactly match the function of the same name
+  /// - Returns: routing class instances and routing functions or nil
   private func findInstenAndMethod(value: KhalaURLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
     Khala.history.write(value)
     
@@ -134,13 +136,13 @@ extension Khala {
     return (insten: insten,method: method)
   }
   
-  /// 调用路由函数
+  /// Call routing function
   ///
   /// - Parameters:
-  ///   - insten: 伪类实例
-  ///   - method: 函数伪类实例
-  ///   - args: 函数参数
-  /// - Returns: 返回值 or nil
+  ///   - insten: `PseudoClass`
+  ///   - method: `PseudoMethod`
+  ///   - args: args for routing function
+  /// - Returns: return value
   private func perform(insten: PseudoClass, method: PseudoMethod, args: [Any]) -> Any? {
     var args: [Any] = args
     
@@ -155,14 +157,17 @@ extension Khala {
 }
 
 
-// MARK: - 函数调用
+
+// MARK: - Method about regist `PseudoClass.cache`
 public extension Khala {
   
-  /// 路由类注册
+  /// add `PseudoClass` to `PseudoClass.cache`
   ///
-  /// - Returns: 是否注册成功
+  /// You can also use `PseudoClass.cache` to achieve the same effect.
+  ///
+  /// - Returns: whether registration is successful
   @discardableResult
-  public func regist() -> Bool {
+  public func register() -> Bool {
     guard let host = urlValue.url.host else {
       let message = "[Khala] url有误:\(urlValue.url)"
       Khala.failure(message)
@@ -178,34 +183,79 @@ public extension Khala {
     return true
   }
   
-  /// 函数调用
+  /// remove `PseudoClass` from `PseudoClass.cache`
   ///
-  /// - Returns: 返回值 or nil
+  /// You can also use `PseudoClass.cache` to achieve the same effect.
+  ///
+  /// - Returns: Whether to successfully cancel the registration
+  @discardableResult
+  public func unregister() -> Bool {
+    
+    guard let host = urlValue.url.host else {
+      let message = "[Khala] url有误:\(urlValue.url)"
+      Khala.failure(message)
+      return false
+    }
+    
+    PseudoClass.cache[host] = nil
+    return true
+  }
+  
+  /// remove all value with `PseudoClass.cache`
+  ///
+  /// You can also use `PseudoClass.cache` to achieve the same effect.
+  public class func unregisterAll() {
+    PseudoClass.cache.removeAll()
+  }
+  
+}
+
+// MARK: - Method about call routing function
+public extension Khala {
+  
+  /// call routing function
+  ///
+  /// let value = Khala(str: "kl://AModule/doSomething")?.call()
+  ///
+  /// - Returns: Any?
   @discardableResult
   public func call() -> Any? {
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: 0) else { return nil }
     return perform(insten: middle.insten, method: middle.method, args: [])
-    
   }
   
-  /// 函数调用
+  /// call routing function with closure
   ///
-  /// - Parameter block: KhalaClosure 形式block
-  /// - Returns: 返回值 or nil
+  /// let value = Khala(str: "kl://AModule/doSomething")?.call(block: { (item) in
+  ///      item is [String: AnyHashable]
+  /// })
+  ///
+  /// - Parameter block: KhalaClosure
+  /// - Returns: Any?
   @discardableResult
   public func call(block: @escaping KhalaClosure) -> Any? {
+
+
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: 1) else { return nil }
     return perform(insten: middle.insten, method: middle.method, args: [block])
   }
   
-  /// 函数调用
+  /// call routing function with closures
   ///
-  /// - Parameter blocks: KhalaClosure 形式 block 数组
-  /// - Returns: 返回值 or nil
+  /// - Parameter blocks: [KhalaClosure]
+  /// - Returns: Any?
   @discardableResult
   public func call(blocks: [KhalaClosure]) -> Any? {
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: blocks.count) else { return nil }
     return perform(insten: middle.insten, method: middle.method, args: blocks)
   }
   
+  /// call routing function with closures
+  ///
+  /// - Parameter blocks: [KhalaClosure]
+  /// - Returns: Any?
+  public func call(blocks: KhalaClosure...) -> Any? {
+    guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: blocks.count) else { return nil }
+    return perform(insten: middle.insten, method: middle.method, args: blocks)
+  }
 }

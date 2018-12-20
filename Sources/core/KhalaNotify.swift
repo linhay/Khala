@@ -22,28 +22,27 @@
 
 import Foundation
 
-/** 通知类 - 可同时调用 `PseudoClass.cache` 中所有匹配的路由函数.
-*/
+/// You can use this class to notify functions at the `PseudoClass.cache`.
 @objcMembers
 public class KhalaNotify: NSObject {
   
   let urlValue: KhalaURLValue
     
-  /// 初始化函数
+  /// init
   ///
   /// - Parameters:
-  ///   - url: url
-  ///   - params: 需要传递参数
+  ///   - url: URL
+  ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
     urlValue = Rewrite.separate(URLValue(url: url,params: params))
     super.init()
   }
   
-  /// 初始化函数
+  /// init
   ///
   /// - Parameters:
-  ///   - str: url string 类型
-  ///   - params: 需要传递参数
+  ///   - str: String type URL
+  ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init?(str: String, params: [AnyHashable: Any] = [:]) {
     guard let tempURL = URL(string: str) else { return nil }
     urlValue = Rewrite.separate(URLValue(url: tempURL,params: params))
@@ -55,9 +54,9 @@ public class KhalaNotify: NSObject {
 
 extension KhalaNotify {
   
-  /// 通知l调用
+  /// Call notification
   ///
-  /// - Returns: 所有路由函数的返回值集合
+  /// - Returns: Return value array for all routing functions
   @discardableResult
   public func call() -> [Any] {
     guard let method = urlValue.url.host else { return [] }

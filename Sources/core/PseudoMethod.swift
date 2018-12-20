@@ -22,12 +22,12 @@
 
 import Foundation
 
-/// 函数伪类
+/// Packaging method
 public class PseudoMethod: NSObject {
   
-  /// 名称
+  /// Function name
   public let selector: Selector
-  /// 类型编码
+  /// type encoding
   public let typeEncoding: String
   
   let paramsTypes: [ObjectType]

@@ -23,18 +23,18 @@
 #if canImport(AppKit)
 import AppKit
 
-// MARK: - AppKit 快捷函数
+// MARK: - shortcut function for AppKit
 public extension Khala {
   
   
-  /// 获取 viewController
+  /// get viewController
   ///
   /// - Returns: viewController
   @objc var viewController: NSViewController? {
     return call() as? NSViewController
   }
   
-  /// 获取 view
+  /// get view
   ///
   /// - Returns: view
   @objc var view: NSView? {

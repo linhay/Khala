@@ -23,18 +23,18 @@
 #if canImport(UIKit)
 import UIKit
 
-// MARK: - UIKit 快捷函数
+// MARK: - shortcut function for UIKit
 public extension Khala {
   
   
-  /// 获取 viewController
+  /// get viewController
   ///
   /// - Returns: viewController
   @objc var viewController: UIViewController? {
     return call() as? UIViewController
   }
   
-  /// 获取 view
+  /// get view
   ///
   /// - Returns: view
   @objc var view: UIView? {

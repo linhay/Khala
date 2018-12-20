@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-s.name             = 'BModule'
+s.name             = 'KhalaStore'
 s.version          = '0.1.0'
-s.summary          = '测试模块A'
+s.summary          = 'KhalaStore'
 
 s.homepage         = 'https://github.com/linhay/Routable'
 s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -15,6 +15,5 @@ s.source_files = ["Sources/*/**","Sources/*/*/**","Sources/**"]
 s.frameworks = ['UIKit']
 s.requires_arc = true
 s.dependency 'Khala'
-s.dependency 'KhalaStore'
 
 end

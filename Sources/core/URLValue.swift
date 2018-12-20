@@ -22,6 +22,7 @@
 
 import Foundation
 
+/// When you want to customize the URLValue, you need to inherit the protocol.
 @objc
 public protocol KhalaURLValue {
   var url: URL { set get }

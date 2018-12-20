@@ -22,7 +22,7 @@
 
 import Foundation
 
-/// Rewrite 类协议
+/// When you want to customize the Rewrite module, you need to inherit the protocol.
 @objc
 public protocol KhalaRewrite {
   var filters: [RewriteFilter] { get set }
