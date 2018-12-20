@@ -98,19 +98,17 @@ extension Khala {
     Khala.history.write(value)
     
     guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
-      let message = "[Khala] url有误:\(urlValue.url)"
-      Khala.failure(message)
+      Khala.failure("[Khala] There is an error in the url composition:\(urlValue.url)")
       return nil
     }
     
     guard let insten = PseudoClass(name: host) else {
-      let message = "[Khala] 未匹配到该类:\(host)"
-      Khala.failure(message)
+      Khala.failure("[Khala] Did not match this route class:\(host)")
       return nil
     }
     
     guard var methods = insten.findMethod(name: firstPath) else {
-      let message = "[Khala] 未在[\(insten.name)]中匹配到函数[\(firstPath)], 请查看函数列表:\n"
+      let message = "[Khala] If there is no match to the route function [\(firstPath)] in the route class[\(insten.name)], please refer to the list of functions of this class:"
         + insten.methodLists.enumerated()
           .map({ $0.offset.description + ": " + $0.element.key })
           .joined(separator: "\n") + "\n"
@@ -126,7 +124,7 @@ extension Khala {
     
     
     guard methods.count == 1 else {
-      let message = "[Khala] 匹配到多个函数[\(firstPath)]:\n" + methods.map({ $0.selector.description }).joined(separator: "\n") + "\n"
+      let message = "[Khala] We match multiple functions, please modify the function name in the routing class." + methods.map({ $0.selector.description }).joined(separator: "\n") + "\n"
       Khala.failure(message)
       return nil
     }
@@ -169,14 +167,12 @@ public extension Khala {
   @discardableResult
   public func register() -> Bool {
     guard let host = urlValue.url.host else {
-      let message = "[Khala] url有误:\(urlValue.url)"
-      Khala.failure(message)
+      Khala.failure("[Khala] There is an error in the url composition:\(urlValue.url)")
       return false
     }
     
     guard PseudoClass(name: host) != nil else {
-      let message = "[Khala] 未匹配到该类:\(host)"
-      Khala.failure(message)
+      Khala.failure("[Khala] Did not match this route class:\(host)")
       return false
     }
     
@@ -192,8 +188,7 @@ public extension Khala {
   public func unregister() -> Bool {
     
     guard let host = urlValue.url.host else {
-      let message = "[Khala] url有误:\(urlValue.url)"
-      Khala.failure(message)
+      Khala.failure("[Khala] There is an error in the url composition:\(urlValue.url)")
       return false
     }
     
@@ -231,8 +226,8 @@ public extension Khala {
    
    ```
    let value = Khala(str: "kl://AModule/doSomething")?.call(block: { (item) in
-                    item is [String: AnyHashable]
-               })
+   item is [String: AnyHashable]
+   })
    ```
    
    - Parameter block: KhalaClosure
@@ -248,12 +243,12 @@ public extension Khala {
    
    ```
    let value = Khala(str: "kl://AModule/doSomething")?.call(blocks: [{ (item) in
-                    // 1 block
-               }, { (item) in
-                    // 2 block
-               }, { (item) in
-                    // 3 block
-               }])
+   // 1 block
+   }, { (item) in
+   // 2 block
+   }, { (item) in
+   // 3 block
+   }])
    ```
    
    - Parameter blocks: [KhalaClosure]
@@ -265,16 +260,16 @@ public extension Khala {
     return perform(insten: middle.insten, method: middle.method, args: blocks)
   }
   
-   /** call routing function with closure
+  /** call routing function with closure
    
    ```
    let value = Khala(str: "kl://AModule/doSomething")?.call(blocks: { (item) in
-                    // 1 block
-               }, { (item) in
-                    // 2 block
-               }, { (item) in
-                    // 3 block
-               })
+   // 1 block
+   }, { (item) in
+   // 2 block
+   }, { (item) in
+   // 3 block
+   })
    ```
    
    - Parameter blocks: [KhalaClosure]
