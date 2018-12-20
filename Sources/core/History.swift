@@ -27,12 +27,14 @@ import Darwin
 /// When you want to customize the Logs module, you need to inherit the protocol.
 @objc public
 protocol KhalaHistory: NSObjectProtocol {
+   var isEnabled: Bool { set get }
   func write(_ value: KhalaURLValue)
 }
 
 @objcMembers
- class History: NSObject, KhalaHistory {
+class History: NSObject, KhalaHistory {
   
+   var isEnabled: Bool = false
   private let dirPath = NSHomeDirectory() + "/Documents/khala/logs/"
   private let fileManager = FileManager.default
   private lazy var filehandle: FileHandle? = openFile()
@@ -45,7 +47,7 @@ protocol KhalaHistory: NSObjectProtocol {
     }
   }
   
-  private func openFile() -> FileHandle? {
+  private func openFile() -> FileHandle? {    
     let date = Date().description[...String.Index(encodedOffset: 9)]
     let filePath = dirPath + date + ".log"
     if !fileManager.fileExists(atPath: filePath) {
@@ -58,6 +60,7 @@ protocol KhalaHistory: NSObjectProtocol {
   }
   
    func write(_ value: KhalaURLValue) {
+    guard isEnabled else { return }
     var str = "\n"
     str += Date().description[...String.Index(encodedOffset: 18)]
     str += "  "
@@ -78,7 +81,7 @@ protocol KhalaHistory: NSObjectProtocol {
     if let data = str.data(using: String.Encoding.utf8, allowLossyConversion: true) {
       filehandle?.write(data)
     }else{
-      Khala.failure("[Khala] log redirect data fail: \(str)")
+      KhalaFailure.logWrite(message: str)
     }
   }
   

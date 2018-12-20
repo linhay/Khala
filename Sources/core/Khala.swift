@@ -64,23 +64,14 @@ public class Khala: NSObject {
 extension Khala {
   
   /// Whether to enable assertions, the default is enabled
-  public static var isEnabledAssert = true
+  public static var isEnabledAssert: Bool {
+    set{ KhalaFailure.isEnabled = newValue }
+    get{ return KhalaFailure.isEnabled }
+  }
   /// Whether to enable the log, the default is not enabled
-  public static var isEnabledLog = false
-  
-  /// failure assertion
-  ///
-  /// - Parameters:
-  ///   - message: A string to print in a playground or `-Onone` build. The
-  ///     default is an empty string.
-  ///   - file: The file name to print with `message`. The default is the file
-  ///     where `assertionFailure(_:file:line:)` is called.
-  ///   - line: The line number to print along with `message`. The default is the
-  ///     line number where `assertionFailure(_:file:line:)` is called.
-  static func failure(_ message: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
-    if Khala.isEnabledAssert {
-      assertionFailure(message,file: file,line: line)
-    }
+  public static var isEnabledLog: Bool{
+    set{ history.isEnabled = newValue }
+    get{ return history.isEnabled }
   }
   
 }
@@ -98,24 +89,21 @@ extension Khala {
     Khala.history.write(value)
     
     guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
-      Khala.failure("[Khala] There is an error in the url composition:\(urlValue.url)")
+      KhalaFailure.notURL(urlValue.url)
       return nil
     }
     
     guard let insten = PseudoClass(name: host) else {
-      Khala.failure("[Khala] Did not match this route class:\(host)")
+      KhalaFailure.notFoundClass(name: host)
       return nil
     }
     
     guard var methods = insten.findMethod(name: firstPath) else {
-      let message = "[Khala] If there is no match to the route function [\(firstPath)] in the route class[\(insten.name)], please refer to the list of functions of this class:"
-        + insten.methodLists.enumerated()
-          .map({ $0.offset.description + ": " + $0.element.key })
-          .joined(separator: "\n") + "\n"
-      Khala.failure(message)
+      KhalaFailure.notFoundFunc(className: insten.name,
+                                funcName: firstPath,
+                                methods: insten.methodLists.keys.map{ $0 })
       return nil
     }
-    
     
     methods = methods.filter({ (item) -> Bool in
       let count = item.paramsTypes.filter({ $0 == ObjectType.block }).count
@@ -124,8 +112,7 @@ extension Khala {
     
     
     guard methods.count == 1 else {
-      let message = "[Khala] We match multiple functions, please modify the function name in the routing class." + methods.map({ $0.selector.description }).joined(separator: "\n") + "\n"
-      Khala.failure(message)
+      KhalaFailure.multipleFunc(methods: methods)
       return nil
     }
     
@@ -167,12 +154,12 @@ public extension Khala {
   @discardableResult
   public func register() -> Bool {
     guard let host = urlValue.url.host else {
-      Khala.failure("[Khala] There is an error in the url composition:\(urlValue.url)")
+      KhalaFailure.notURL(urlValue.url)
       return false
     }
     
     guard PseudoClass(name: host) != nil else {
-      Khala.failure("[Khala] Did not match this route class:\(host)")
+      KhalaFailure.notFoundClass(name: host)
       return false
     }
     
@@ -188,7 +175,7 @@ public extension Khala {
   public func unregister() -> Bool {
     
     guard let host = urlValue.url.host else {
-      Khala.failure("[Khala] There is an error in the url composition:\(urlValue.url)")
+      KhalaFailure.notURL(urlValue.url)
       return false
     }
     

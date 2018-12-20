@@ -12,6 +12,15 @@ Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合�
 
 > [**English Introduction**](./readme_en.md)
 
+## 特性
+
+- [x] 支持 cocopods 组件化开发.
+- [x] 无需注册URL,采用runtime来实现`target-action`形式调用.
+- [x] 内置URL重定向模块.
+- [x] 内置日志模块.
+- [x] 支持模块自定义.
+- [x] 优先支持swift.
+
 ## 要求
 
 - **iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+**
@@ -24,11 +33,262 @@ Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合�
 pod 'Khala'
 ```
 
-## 使用
+## 定义
+
+> 有部分内容无法准确定义,在此个人擅自定义以下名词.
+
+1. **路由类:**  负责接收路由事件的`NSOBject`类.
+2. **路由函数:** 路由类中 负责接收路由事件的函数.
+
+## 快速使用
+
+1. **URL**
+
+   在Khala中,最原始的URL结构为:
+
+   ```verilog
+   scheme://[route class]/[route function]?key1=value1&key2=value2
+   ```
+
+   > 但是你可以编写重定向规则来实现复杂的URL结构,与权限控制.
+
+2. **首先我们定义2个独立的路由类文件, 并且将其分别封装至2个pod库中.**
+
+   > 该部分内容可以下载示例工程体验.
+
+   - **AModule.swift**
+
+     ```swift
+     import UIKit
+     import Khala
+     
+     @objc(AModule) @objcMembers
+     class AModule: NSObject {
+        
+       func doSomething(_ info: [String: Any]) -> String {
+         return description
+       }
+       
+       func server(_ info: [String: Any]) -> Int {
+         guard let value = info["value"] as? String, let res = Int(value) else {
+             return 0 
+         }
+         return res
+       }
+       
+       func forClosure(_ closure: KhalaClosure) {
+         closure(["value": #function])
+       }
+       
+       func forClosures(_ success: KhalaClosure, failure: KhalaClosure) {
+         success(["success": #function])
+         failure(["failure": #function])
+       }
+     
+     }
+     ```
+
+   - **BModule.swift**
+
+     ```swift
+     import UIKit
+     import Khala
+     
+     @objc(BModule) @objcMembers
+     class BModule: NSObject {
+       
+       func doSomething(_ info: [String: Any]) -> String {
+         return description
+       }
+       
+     }
+     ```
+
+3. **通过URL执行路由函数:** [**Khala**](https://linhay.github.io/Khala/Classes/Khala.html)
+
+   - 普通调用: 
+
+     ```swift
+     // 2. 不保持参数类型,(url中参数类型皆为String)
+     let value = Khala(str: "kl://AModule/server2?value=64")?.call() as? Int
+     print(value ?? "nil")
+     /// Print: 64
+     ```
+
+   - 异步调用:
+
+     ```swift
+     /// 单个block调用
+     Khala(str: "kf://AModule/forClosure")?.call(block: { (item) in
+      	print("forClosure:", item)
+     })
+     /// Print: forClosure: ["value": "forClosure"]
+     // 
+     
+     
+     /// 多个block调用
+     Khala(str: "kf://AModule/forClosures")?.call(blocks: { (item) in
+      	print("forClosures block3:", item)
+     },{ (item) in
+      	print("forClosure block4:", item)
+     })
+     //Print: forClosures block3: ["success": "forClosures(_:failure:)"]
+     //Print: forClosure block4: ["failure": "forClosures(_:failure:)"]
+     
+     /// or
+     Khala(str: "kf://AModule/forClosures")?.call(blocks: [{ (item) in
+      	print("forClosures block1:", item)
+     },{ (item) in
+     	print("forClosure block2:", item)
+     }])
+     
+     //Print: forClosures block1: ["success": "forClosures(_:failure:)"]
+     //Print: forClosure block2: ["failure": "forClosures(_:failure:)"]
+     ```
+
+   - **UIKit/AppKit 扩展调用**:
+
+     ```swift
+     let vc = Khala(str: "kl://BModule/vc?style=0")?.viewController
+     ```
+
+4. **路由通知 **[**KhalaNotify**](https://linhay.github.io/Khala/Classes/KhalaNotify.html)
+
+   可以使用该类型来执行多个已缓存路由类中的同名函数.
+
+   ```swift
+   // 缓存 AModule 与 BModule 路由类.
+   Khala(str: "kl://AModule")?.regist()
+   Khala(str: "kl://BModule")?.regist()
+       
+   // 执行通知
+   let value = KhalaNotify(str: "kl://doSomething?value=888")?.call()
+   print(value ?? "")
+   
+   // Print: [<BModule: 0x60000242f230>, <AModule: 0x600002419d10>]
+   ```
+
+   > 通知只能发送至已被缓存的路由类中. 缓存路径: [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache)
+
+5. **路由注册**
+
+   在 [**Khala**](https://linhay.github.io/Khala/Classes/Khala.html#/c:@CM@Khala@objc(cs)Khala(im)register)中我提供了以下接口来抽象  [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache):
+
+   ```swift
+   /// 注册路由类, 等同于Khala(str: "kl://AModule/doSomething")
+   func register() -> Bool
+   // 取消注册路由类, 等同于 PseudoClass.cache["AModule"] = nil
+   func unregister() -> Bool
+   // 取消全部注册路由类, 等同于 PseudoClass.cache.removeAll()
+   func unregisterAll() -> Bool
+   // 批量注册遵守KhalaProtocol协议的路由类:
+   Khala.registWithKhalaProtocol()
+   ```
+
+   > 作者个人建议, 请尽量避免使用.
+   >
+   > [**KhalaProtocol协议**](https://linhay.github.io/Khala/Protocols.html#/c:@M@Khala@objc(pl)KhalaProtocol)
+
+6. **URL重定向:** [**KhalaRewrite**](https://linhay.github.io/Khala/Protocols/KhalaRewrite.html)
+
+   若开发者需要自定义路由解析规则或重定向路由函数,这部分则尤为重要.
+
+   1. 构造规则:
+
+      ```swift
+      let filter = RewriteFilter {
+       if $0.url.host == "AModule" {
+      	var urlComponents = URLComponents(url: $0.url, resolvingAgainstBaseURL: true)!
+      	urlComponents.host = "BModule"
+      	$0.url = urlComponents.url!
+       }
+      	return $0
+      }
+      ```
+
+   2. 添加至全局规则池
+
+      ```swift
+      Khala.rewrite.filters.append(filter)
+      ```
+
+   3. 请求调用
+
+      ```swift
+      let value = Khala(str: "kl://AModule/doSomething")?.call()
+      print(value ?? "nil")
+      /// Print: <BModule: 0x6000026e2800>
+      ```
+
+7. **日志模块:** [**KhalaHistory**](https://linhay.github.io/Khala/Protocols/KhalaHistory.html)
+
+   每一份url请求都将记录至日志文件中, 可以在适当的时候提供开发者便利.
+
+   1. 开启日志(默认关闭)
+
+      ```swift
+      Khala.isEnabledLog = true
+      // or 
+      Khala.history.isEnabled = true
+      ```
+
+   2. 文件路径: `/Documents/khala/logs/`
+
+   3.  文件内容:  日期 + 时间 + URL + 参数 
+
+      ```verilog
+      2018-12-01 02:06:54  kl://SwiftClass/double?  {"test":"666"}
+      2018-12-01 02:06:54  kl://SwiftClass/double  {"test":"666"}
+      ```
+
+8. **扩展机制:**  [**KhalaStore**](https://linhay.github.io/Khala/Classes.html#/c:@M@Khala@objc(cs)KhalaStore)
+
+   ***khala*** 库中提供了一个空置的类[***KhalaStore***]用于盛放**路由函数**对应的本地函数.来简化本地调用复杂度的问题.
+
+   ```swift
+   extension KhalaStore { 
+    class func aModule_server(value: Int) -> Int {
+       return Khala(str: "kf://AModule/server", params: ["value": value])!.call() as! Int
+     }
+   }
+     
+   @objc(AModule) @objcMembers
+   class AModule: NSObject {
+    func server(_ info: [String: Any]) -> Int {
+       return info["value"] as? Int ?? 0
+     }
+   }
+   
+   let value = KhalaStore.aModule_server(value: 46)
+   ```
+
+   > ps: KhalaStore 扩展文件建议统一放置.
+
+9. **断言机制**
+
+   为方便开发者使用,添加了部分场景下断言机制,示例:
+
+   ```verilog
+   khala.iOS Fatal error: [Khala] 未在[AModule]中匹配到函数[server], 请查看函数列表:
+   0: init
+   1: doSomething:
+   2: vc
+   ```
+
+   关闭断言(默认开启):
+
+   ```swift
+   Khala.isEnabledAssert = false
+   ```
+
+10. **缓存机制:** [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache)
+
+   - 当路由第一次调用/注册路由类时,该路由类将被缓存至 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中, 以提高二次查找性能.
+   - 当路由类实例化时,该路由类中的函数列表将被缓存至 [**PseudoClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.
+
+## 注意事项
 
 1. **路由类**
-
-   **定义:** 负责接收处理url的函数集合类.
 
    **限制:** 
 
@@ -48,6 +308,7 @@ pod 'Khala'
     func server2(_ info: [String: Any]) -> Int { ... }
    }
    
+   // 也行
    @objc(BModule)
    class AModule: NSObject {
     @objc func server1(_ info: [String: Any]) -> Int { ... }
@@ -55,11 +316,7 @@ pod 'Khala'
    }
    ```
 
-   > ps: 若非必要,无需提前注册路由类. 
-
 2. **路由函数**
-
-   **定义:** 负责处理具体的业务场景/功能.
 
    **限制:**
 
@@ -122,290 +379,28 @@ pod 'Khala'
    }
    ```
 
-4. **普通调用**
+## 进阶用法
 
-   适用于非异步场景.
+1. **自定义 重定向模块**
 
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject {
-    func server(_ info: [String: Any]) -> Int {
-      return info["value"] as? Int ?? 0
-    }
-       
-    func server2(_ info: [String: Any]) -> Int {
-      guard let value = info["value"] as? String, let res = Int(value) else { return 0 }
-      return res
-    }
-   }
-   
-   // 1. 保持参数类型
-   let value = Khala(str: "kl://AModule/server", params: ["value": 46])?.call() as? Int
-   print(value ?? "nil")
-   
-   /// Print
-   // 46
-   
-   // 2. 不保持参数类型,(url中参数类型皆为String)
-   let value = Khala(str: "kl://AModule/server2?value=64")?.call() as? Int
-   print(value ?? "nil")
-   
-   /// Print
-   // 64
-   ```
+   1. 继承 `KhalaRewrite` 协议.
 
-5. **带block调用**
+   2. 替换重定向模块
 
-   适用于延时或者异步场景.
+      ```
+      Khala.rewrite = CustomRewrite()
+      ```
 
-   **示例:**
+2. **自定义 日志模块**
 
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject {
-    
-     func forClosure(_ closure: KhalaClosure) {
-       closure(["value": #function])
-     }
-     
-     func forClosures(_ success: KhalaClosure, failure: KhalaClosure) {
-       success(["success": #function])
-       failure(["failure": #function])
-     }
-   
-   }
-   
-   Khala(str: "kf://AModule/forClosure")?.call(block: { (item) in
-   	print("forClosure:", item)
-   })
-       
-   Khala(str: "kf://AModule/forClosures")?.call(blocks: [{ (item) in
-   	print("forClosures block1:", item)
-    },{ (item) in
-   	print("forClosure block2:", item)
-   }])
-   
-   /// Print
-   // forClosure: ["value": "forClosure"]
-   // forClosures block1: ["success": "forClosures(_:failure:)"]
-   // forClosure block2: ["failure": "forClosures(_:failure:)"]
-   ```
+   1. 继承 `KhalaHistory` 协议.
 
-6. **特例调用**
+   2. 替换日志模块
 
-   提供特定类型返回.详情查看: [**快捷函数**](https://linhay.github.io/Khala/Classes/Khala.html#/%E5%BF%AB%E6%8D%B7%E5%87%BD%E6%95%B02)
+      ```swift
+      Khala.history = CustomHistory()
+      ```
 
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject {
-       func vc() -> UIViewController {
-           return UIViewController()
-       }
-   }
-   
-   let value = Khala(str: "kl://AModule/vc?style=0")?.viewController
-   // value is UIViewController
-   ```
-
-7. **通知调用**
-
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject {
-       
-      func vc() -> UIViewController {
-           return UIViewController()
-       }
-       
-      func doSomething(_ info: [String: Any]) {
-       return description
-       }
-       
-   }
-   
-   @objc(BModule) @objcMembers
-   class BModule: NSObject {
-       
-      func vc() -> UIViewController {
-   		return description
-       }
-       
-      func doSomething(_ info: [String: Any]) {
-           print("BModule: ",info["value"])
-       }
-       
-   }
-   
-   // AModule 与 BModule 实例化,并缓存
-   Khala(str: "kl://AModule")?.regist()
-   Khala(str: "kl://BModule")?.regist()
-       
-   // 通知
-   let value = KhalaNotify(str: "kl://doSomething?value=888")?.call()
-   print(value ?? "")
-   
-   // Print
-   // [<BModule: 0x60000242f230>, <AModule: 0x600002419d10>]
-   ```
-
-8. **重定向**
-
-   - **使用**
-
-     1. 构造规则:
-
-     ```swift
-     let filter = RewriteFilter {
-      if $0.url.host == "AModule" {
-     	var urlComponents = URLComponents(url: $0.url, resolvingAgainstBaseURL: true)!
-     	urlComponents.host = "BModule"
-     	$0.url = urlComponents.url!
-      }
-     	return $0
-     }
-     ```
-
-     2. 添加至全局规则池
-
-     ```swift
-     Khala.rewrite.filters.append(filter)
-     ```
-
-     3. 请求调用
-
-     ```swift
-     let value = Khala(str: "kl://AModule/doSomething")?.call()
-     print(value ?? "nil")
-     /// Print
-     // <BModule: 0x6000026e2800>
-     ```
-
-   - **自定义重定向**
-
-     1. 继承 `KhalaRewrite` 协议.
-
-     2. 替换重定向模块
-
-        ```swift
-        Khala.rewrite = CustomRewrite()
-        ```
-
-9. **日志模块**
-
-   日志模块默认为**关闭**状态,如需开启:
-
-   ```swift
-   Khala.isEnabledLog = true
-   ```
-
-   - **使用**(默认版本):
-
-     文件路径: `/Documents/khala/logs/`
-
-     文件内容:  日期 + 时间 + URL + 参数
-
-     ```verilog
-     2018-12-01 02:06:54  kl://SwiftClass/double?  {"test":"666"}
-     2018-12-01 02:06:54  kl://SwiftClass/double  {"test":"666"}
-     ```
-
-   - **自定义日志**
-
-     1. 继承 `KhalaHistory` 协议.
-
-     2. 替换日志模块
-
-        ```swift
-        Khala.history = CustomHistory()
-        ```
-
-10. **提前注册路由类**
-
-   该部分内容适合第三方服务模块,在 AppDelegate 中提前注册路由类.
-
-   ```swift
-   /// 全量注册 KhalaProtocol 路由类需要提前注册的路由类
-   /// 需要遵从`KhalaProtocol`协议, 并在合适的时机调用.
-   Khala.registWithKhalaProtocol()
-   /// 单独注册
-   Khala(str: "kl://AModule")?.regist()
-   ```
-
-   > [`KhalaProtocol`](https://linhay.github.io/Khala/Protocols.html#/c:@M@Khala@objc(pl)KhalaProtocol)协议
-
-   **示例:**
-
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject, KhalaProtocol {
-   	init(){
-   	super.init()
-   	//doSomething
-       }
-   }
-   
-   @objc(BModule) @objcMembers
-   class BModule: NSObject, KhalaProtocol {
-   	init(){
-   	super.init()
-   	//doSomething
-       }
-   }
-   
-   /// 全量注册 KhalaProtocol 路由类需要提前注册的路由类
-   /// 需要遵从`KhalaProtocol`协议, 并在合适的时机调用.
-   Khala.registWithKhalaProtocol()
-   /// 单独注册
-   Khala(str: "kl://AModule")?.regist()
-   Khala(str: "kl://BModule")?.regist()
-   ```
-
-   > ps: 使用时启动更为推荐.
-
-11. **其他**
-
-   - 当url第一次定位至某一个路由类时,该类的实例将被缓存至 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中, 以提高二次查找性能.该属性权限为 `public`,开发者可以选择惬当的时机修改.
-   - 某个路由类实例化时,该类中的函数列表将被缓存至 [**PseudoClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.该属性权限为 `public`,开发者可以选择惬当的时机修改.或移除位于 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中的路由类缓存.
-
-12. **断言机制**
-
-    为方便开发者使用,添加了部分场景下断言机制,示例:
-
-    ```verilog
-    khala.iOS Fatal error: [Khala] 未在[AModule]中匹配到函数[server], 请查看函数列表:
-    0: init
-    1: doSomething:
-    2: vc
-    ```
-
-    **关闭断言**:
-
-    ```swift
-    Khala.isEnabledAssert = false
-    ```
-
-13. **扩展机制**
-
-    ***khala*** 库中提供了一个空置的类[***KhalaStore***]用于盛放**路由函数**对应的本地函数.来简化本地调用复杂度的问题.
-
-    ```swift
-    extension KhalaStore { 
-     class func aModule_server(value: Int) -> Int {
-        return Khala(str: "kf://AModule/server", params: ["value": value])!.call() as! Int
-      }
-    }
-      
-    @objc(AModule) @objcMembers
-    class AModule: NSObject {
-     func server(_ info: [String: Any]) -> Int {
-        return info["value"] as? Int ?? 0
-      }
-    }
-    
-    let value = KhalaStore.aModule_server(value: 46)
-    ```
-
-    > ps: KhalaStore 扩展文件建议统一放置.
 
 ## 任务列表
 

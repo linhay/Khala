@@ -39,7 +39,6 @@ class ViewController: UIViewController {
   
   
   @IBAction func event(_ sender: Any) {
-    
     Khala(str: "kf://AModule/forClosure")?.call(block: { (item) in
       print("forClosure:", item)
     })
@@ -49,6 +48,12 @@ class ViewController: UIViewController {
       },{ (item) in
         print("forClosure block2:", item)
       }])
+    
+    Khala(str: "kf://AModule/forClosures")?.call(blocks: { (item) in
+      print("forClosures block3:", item)
+    },{ (item) in
+      print("forClosure block4:", item)
+    })
     
   }
   
