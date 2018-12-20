@@ -213,47 +213,73 @@ public extension Khala {
 // MARK: - Method about call routing function
 public extension Khala {
   
-  /// call routing function
-  ///
-  /// let value = Khala(str: "kl://AModule/doSomething")?.call()
-  ///
-  /// - Returns: Any?
+  /** call routing function
+   
+   ```
+   let value = Khala(str: "kl://AModule/doSomething")?.call()
+   ```
+   
+   - Returns: Any?
+   */
   @discardableResult
   public func call() -> Any? {
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: 0) else { return nil }
     return perform(insten: middle.insten, method: middle.method, args: [])
   }
   
-  /// call routing function with closure
-  ///
-  /// let value = Khala(str: "kl://AModule/doSomething")?.call(block: { (item) in
-  ///      item is [String: AnyHashable]
-  /// })
-  ///
-  /// - Parameter block: KhalaClosure
-  /// - Returns: Any?
+  /** call routing function with closure
+   
+   ```
+   let value = Khala(str: "kl://AModule/doSomething")?.call(block: { (item) in
+                    item is [String: AnyHashable]
+               })
+   ```
+   
+   - Parameter block: KhalaClosure
+   - Returns: Any?
+   */
   @discardableResult
   public func call(block: @escaping KhalaClosure) -> Any? {
-
-
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: 1) else { return nil }
     return perform(insten: middle.insten, method: middle.method, args: [block])
   }
   
-  /// call routing function with closures
-  ///
-  /// - Parameter blocks: [KhalaClosure]
-  /// - Returns: Any?
+  /** call routing function with closure
+   
+   ```
+   let value = Khala(str: "kl://AModule/doSomething")?.call(blocks: [{ (item) in
+                    // 1 block
+               }, { (item) in
+                    // 2 block
+               }, { (item) in
+                    // 3 block
+               }])
+   ```
+   
+   - Parameter blocks: [KhalaClosure]
+   - Returns: Any?
+   */
   @discardableResult
   public func call(blocks: [KhalaClosure]) -> Any? {
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: blocks.count) else { return nil }
     return perform(insten: middle.insten, method: middle.method, args: blocks)
   }
   
-  /// call routing function with closures
-  ///
-  /// - Parameter blocks: [KhalaClosure]
-  /// - Returns: Any?
+   /** call routing function with closure
+   
+   ```
+   let value = Khala(str: "kl://AModule/doSomething")?.call(blocks: { (item) in
+                    // 1 block
+               }, { (item) in
+                    // 2 block
+               }, { (item) in
+                    // 3 block
+               })
+   ```
+   
+   - Parameter blocks: [KhalaClosure]
+   - Returns: Any?
+   */
   public func call(blocks: KhalaClosure...) -> Any? {
     guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: blocks.count) else { return nil }
     return perform(insten: middle.insten, method: middle.method, args: blocks)

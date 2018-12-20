@@ -27,10 +27,10 @@ import Foundation
 public protocol KhalaProtocol: NSObjectProtocol { }
 
 
-// MARK: - 辅助函数
+// MARK: - extension
 public extension Khala {
   
-  /// 全量注册 KhalaProtocol 路由类
+  /// Unified registration of classes that follow the `KhalaProtocol` protocol.
   public static func registWithKhalaProtocol() {
     let typeCount = Int(objc_getClassList(nil, 0))
     let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)
