@@ -106,7 +106,7 @@ extension PseudoClass {
     inv?.selector = method.selector
     
     if args.count != method.paramsTypes.count - 2 {
-      KhalaFailure.InconsistentNumberInSendMessage()
+      KhalaFailure.inconsistentNumberInSendMessage()
       return nil
     }
     

@@ -24,46 +24,84 @@
 struct KhalaFailure {
   
   static var isEnabled = true
+  static var language = Khala.Language.en
   
   static func logWrite(message: String, file: StaticString = #file, line: UInt = #line) {
-    let value = "[Khala] log write fail: \(message)"
+    var value = ""
+    switch language {
+    case .cn:
+      value += "[Khala] 日志写入失败: \(message)"
+    case .en:
+      value += "[Khala] log write fail: \(message)"
+    }
     failure(value,file:file,line: line)
   }
   
   static func notFoundClass(name: String, file: StaticString = #file, line: UInt = #line) {
-    let value = "[Khala] Did not match this route class:\(name)"
+    var value = ""
+    switch language {
+    case .cn:
+      value += "[Khala] 未匹配到相应路由类:\(name)"
+    case .en:
+      value += "[Khala] Did not match this route class:\(name)"
+    }
     failure(value,file:file,line: line)
   }
   
   static func notFoundFunc(className: String,funcName: String, methods: [String], file: StaticString = #file, line: UInt = #line) {
-    let value = "[Khala] [Khala] If there is no match to the route function [\(funcName)] in the route class[\(className)], please refer to the list of functions of this class:"
-      + methods
-        .enumerated()
-        .map{ $0.offset.description + ": " + $0.element }
-        .joined(separator: "\n") + "\n"
+    var value = methods
+      .enumerated()
+      .map{ $0.offset.description + ": " + $0.element }
+      .joined(separator: "\n") 
+    
+    switch language {
+    case .cn:
+      value = "[Khala] 未在路由类[\(className)]中查询到该路由函数[\(funcName)], 请查阅该类路由函数列表:" + value
+    case .en:
+      value = "[Khala] If there is no match to the route function [\(funcName)] in the route class[\(className)], please refer to the list of functions of this class: " + value
+    }
     failure(value,file:file,line: line)
   }
   
-  static func InconsistentNumberInSendMessage(file: StaticString = #file, line: UInt = #line) {
-    failure("[Khala] Inconsistent number")
+  static func inconsistentNumberInSendMessage(file: StaticString = #file, line: UInt = #line) {
+    var value = ""
+    switch language {
+    case .cn:
+      value += "[Khala] 参数数目错误"
+    case .en:
+      value += "[Khala] Inconsistent number"
+    }
+    failure(value,file:file,line: line)
   }
   
   static func notURL(_ url: URL, file: StaticString = #file, line: UInt = #line) {
-    let value = "[Khala] There is an error in the url composition:\(url)"
+    var value = ""
+    switch language {
+    case .cn:
+      value += "[Khala] URL 错误: \(url)"
+    case .en:
+      value += "[Khala] There is an error in the url composition: \(url)"
+    }
     failure(value,file:file,line: line)
   }
   
   static func multipleFunc(methods: [PseudoMethod], file: StaticString = #file, line: UInt = #line) {
-    let value = "[Khala] We match multiple functions, please modify the function name in the routing class."
-      + methods
-        .map{ $0.selector.description }
-        .joined(separator: "\n") + "\n"
+    var value = methods
+      .map{ $0.selector.description }
+      .joined(separator: "\n")
+    
+    switch language {
+    case .cn:
+      value = "[Khala] 匹配到多个路由函数, 请修改路由类中的h路由函数名称: \n" + value
+    case .en:
+      value = "[Khala] We match multiple functions, please modify the function name in the routing class: \n" + value
+    }
     failure(value,file:file,line: line)
   }
   
   static func failure(_ message: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
     guard isEnabled else { return }
-    assertionFailure(message,file: file,line: line)
+    assertionFailure("\n" + message() + "\n",file: file,line: line)
   }
   
 }

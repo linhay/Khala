@@ -63,6 +63,15 @@ public class Khala: NSObject {
 // MARK: - Static variable switch
 extension Khala {
   
+  /// Language
+  ///
+  /// - en: English
+  /// - cn: Chinese(中文)
+  public enum Language: String {
+    case en
+    case cn
+  }
+  
   /// Whether to enable assertions, the default is enabled
   public static var isEnabledAssert: Bool {
     set{ KhalaFailure.isEnabled = newValue }
@@ -72,6 +81,12 @@ extension Khala {
   public static var isEnabledLog: Bool{
     set{ history.isEnabled = newValue }
     get{ return history.isEnabled }
+  }
+  
+  /// assertions language
+  public static var language: Language{
+    set{ KhalaFailure.language = newValue }
+    get{ return KhalaFailure.language }
   }
   
 }
