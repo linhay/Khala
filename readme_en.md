@@ -1,6 +1,6 @@
 # [Khala](https://github.com/linhay/Khala)
 
-![](https://s.linhey.com/khala.png)
+![](https://s.linhey.com/Khala.png)
 
 [![CI Status](https://api.travis-ci.com/linhay/Khala.svg)](https://travis-ci.org/linhay/Khala)
 [![Version](https://img.shields.io/cocoapods/v/Khala.svg?style=flat)](https://cocoapods.org/pods/Khala)
@@ -10,7 +10,17 @@
 
 Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合的调用服务、页面跳转。
 
-> [**中文介绍**](./README.md)
+> [**中文介绍**](README.md)
+
+## Features
+
+- [x] Support for component development based on cocopods.
+- [x] No need to register the URL, use runtime to implement the `target-action` form call.
+- [x] Built-in URL Rewrite module.
+- [x] Built-in log module.
+- [x] Support module customization.
+- [x] Built-in assertions and can switch languages.
+- [x] Priority support swift.
 
 ## Requirements
 
@@ -20,34 +30,311 @@ Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合�
 
 ## Installation
 
-```ruby
-pod 'Khala'
+### CocoaPods
+
+CocoaPods is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```shell
+$ gem install cocoapods
 ```
 
-## 使用
+> CocoaPods 1.1+ is required.
 
-1. **路由类**
+To integrate Khala into your Xcode project using CocoaPods, specify it in your `Podfile`: 
 
-   **定义:** 负责接收处理url的函数集合类.
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
 
-   **限制:** 
+target '<Your Target Name>' do
+    pod 'Khala'
+end
+```
 
-    1. 路由类必须继承自 `NSObject`
+Then, run the following command:
 
-    2. 需要添加`@objc(class_name) `要防止编译器移除该类.
+```shell
+$ pod install
+```
 
-       > 编译器会在编译时检查swift文件中未被调用的类,并移除.(>= swift 3.0)
+## definition
 
-   **示例:**
+> Some content can not be defined exactly, I took the liberty to define the following terms.
+
+1. **Routing class:**  This class is responsible for receiving routing events..
+2. **Routing function:** The function responsible for receiving routing events in the routing class.
+
+## Usage
+
+1. **URL**
+
+   In Khala, the most primitive URL structure is:
+
+   ```verilog
+   scheme://[route class]/[route function]?key1=value1&key2=value2
+   ```
+
+   > But you can use rewrite module to write custom rules to implement complex URL structures, and access control.
+
+2. **First we define two Routing files, respectively, and packed into two pod library.**
+
+   > This part of the content can be viewed in the sample project
+
+   - **AModule.swift**
+
+     ```swift
+     import UIKit
+     import Khala
+     
+     @objc(AModule) @objcMembers
+     class AModule: NSObject {
+        
+       func doSomething(_ info: [String: Any]) -> String {
+         return description
+       }
+       
+       func server(_ info: [String: Any]) -> Int {
+         guard let value = info["value"] as? String, let res = Int(value) else {
+             return 0 
+         }
+         return res
+       }
+       
+       func forClosure(_ closure: KhalaClosure) {
+         closure(["value": #function])
+       }
+       
+       func forClosures(_ success: KhalaClosure, failure: KhalaClosure) {
+         success(["success": #function])
+         failure(["failure": #function])
+       }
+     
+     }
+     ```
+
+   - **BModule.swift**
+
+     ```swift
+     import UIKit
+     import Khala
+     
+     @objc(BModule) @objcMembers
+     class BModule: NSObject {
+       
+       func doSomething(_ info: [String: Any]) -> String {
+         return description
+       }
+       
+     }
+     ```
+
+3. **Execute the routing function via the URL:** [**Khala**](https://linhay.github.io/Khala/Classes/Khala.html)
+
+   - Ordinary call: 
+
+     ```swift
+     // 2. 不保持参数类型,(url中参数类型皆为String)
+     let value = Khala(str: "kl://AModule/server2?value=64")?.call() as? Int
+     print(value ?? "nil")
+     /// Print: 64
+     ```
+
+   - Async call:
+
+     ```swift
+     /// 单个block调用
+     Khala(str: "kf://AModule/forClosure")?.call(block: { (item) in
+      	print("forClosure:", item)
+     })
+     /// Print: forClosure: ["value": "forClosure"]
+     // 
+     
+     
+     /// 多个block调用
+     Khala(str: "kf://AModule/forClosures")?.call(blocks: { (item) in
+      	print("forClosures block3:", item)
+     },{ (item) in
+      	print("forClosure block4:", item)
+     })
+     //Print: forClosures block3: ["success": "forClosures(_:failure:)"]
+     //Print: forClosure block4: ["failure": "forClosures(_:failure:)"]
+     
+     /// or
+     Khala(str: "kf://AModule/forClosures")?.call(blocks: [{ (item) in
+      	print("forClosures block1:", item)
+     },{ (item) in
+     	print("forClosure block2:", item)
+     }])
+     
+     //Print: forClosures block1: ["success": "forClosures(_:failure:)"]
+     //Print: forClosure block2: ["failure": "forClosures(_:failure:)"]
+     ```
+
+   - **UIKit/AppKit Extension**:
+
+     ```swift
+     let vc = Khala(str: "kl://BModule/vc?style=0")?.viewController
+     ```
+
+4. **Routing notification **[**KhalaNotify**](https://linhay.github.io/Khala/Classes/KhalaNotify.html)
+
+   This type can be used to execute functions of the same name in multiple cached routing classes.
 
    ```swift
-   // 推荐
+   // Cache AModule and BModule routing classes.
+   Khala(str: "kl://AModule")?.regist()
+   Khala(str: "kl://BModule")?.regist()
+       
+   // Executive notice
+   let value = KhalaNotify(str: "kl://doSomething?value=888")?.call()
+   print(value ?? "")
+   
+   // Print: [<BModule: 0x60000242f230>, <AModule: 0x600002419d10>]
+   ```
+
+   > Notifications can only be sent to routing classes that have been cached. Cache location:[**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache)
+
+5. **Registered route**
+
+   In  [**Khala**](https://linhay.github.io/Khala/Classes/Khala.html#/c:@CM@Khala@objc(cs)Khala(im)register) I provided the following interface to abstract  [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache):
+
+   ```swift
+   // Register route class, Equivalent to Khala(str: "kl://AModule/doSomething")
+   func register() -> Bool
+   // Unregister routing class, Equivalent to PseudoClass.cache["AModule"] = nil
+   func unregister() -> Bool
+   // Cancel all registered routing classes, Equivalent to PseudoClass.cache.removeAll()
+   func unregisterAll() -> Bool
+   // Batch registration of routing classes that comply with the KhalaProtocol protocol
+   Khala.registWithKhalaProtocol()
+   ```
+
+   > Personal advice, please try to avoid using.
+   >
+   > [**KhalaProtocol**](https://linhay.github.io/Khala/Protocols.html#/c:@M@Khala@objc(pl)KhalaProtocol)
+
+6. **Rewrite Module:** [**KhalaRewrite**](https://linhay.github.io/Khala/Protocols/KhalaRewrite.html)
+
+   This part is especially important if the developer needs a custom route resolution rule or a redirect route function.
+
+   1. Write the rules:
+
+      ```swift
+      let filter = RewriteFilter {
+       if $0.url.host == "AModule" {
+      	var urlComponents = URLComponents(url: $0.url, resolvingAgainstBaseURL: true)!
+      	urlComponents.host = "BModule"
+      	$0.url = urlComponents.url!
+       }
+      	return $0
+      }
+      ```
+
+   2. Add rules:
+
+      ```swift
+      Khala.rewrite.filters.append(filter)
+      ```
+
+   3. Request call:
+
+      ```swift
+      let value = Khala(str: "kl://AModule/doSomething")?.call()
+      print(value ?? "nil")
+      /// Print: <BModule: 0x6000026e2800>
+      ```
+
+7. **Log module:** [**KhalaHistory**](https://linhay.github.io/Khala/Protocols/KhalaHistory.html)
+
+   Each url request will be logged to the log file and sent to the developer at the appropriate time.
+
+   1. Open log (default false)
+
+      ```swift
+      Khala.isEnabledLog = true
+      // or 
+      Khala.history.isEnabled = true
+      ```
+
+   2. Log file path: `/Documents/khala/logs/`
+
+   3. File contents: Date + Time + URL + Parameters
+
+      ```verilog
+      2018-12-01 02:06:54  kl://SwiftClass/double?  {"test":"666"}
+      2018-12-01 02:06:54  kl://SwiftClass/double  {"test":"666"}
+      ```
+
+8. **Extension mechanism:**  [**KhalaStore**](https://linhay.github.io/Khala/Classes.html#/c:@M@Khala@objc(cs)KhalaStore)
+
+   In ***khala***, a vacant class ***KhalaStore*** is proposed, which can be used to place the mapping function of the routing function, thus simplifying the local call complexity.
+
+   ```swift
+   extension KhalaStore { 
+    class func aModule_server(value: Int) -> Int {
+       return Khala(str: "kf://AModule/server", params: ["value": value])!.call() as! Int
+     }
+   }
+     
+   @objc(AModule) @objcMembers
+   class AModule: NSObject {
+    func server(_ info: [String: Any]) -> Int {
+       return info["value"] as? Int ?? 0
+     }
+   }
+   
+   let value = KhalaStore.aModule_server(value: 46)
+   ```
+
+   > ps: KhalaStore Extension files are recommended to be placed in the same cocoapod library.
+
+9. **Assertion mechanism**
+
+   For the convenience of developers, the assertion mechanism in some scenarios has been added, examples:
+
+   ```verilog
+   khala.iOS Fatal error: 
+   [Khala] If there is no match to the route function [server] in the route class[AModule], please refer to the list of functions of this class: 
+   0: init
+   1: doSomething:
+   2: vc
+   ```
+
+   Turn off assertions (default true):
+
+   ```swift
+   Khala.isEnabledAssert = false
+   ```
+
+10. **Cache mechanism:** [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache)
+
+  - When the route first calls the registration route class, the route class will be cached in ***PseudoClass.cache*** to improve the secondary lookup performance.
+  - When the route class is instantiated, the list of functions in the route class will be cached in ***PseudoClass().methodLists*** to improve lookup performance.
+
+## Precautions
+
+1. **Routing class**
+
+   **limit:**
+
+    1. The routing class must inherit from `NSObject`
+
+    2. Need to add `@objc(class_name) ` to prevent the compiler from removing the class.
+
+       > The compiler will check for classes that are not called in the swift file at compile time and remove them. (>= swift 3.0)
+
+   **Example:**
+
+   ```swift
+   // recommend
    @objc(AModule) @objcMembers
    class AModule: NSObject {
     func server1(_ info: [String: Any]) -> Int { ... }
     func server2(_ info: [String: Any]) -> Int { ... }
    }
    
+   // or
    @objc(BModule)
    class AModule: NSObject {
     @objc func server1(_ info: [String: Any]) -> Int { ... }
@@ -55,15 +342,11 @@ pod 'Khala'
    }
    ```
 
-   > ps: 若非必要,无需提前注册路由类. 
+2. **Routing function**
 
-2. **路由函数**
+   **limit:**
 
-   **定义:** 负责处理具体的业务场景/功能.
-
-   **限制:**
-
-    1. **不支持**函数重载.例如:
+    1. **Function overloading is not supported.** For example:
 
        ```swift
        @objc(AModule) @objcMembers
@@ -73,21 +356,21 @@ pod 'Khala'
        }
        ```
 
-       > 缘由: khala 缓存了路由类中的函数列表, 键名为第一个`:`前的字符串.
+       > Reason: When khala adopts the cache routing function, the function name mapping is adopted.
 
-   	2. **推荐**第一个参数采用匿名参数,方便阅读.
+       2. Recommended routing function of the first parameter is anonymous and easy to read.
 
-   	3. 参数格式**只支持**
+       3. Parameter format
 
-       - 单个: `[AnyHashable: Any]`, 无顺序要求:
+       - Single: `[AnyHashable: Any]`, no order requirements
 
-       - 多个: `KhalaClosure`, 有顺序要求:
+       - Multiple: `KhalaClosure`, with order requirements
 
          ```swift
          typealias KhalaClosure = @convention(block) (_ useInfo: [String: Any]) -> Void
          ```
 
-       **示例:**
+       **Example:**
 
        ```swift
        @objc(AModule) @objcMembers
@@ -103,17 +386,17 @@ pod 'Khala'
        }
        ```
 
-       > 缘由:
+       > reason:
        >
-       >  `block` 为结构体类型,无法抽象出基类或者协议.
+       >   `block` is a structure type, and it is impossible to abstract the base class or protocol.
        >
-       > `[String: Any]` 会适当的插入 `[KhalaClosure]`中组成参数列表.
+       > `[String: Any]` will insert the parameter list in `[KhalaClosure]`.
        >
-       > ps: 调用方 `KhalaClosure` 数目需要比路由函数多或者持平.否则会触发断言.
+       > Ps: The number of callers `KhalaClosure` needs to be more or flatter than the routing function. Otherwise the assertion will be triggered.
 
-3. ***Khala*** 初始化函数
+3. ***Khala*** Initialization function
 
-   - `params`中的参数会保持传入的类型,例如传递 `UIImage`等对象.
+   - The parameters in `params` will be kept in the type passed, such as the need to pass objects such as `UIImage`.
 
    ```swift
    public class Khala: NSObject {
@@ -122,308 +405,47 @@ pod 'Khala'
    }
    ```
 
-4. **普通调用**
+## Advanced usage
 
-   适用于非异步场景.
+1. **Custom Rewrite module**
 
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject {
-    func server(_ info: [String: Any]) -> Int {
-      return info["value"] as? Int ?? 0
-    }
-       
-    func server2(_ info: [String: Any]) -> Int {
-      guard let value = info["value"] as? String, let res = Int(value) else { return 0 }
-      return res
-    }
-   }
-   
-   // 1. 保持参数类型
-   let value = Khala(str: "kl://AModule/server", params: ["value": 46])?.call() as? Int
-   print(value ?? "nil")
-   
-   /// Print
-   // 46
-   
-   // 2. 不保持参数类型,(url中参数类型皆为String)
-   let value = Khala(str: "kl://AModule/server2?value=64")?.call() as? Int
-   print(value ?? "nil")
-   
-   /// Print
-   // 64
-   ```
+   1. Inherit the `KhalaRewrite` protocol.
 
-5. **带block调用**
+   2. Replace Rewrite module
 
-   适用于延时或者异步场景.
+      ```
+      Khala.rewrite = CustomRewrite()
+      ```
 
-   **示例:**
+2. **Custom log module**
 
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject {
-    
-     func forClosure(_ closure: KhalaClosure) {
-       closure(["value": #function])
-     }
-     
-     func forClosures(_ success: KhalaClosure, failure: KhalaClosure) {
-       success(["success": #function])
-       failure(["failure": #function])
-     }
-   
-   }
-   
-   Khala(str: "kf://AModule/forClosure")?.call(block: { (item) in
-   	print("forClosure:", item)
-   })
-       
-   Khala(str: "kf://AModule/forClosures")?.call(blocks: [{ (item) in
-   	print("forClosures block1:", item)
-    },{ (item) in
-   	print("forClosure block2:", item)
-   }])
-   
-   /// Print
-   // forClosure: ["value": "forClosure"]
-   // forClosures block1: ["success": "forClosures(_:failure:)"]
-   // forClosure block2: ["failure": "forClosures(_:failure:)"]
-   ```
+   1. Inherit the `KhalaHistory` protocol.
 
-6. **特例调用**
+   2. Replace log module
 
-   提供特定类型返回.详情查看: [**快捷函数**](https://linhay.github.io/Khala/Classes/Khala.html#/%E5%BF%AB%E6%8D%B7%E5%87%BD%E6%95%B02)
+      ```swift
+      Khala.history = CustomHistory()
+      ```
 
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject {
-       func vc() -> UIViewController {
-           return UIViewController()
-       }
-   }
-   
-   let value = Khala(str: "kl://AModule/vc?style=0")?.viewController
-   // value is UIViewController
-   ```
 
-7. **通知调用**
+## TODO
 
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject {
-       
-      func vc() -> UIViewController {
-           return UIViewController()
-       }
-       
-      func doSomething(_ info: [String: Any]) {
-       return description
-       }
-       
-   }
-   
-   @objc(BModule) @objcMembers
-   class BModule: NSObject {
-       
-      func vc() -> UIViewController {
-   		return description
-       }
-       
-      func doSomething(_ info: [String: Any]) {
-           print("BModule: ",info["value"])
-       }
-       
-   }
-   
-   // AModule 与 BModule 实例化,并缓存
-   Khala(str: "kl://AModule")?.regist()
-   Khala(str: "kl://BModule")?.regist()
-       
-   // 通知
-   let value = KhalaNotify(str: "kl://doSomething?value=888")?.call()
-   print(value ?? "")
-   
-   // Print
-   // [<BModule: 0x60000242f230>, <AModule: 0x600002419d10>]
-   ```
+- [ ] Improve Objective-C calls
+- [ ] Perfect demo example.
+- [ ] The log module reads and writes with *mmap*(Some files are not written to the file when the program crashes).
+- [ ] Improve English notes and documentation.
 
-8. **重定向**
+## Documents
 
-   - **使用**
+- [**API Reference**](https://linhay.github.io/Khala/) - please remember to read the full whenever you may need a more detailed reference.
 
-     1. 构造规则:
+## Reference and thanks
 
-     ```swift
-     let filter = RewriteFilter {
-      if $0.url.host == "AModule" {
-     	var urlComponents = URLComponents(url: $0.url, resolvingAgainstBaseURL: true)!
-     	urlComponents.host = "BModule"
-     	$0.url = urlComponents.url!
-      }
-     	return $0
-     }
-     ```
+- [**CTMediator**](https://github.com/casatwy/CTMediator): A routing framework created by [***Casa***](https://github.com/casatwy).
+- [**Routable**](https://github.com/linhay/Routable): The predecessor of [**khala**](https://github.com/linhay/Khala), officially put into production environment iteration for 2 years.
+- [**Starcraft **](https://sc2.blizzard.cn/home)
 
-     2. 添加至全局规则池
-
-     ```swift
-     Khala.rewrite.filters.append(filter)
-     ```
-
-     3. 请求调用
-
-     ```swift
-     let value = Khala(str: "kl://AModule/doSomething")?.call()
-     print(value ?? "nil")
-     /// Print
-     // <BModule: 0x6000026e2800>
-     ```
-
-   - **自定义重定向**
-
-     1. 继承 `KhalaRewrite` 协议.
-
-     2. 替换重定向模块
-
-        ```swift
-        Khala.rewrite = CustomRewrite()
-        ```
-
-9. **日志模块**
-
-   日志模块默认为**关闭**状态,如需开启:
-
-   ```swift
-   Khala.isEnabledLog = true
-   ```
-
-   - **使用**(默认版本):
-
-     文件路径: `/Documents/khala/logs/`
-
-     文件内容:  日期 + 时间 + URL + 参数
-
-     ```verilog
-     2018-12-01 02:06:54  kl://SwiftClass/double?  {"test":"666"}
-     2018-12-01 02:06:54  kl://SwiftClass/double  {"test":"666"}
-     ```
-
-   - **自定义日志**
-
-     1. 继承 `KhalaHistory` 协议.
-
-     2. 替换日志模块
-
-        ```swift
-        Khala.history = CustomHistory()
-        ```
-
-10. **提前注册路由类**
-
-   该部分内容适合第三方服务模块,在 AppDelegate 中提前注册路由类.
-
-   ```swift
-   /// 全量注册 KhalaProtocol 路由类需要提前注册的路由类
-   /// 需要遵从`KhalaProtocol`协议, 并在合适的时机调用.
-   Khala.registWithKhalaProtocol()
-   /// 单独注册
-   Khala(str: "kl://AModule")?.regist()
-   ```
-
-   > [`KhalaProtocol`](https://linhay.github.io/Khala/Protocols.html#/c:@M@Khala@objc(pl)KhalaProtocol)协议
-
-   **示例:**
-
-   ```swift
-   @objc(AModule) @objcMembers
-   class AModule: NSObject, KhalaProtocol {
-   	init(){
-   	super.init()
-   	//doSomething
-       }
-   }
-   
-   @objc(BModule) @objcMembers
-   class BModule: NSObject, KhalaProtocol {
-   	init(){
-   	super.init()
-   	//doSomething
-       }
-   }
-   
-   /// 全量注册 KhalaProtocol 路由类需要提前注册的路由类
-   /// 需要遵从`KhalaProtocol`协议, 并在合适的时机调用.
-   Khala.registWithKhalaProtocol()
-   /// 单独注册
-   Khala(str: "kl://AModule")?.regist()
-   Khala(str: "kl://BModule")?.regist()
-   ```
-
-   > ps: 使用时启动更为推荐.
-
-11. **其他**
-
-   - 当url第一次定位至某一个路由类时,该类的实例将被缓存至 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中, 以提高二次查找性能.该属性权限为 `public`,开发者可以选择惬当的时机修改.
-   - 某个路由类实例化时,该类中的函数列表将被缓存至 [**PseudoClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.该属性权限为 `public`,开发者可以选择惬当的时机修改.或移除位于 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中的路由类缓存.
-
-12. **断言机制**
-
-    为方便开发者使用,添加了部分场景下断言机制,示例:
-
-    ```verilog
-    khala.iOS Fatal error: [Khala] 未在[AModule]中匹配到函数[server], 请查看函数列表:
-    0: init
-    1: doSomething:
-    2: vc
-    ```
-
-    **关闭断言**:
-
-    ```swift
-    Khala.isEnabledAssert = false
-    ```
-
-13. **扩展机制**
-
-    ***khala*** 库中提供了一个空置的类[***KhalaStore***]用于盛放**路由函数**对应的本地函数.来简化本地调用复杂度的问题.
-
-    ```swift
-    extension KhalaStore { 
-     class func aModule_server(value: Int) -> Int {
-        return Khala(str: "kf://AModule/server", params: ["value": value])!.call() as! Int
-      }
-    }
-      
-    @objc(AModule) @objcMembers
-    class AModule: NSObject {
-     func server(_ info: [String: Any]) -> Int {
-        return info["value"] as? Int ?? 0
-      }
-    }
-    
-    let value = KhalaStore.aModule_server(value: 46)
-    ```
-
-    > ps: KhalaStore 扩展文件建议统一放置.
-
-## 任务列表
-
-- [ ] 完善demo示例.
-- [ ] 日志模块采用*mmap*读写(解决crash部分日志未写入文件).
-- [ ] 英文注释与文档.
-
-## Learn More
-
-- [**API Reference**](https://linhay.github.io/Khala/) - 更详细的参考api文档.
-- [**iOS路由(Khala)设计**](https://www.linhey.com/2018/12/10/[2018%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93]iOS%20%E8%B7%AF%E7%94%B1%E8%AE%BE%E8%AE%A1/) - khala的选型与模组化中的角色担当.
-
-## 参考与致谢
-
-- [**CTMediator**](https://github.com/casatwy/CTMediator): 由 [***Casa***](https://github.com/casatwy) 创建的 `Target-Action` 形式解耦路由.
-- [**Routable**](https://github.com/linhay/Routable): *khala*的前身, 正式投入生产环境迭代2年.
-
-## 作者
+## Author
 
 linhay, is.linhay@outlook.com
 

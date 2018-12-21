@@ -1,6 +1,6 @@
 # [Khala](https://github.com/linhay/Khala)
 
-![](https://s.linhey.com/khala.png)
+![](https://s.linhey.com/Khala.png)
 
 [![CI Status](https://api.travis-ci.com/linhay/Khala.svg)](https://travis-ci.org/linhay/Khala)
 [![Version](https://img.shields.io/cocoapods/v/Khala.svg?style=flat)](https://cocoapods.org/pods/Khala)
@@ -10,7 +10,7 @@
 
 Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合的调用服务、页面跳转。
 
-> [**English Introduction**](./readme_en.md)
+> [**English Introduction**](./readme_en.md)README
 
 ## 特性
 
@@ -19,6 +19,7 @@ Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合�
 - [x] 内置URL重定向模块.
 - [x] 内置日志模块.
 - [x] 支持模块自定义.
+- [x] 内置断言,可切换语言.
 - [x] 优先支持swift.
 
 ## 要求
@@ -404,6 +405,7 @@ pod 'Khala'
 
 ## 任务列表
 
+- [ ] 完善 Objective-C 调用
 - [ ] 完善demo示例.
 - [ ] 日志模块采用*mmap*读写(解决crash部分日志未写入文件).
 - [ ] 英文注释与文档.
@@ -416,7 +418,8 @@ pod 'Khala'
 ## 参考与致谢
 
 - [**CTMediator**](https://github.com/casatwy/CTMediator): 由 [***Casa***](https://github.com/casatwy) 创建的 `Target-Action` 形式解耦路由.
-- [**Routable**](https://github.com/linhay/Routable): *khala*的前身, 正式投入生产环境迭代2年.
+- [**Routable**](https://github.com/linhay/Routable): [**khala**](https://github.com/linhay/Khala) 的前身, 正式投入生产环境迭代2年.
+- [**星际争霸**](https://sc2.blizzard.cn/home): [**khala**](https://github.com/linhay/Khala) 名称源自[**星际争霸**](https://sc2.blizzard.cn/home)背景设定中达拉姆星灵的主要宗教，它基于一种由信徒之间的灵能链接而形成的哲学。 
 
 ## 作者
 

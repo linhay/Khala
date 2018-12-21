@@ -92,7 +92,7 @@ struct KhalaFailure {
     
     switch language {
     case .cn:
-      value = "[Khala] 匹配到多个路由函数, 请修改路由类中的h路由函数名称: \n" + value
+      value = "[Khala] 匹配到多个路由函数, 请修改路由类中的路由函数名称: \n" + value
     case .en:
       value = "[Khala] We match multiple functions, please modify the function name in the routing class: \n" + value
     }
