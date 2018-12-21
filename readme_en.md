@@ -1,6 +1,6 @@
 # [Khala](https://github.com/linhay/Khala)
 
-![](https://s.linhey.com/Khala.png)
+![](https://s.linhey.com/khala.png)
 
 [![CI Status](https://api.travis-ci.com/linhay/Khala.svg)](https://travis-ci.org/linhay/Khala)
 [![Version](https://img.shields.io/cocoapods/v/Khala.svg?style=flat)](https://cocoapods.org/pods/Khala)
@@ -8,7 +8,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/Khala.svg?style=flat)](https://cocoapods.org/pods/Khala)
 
 
-Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合的调用服务、页面跳转。
+Simple and powerful URL router in the form of `target-action`.
 
 > [**中文介绍**](README.md)
 
@@ -443,7 +443,7 @@ $ pod install
 
 - [**CTMediator**](https://github.com/casatwy/CTMediator): A routing framework created by [***Casa***](https://github.com/casatwy).
 - [**Routable**](https://github.com/linhay/Routable): The predecessor of [**khala**](https://github.com/linhay/Khala), officially put into production environment iteration for 2 years.
-- [**Starcraft **](https://sc2.blizzard.cn/home)
+- [**Starcraft**](https://sc2.blizzard.cn/home)
 
 ## Author
 

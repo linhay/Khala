@@ -10,7 +10,7 @@
 
 Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合的调用服务、页面跳转。
 
-> [**English Introduction**](./readme_en.md)README
+> [**English Introduction**](./readme_en.md)
 
 ## 特性
 
