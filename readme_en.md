@@ -1,6 +1,6 @@
 # [Khala](https://github.com/linhay/Khala)
 
-![](https://s.linhey.com/khala.png)
+![](https://s.linhey.com/Khala-logo.png)
 
 [![CI Status](https://api.travis-ci.com/linhay/Khala.svg)](https://travis-ci.org/linhay/Khala)
 [![Version](https://img.shields.io/cocoapods/v/Khala.svg?style=flat)](https://cocoapods.org/pods/Khala)
