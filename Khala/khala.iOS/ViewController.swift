@@ -12,8 +12,10 @@ import Khala
 class ViewController: UIViewController {
   
   @IBAction func event1(_ sender: UIButton) {
+    
     autoreleasepool {
-      let value = Khala(str: "kl://AModule/server", params: ["value": 46])?.call() as? Int
+      let query = ["value" : 46, "style" : 1, "marketIid": "model.marketIid"] as [String : Any]
+      let value = Khala(str: "kl://AModule/server", params: query)?.call() as? Int
       print(value ?? "nil")
     }
     
