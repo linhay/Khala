@@ -111,10 +111,8 @@ extension PseudoClass {
     }
     
     method.paramsTypes.dropFirst(2).enumerated().forEach { (item) in
-      var value = args[item.offset]
-      let offset = item.offset + 2
-      if let v = value as? String{ value = NSString(string: v) }
-      inv?.setArgument(&value, at: offset)
+      let value = args[item.offset]
+      inv?.setArgument(value, expectedTypeEncoding: item.element.rawValue, at: item.offset + 2)
     }
     
     inv?.invoke()
@@ -124,10 +122,13 @@ extension PseudoClass {
       // 目前无法解决不同类型闭包问题
       return nil
     case .object:
-      let value = inv?.getReturnValue()
-      return value
+      return inv?.getReturnObject()
     case .longlong,.point,.int:
       var value: Int = 0
+      inv?.getReturnValue(&value)
+      return value
+    case .float:
+      var value: Float = 0.0
       inv?.getReturnValue(&value)
       return value
     case .double:
