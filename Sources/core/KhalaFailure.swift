@@ -58,7 +58,7 @@ struct KhalaFailure {
     case .cn:
       value = "[Khala] 未在路由类[\(className)]中查询到该路由函数[\(funcName)], 请查阅该类路由函数列表:" + value
     case .en:
-      value = "[Khala] If there is no match to the route function [\(funcName)] in the route class[\(className)], please refer to the list of functions of this class: " + value
+      value = "[Khala] If there is no match to the route function [\(funcName)] in the route class[\(className)], please refer to the list of functions of this class: \n" + value
     }
     failure(value,file:file,line: line)
   }

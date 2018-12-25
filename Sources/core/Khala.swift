@@ -125,14 +125,17 @@ extension Khala {
       return blockCount >= count
     })
     
+    guard !methods.isEmpty else {
+      KhalaFailure.notFoundFunc(className: host, funcName: firstPath, methods: insten.methodLists.map{ $0.key })
+      return nil
+    }
     
-    guard methods.count == 1 else {
+    guard methods.count >= 1 else {
       KhalaFailure.multipleFunc(methods: methods)
       return nil
     }
     
     guard let method = methods.first else { return nil }
-    
     return (insten: insten,method: method)
   }
   
