@@ -30,6 +30,6 @@ Pod::Spec.new do |s|
     ss.tvos.exclude_files = ['Sources/extension/Khala+AppKit.swift']
   end
 
-  s.dependency 'DarkTemplar', '0.0.4'
+  s.dependency 'DarkTemplar', '0.0.5'
   s.requires_arc = true
 end
