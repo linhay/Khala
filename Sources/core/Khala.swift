@@ -100,7 +100,7 @@ extension Khala {
   ///   - value: `KhalaURLValue`
   ///   - blockCount: The number of blocks used to exactly match the function of the same name
   /// - Returns: routing class instances and routing functions or nil
-  private func findInstenAndMethod(value: KhalaURLValue, blockCount: Int) -> (insten: PseudoClass,method: PseudoMethod)? {
+  private func findInstenAndMethod(value: KhalaURLValue) -> (insten: PseudoClass,method: PseudoMethod)? {
     Khala.history.write(value)
     
     guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
@@ -113,17 +113,12 @@ extension Khala {
       return nil
     }
     
-    guard var methods = insten.findMethod(name: firstPath) else {
+    guard let methods = insten.findMethod(name: firstPath) else {
       KhalaFailure.notFoundFunc(className: insten.name,
                                 funcName: firstPath,
                                 methods: insten.methodLists.keys.map{ $0 })
       return nil
     }
-    
-    methods = methods.filter({ (item) -> Bool in
-      let count = item.paramsTypes.filter({ $0 == ObjectType.block }).count
-      return blockCount >= count
-    })
     
     guard !methods.isEmpty else {
       KhalaFailure.notFoundFunc(className: host, funcName: firstPath, methods: insten.methodLists.map{ $0.key })
@@ -223,8 +218,12 @@ public extension Khala {
    */
   @discardableResult
   public func call() -> Any? {
-    guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: 0) else { return nil }
-    return perform(insten: middle.insten, method: middle.method, args: [])
+    guard let ir = self.findInstenAndMethod(value: self.urlValue) else { return nil }
+    let closures: [KhalaClosure] = ir.method.paramsTypes.dropFirst(2).compactMap { (item) -> KhalaClosure? in
+      if item == ObjectType.block { return { (useInfo) in  } }
+      else { return nil }
+    }
+    return perform(insten: ir.insten, method: ir.method, args: closures)
   }
   
   /** call routing function with closure
@@ -240,8 +239,8 @@ public extension Khala {
    */
   @discardableResult
   public func call(block: @escaping KhalaClosure) -> Any? {
-    guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: 1) else { return nil }
-    return perform(insten: middle.insten, method: middle.method, args: [block])
+    guard let ir = self.findInstenAndMethod(value: self.urlValue) else { return nil }
+    return perform(insten: ir.insten, method: ir.method, args: [block])
   }
   
   /** call routing function with closure
@@ -261,8 +260,8 @@ public extension Khala {
    */
   @discardableResult
   public func call(blocks: [KhalaClosure]) -> Any? {
-    guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: blocks.count) else { return nil }
-    return perform(insten: middle.insten, method: middle.method, args: blocks)
+    guard let ir = self.findInstenAndMethod(value: self.urlValue) else { return nil }
+    return perform(insten: ir.insten, method: ir.method, args: blocks)
   }
   
   /** call routing function with closure
@@ -281,7 +280,7 @@ public extension Khala {
    - Returns: Any?
    */
   public func call(blocks: KhalaClosure...) -> Any? {
-    guard let middle = self.findInstenAndMethod(value: self.urlValue, blockCount: blocks.count) else { return nil }
-    return perform(insten: middle.insten, method: middle.method, args: blocks)
+    guard let ir = self.findInstenAndMethod(value: self.urlValue) else { return nil }
+    return perform(insten: ir.insten, method: ir.method, args: blocks)
   }
 }
