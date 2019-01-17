@@ -17,7 +17,7 @@ class BModule: NSObject {
     return BModuleVC()
   }
   
-  func doSomething(_ info: [String: Any]) -> String {
+  func doSomething(_ info: KhalaInfo) -> String {
     return description
   }
   

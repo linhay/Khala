@@ -27,7 +27,7 @@ class SwiftClass: NSObject,KhalaProtocol {
 // MARK: - 测试函数参数类型
 extension SwiftClass {
   
-  func functionForDict(_ info: [String: Any]) -> Bool {
+  func functionForDict(_ info: KhalaInfo) -> Bool {
     print(info)
     return true
   }
@@ -48,7 +48,7 @@ extension SwiftClass {
   //  - key : "definition1"
   //  - key : "definition4:success:failure:"
   
-  func notfound(_ url: URL, info: [String: Any]) {
+  func notfound(_ url: URL, info: KhalaInfo) {
     
   }
   
@@ -56,11 +56,11 @@ extension SwiftClass {
     print(#function)
   }
   
-  func definition2(_ info: [String: Any]? = nil) {
+  func definition2(_ info: KhalaInfo? = nil) {
     print(#function)
   }
   
-  func definition3(_ info: [String: Any], success: KhalaClosure? = nil) {
+  func definition3(_ info: KhalaInfo, success: KhalaClosure? = nil) {
     do {
       var info = info
       info["type"] = "success"
@@ -68,7 +68,7 @@ extension SwiftClass {
     }
   }
   
-  func definition4(_ info: [String: Any], success: KhalaClosure, failure: KhalaClosure) {
+  func definition4(_ info: KhalaInfo, success: KhalaClosure, failure: KhalaClosure) {
     do {
       var info = info
       info["type"] = "success"

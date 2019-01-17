@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name    = 'Khala'
-  s.version = '0.0.6'
+  s.version = '0.0.7'
   s.license = 'MIT'
   s.summary = 'For we are bound by the Khala.(神圣的卡拉连接着我们.)'
   

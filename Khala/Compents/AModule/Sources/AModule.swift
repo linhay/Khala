@@ -18,15 +18,15 @@ class AModule: NSObject {
     return vc
   }
   
-  func doSomething(_ info: [String: Any]) -> String {
+  func doSomething(_ info: KhalaInfo) -> String {
     return description
   }
   
-  func server(_ info: [String: Any]) -> Int {
+  func server(_ info: KhalaInfo) -> Int {
     return info["value"] as? Int ?? 0
   }
   
-  func server2(_ info: [String: Any]) -> Int {
+  func server2(_ info: KhalaInfo) -> Int {
     guard let value = info["value"] as? String, let res = Int(value) else { return 0 }
     return res
   }

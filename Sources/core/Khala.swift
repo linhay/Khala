@@ -23,7 +23,8 @@
 import Foundation
 
 /// Use it when your routing function needs to support the closure type.
-public typealias KhalaClosure = @convention(block) (_ useInfo: [String: Any]) -> Void
+public typealias KhalaClosure = @convention(block) (_:[String: Any]) -> Void
+public typealias KhalaInfo = [String: Any]
 
 @objcMembers
 public class Khala: NSObject {
