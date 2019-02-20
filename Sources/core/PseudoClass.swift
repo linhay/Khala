@@ -44,7 +44,6 @@ public class PseudoClass: NSObject {
   /// - Parameter name: Routing class name
   public init?(name: String) {
     if name.isEmpty { return nil }
-    
     self.name = name
     let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String ?? ""
     if let value = PseudoClass.cache[self.name] {
@@ -64,7 +63,6 @@ public class PseudoClass: NSObject {
     super.init()
     self.methodLists = getMethods()
     PseudoClass.cache[self.name] = self
-    
   }
   
   /// Get the list of object functions

@@ -286,7 +286,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AModule/AModule.framework",
 				"${BUILT_PRODUCTS_DIR}/BModule/BModule.framework",
 				"${BUILT_PRODUCTS_DIR}/DarkTemplar/DarkTemplar.framework",
@@ -305,7 +305,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A1CC50289CDA416E3412973F /* [CP] Embed Pods Frameworks */ = {
@@ -316,7 +316,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DarkTemplar/DarkTemplar.framework",
 				"${BUILT_PRODUCTS_DIR}/Khala/Khala.framework",
 			);
@@ -329,7 +329,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A4FDB925D3BB91141BB421A0 /* [CP] Check Pods Manifest.lock */ = {
