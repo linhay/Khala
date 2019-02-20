@@ -25,21 +25,21 @@ import Foundation
 /// When you want to customize the Rewrite module, you need to inherit the protocol.
 @objc
 public protocol KhalaRewrite {
-  var filters: [RewriteFilter] { get set }
-  func redirect(_ value: KhalaURLValue) -> KhalaURLValue
-  static func separate(_ value: KhalaURLValue) -> KhalaURLValue
+  var filters: [KhalaRewriteFilter] { get set }
+  func redirect(_ value: KhalaNode) -> KhalaNode
+  static func separate(_ value: KhalaNode) -> KhalaNode
 }
 
 /// Rewrite 规则单元
 @objcMembers
-public class RewriteFilter: NSObject {
+public class KhalaRewriteFilter: NSObject {
   
-  let closure: (_ value: KhalaURLValue) -> KhalaURLValue
+  let closure: (_ value: KhalaNode) -> KhalaNode
   
   /// 初始化
   ///
   /// - Parameter closure: 规则
-  public init(_ closure: @escaping (_ value: KhalaURLValue) -> KhalaURLValue) {
+  public init(_ closure: @escaping (_ value: KhalaNode) -> KhalaNode) {
     self.closure = closure
     super.init()
   }
@@ -50,9 +50,9 @@ public class RewriteFilter: NSObject {
 class Rewrite: NSObject, KhalaRewrite {
   
   static let shared = Rewrite()
-  var filters = [RewriteFilter]()
+  var filters = [KhalaRewriteFilter]()
 
-  class func separate(_ value: KhalaURLValue) -> KhalaURLValue {
+  class func separate(_ value: KhalaNode) -> KhalaNode {
     let value = value
     var components = URLComponents(url: value.url, resolvingAgainstBaseURL: true)
     components?.queryItems?.forEach({ (item) in
@@ -71,8 +71,8 @@ class Rewrite: NSObject, KhalaRewrite {
   }
   
   
-  func redirect(_ value: KhalaURLValue) -> KhalaURLValue {
-    return filters.reduce(value) { (result, filter) -> KhalaURLValue in
+  func redirect(_ value: KhalaNode) -> KhalaNode {
+    return filters.reduce(value) { (result, filter) -> KhalaNode in
       return filter.closure(result)
     }
   }

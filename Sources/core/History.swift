@@ -28,7 +28,7 @@ import Darwin
 @objc public
 protocol KhalaHistory: NSObjectProtocol {
    var isEnabled: Bool { set get }
-  func write(_ value: KhalaURLValue)
+  func write(_ value: KhalaNode)
 }
 
 @objcMembers
@@ -59,7 +59,7 @@ class History: NSObject, KhalaHistory {
     return handle
   }
   
-   func write(_ value: KhalaURLValue) {
+   func write(_ value: KhalaNode) {
     guard isEnabled else { return }
     var str = "\n"
     str += Date().description[...String.Index(encodedOffset: 18)]

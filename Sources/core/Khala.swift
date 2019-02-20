@@ -34,7 +34,7 @@ public class Khala: NSObject {
   /// Logs module
   public static var history: KhalaHistory = History()
   /// url and params
-  public var urlValue: KhalaURLValue
+  public var urlValue: KhalaNode
   
   /// init
   ///
@@ -42,7 +42,7 @@ public class Khala: NSObject {
   ///   - url: URL
   ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
-    urlValue = Rewrite.separate(URLValue(url: url,params: params))
+    urlValue = Rewrite.separate(KhalaNodeValue(url: url,params: params))
     urlValue = Khala.rewrite.redirect(urlValue)
     super.init()
   }
@@ -54,7 +54,7 @@ public class Khala: NSObject {
   ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init?(str: String, params: [AnyHashable: Any] = [:]) {
     guard let tempURL = URL(string: str) else { return nil }
-    urlValue = Rewrite.separate(URLValue(url: tempURL, params: params))
+    urlValue = Rewrite.separate(KhalaNodeValue(url: tempURL, params: params))
     urlValue = Khala.rewrite.redirect(urlValue)
     super.init()
   }
@@ -101,7 +101,7 @@ extension Khala {
   ///   - value: `KhalaURLValue`
   ///   - blockCount: The number of blocks used to exactly match the function of the same name
   /// - Returns: routing class instances and routing functions or nil
-  private func findInstenAndMethod(value: KhalaURLValue) -> (insten: PseudoClass,method: PseudoMethod)? {
+  private func findInstenAndMethod(value: KhalaNode) -> (insten: KhalaClass,method: KhalaMethod)? {
     Khala.history.write(value)
     
     guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
@@ -109,7 +109,7 @@ extension Khala {
       return nil
     }
     
-    guard let insten = PseudoClass(name: host) else {
+    guard let insten = KhalaClass(name: host) else {
       KhalaFailure.notFoundClass(name: host)
       return nil
     }
@@ -142,7 +142,7 @@ extension Khala {
   ///   - method: `PseudoMethod`
   ///   - args: args for routing function
   /// - Returns: return value
-  private func perform(insten: PseudoClass, method: PseudoMethod, args: [Any]) -> Any? {
+  private func perform(insten: KhalaClass, method: KhalaMethod, args: [Any]) -> Any? {
     var args: [Any] = args
     
     if let index = method.paramsTypes.dropFirst(2).enumerated().first(where: { $0.element == ObjectType.object })?.offset {
@@ -172,7 +172,7 @@ public extension Khala {
       return false
     }
     
-    guard PseudoClass(name: host) != nil else {
+    guard KhalaClass(name: host) != nil else {
       KhalaFailure.notFoundClass(name: host)
       return false
     }
@@ -193,7 +193,7 @@ public extension Khala {
       return false
     }
     
-    PseudoClass.cache[host] = nil
+    KhalaClass.cache[host] = nil
     return true
   }
   
@@ -201,7 +201,7 @@ public extension Khala {
   ///
   /// You can also use `PseudoClass.cache` to achieve the same effect.
   public class func unregisterAll() {
-    PseudoClass.cache.removeAll()
+    KhalaClass.cache.removeAll()
   }
   
 }

@@ -22,25 +22,42 @@
 
 import Foundation
 
-/// When you want to customize the URLValue, you need to inherit the protocol.
-@objc
-public protocol KhalaURLValue {
-  var url: URL { set get }
-  var params: [AnyHashable: Any] { set get }
-}
-
-@objcMembers
-class URLValue: NSObject, KhalaURLValue {
+/// Packaging method
+public class KhalaMethod: NSObject {
   
-  /// URL
-  var url: URL
-  /// query
-  var params: [AnyHashable: Any]
+  /// Function name
+  public let selector: Selector
+  /// type encoding
+  public let typeEncoding: String
   
-  init(url: URL, params: [AnyHashable: Any]) {
-    self.url = url
-    self.params = params
+  let paramsTypes: [ObjectType]
+  let returnType: ObjectType
+  
+  public init(method: Method) {
+    self.selector = method_getName(method)
+    
+    if let typeEncoding = method_getTypeEncoding(method) {
+      self.typeEncoding = String(cString: typeEncoding)
+    }else{
+      self.typeEncoding = ""
+    }
+    
+    /// 返回值类型
+    let tempReturnType = method_copyReturnType(method)
+    self.returnType = ObjectType(char: tempReturnType)
+    free(tempReturnType)
+    
+    /// 获取参数类型
+    let arguments = method_getNumberOfArguments(method)
+    self.paramsTypes = (0..<arguments).map { (index) -> ObjectType in
+      guard let argumentType = method_copyArgumentType(method, index) else {
+        return ObjectType.unknown
+      }
+      let type = ObjectType(char: argumentType)
+      free(argumentType)
+      return type
+    }
+    
     super.init()
   }
-  
 }

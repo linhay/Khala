@@ -85,7 +85,7 @@ struct KhalaFailure {
     failure(value,file:file,line: line)
   }
   
-  static func multipleFunc(methods: [PseudoMethod], file: StaticString = #file, line: UInt = #line) {
+  static func multipleFunc(methods: [KhalaMethod], file: StaticString = #file, line: UInt = #line) {
     var value = methods
       .map{ $0.selector.description }
       .joined(separator: "\n")

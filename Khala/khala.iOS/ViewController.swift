@@ -60,7 +60,7 @@ class ViewController: UIViewController {
   }
   
   @IBAction func event4(_ sender: Any) {
-    let filter = RewriteFilter {
+    let filter = KhalaRewriteFilter {
       if $0.url.host == "AModule" {
         var urlComponents = URLComponents(url: $0.url, resolvingAgainstBaseURL: true)!
         urlComponents.host = "BModule"

@@ -15,11 +15,12 @@ Swift 路由和模块通信解耦工具和规范。 可以让模块间无耦合�
 ## 特性
 
 - [x] 支持 cocopods 组件化开发.
-- [x] 无需注册URL,采用runtime来实现`target-action`形式调用.
+- [x] 无需注册URL,采用runtime来实现`target-action`形式函数调用.
 - [x] 内置URL重定向模块.
 - [x] 内置日志模块.
 - [x] 支持模块自定义.
 - [x] 内置断言,可切换语言.
+- [x] 路由类支持`UIApplicationDelegate`管理.
 - [x] 优先支持swift.
 
 ## 要求

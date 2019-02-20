@@ -25,10 +25,10 @@ import DarkTemplar
 
 /// Packaging class
 @objcMembers
-public class PseudoClass: NSObject {
+public class KhalaClass: NSObject {
   
   /// Cache pool, When the `PseudoClass` is first initialized, it will be added here with `PseudoClass.methodLists()`
-  public static var cache = [String: PseudoClass]()
+  public static var cache = [String: KhalaClass]()
   /// Routing class
   public var instance: NSObject
   /// Functions in the routing class
@@ -46,7 +46,7 @@ public class PseudoClass: NSObject {
     if name.isEmpty { return nil }
     self.name = name
     let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String ?? ""
-    if let value = PseudoClass.cache[self.name] {
+    if let value = KhalaClass.cache[self.name] {
       self.type = value.type
       self.instance = value.instance
     }else if let type = NSClassFromString(name) as? NSObject.Type {
@@ -62,20 +62,20 @@ public class PseudoClass: NSObject {
     }
     super.init()
     self.methodLists = getMethods()
-    PseudoClass.cache[self.name] = self
+    KhalaClass.cache[self.name] = self
   }
   
   /// Get the list of object functions
   ///
   /// - Returns: [String: PseudoMethod]
-  func getMethods() -> [String: PseudoMethod] {
-    var list = [String: PseudoMethod]()
+  func getMethods() -> [String: KhalaMethod] {
+    var list = [String: KhalaMethod]()
     findSuperClasses().forEach { (`class`) in
       var methodNum: UInt32 = 0
       let methods = class_copyMethodList(`class`, &methodNum)
       for index in (0..<numericCast(methodNum)) {
         guard let method = methods?[index] else { continue }
-        let pseudoMethod = PseudoMethod(method: method)
+        let pseudoMethod = KhalaMethod(method: method)
         if list[pseudoMethod.selector.description] != nil { continue }
         list[pseudoMethod.selector.description] = pseudoMethod
       }
@@ -87,7 +87,7 @@ public class PseudoClass: NSObject {
 }
 
 // MARK: - send message
-extension PseudoClass {
+extension KhalaClass {
   
   /// Function call
   ///
@@ -96,7 +96,7 @@ extension PseudoClass {
   ///   - args: args
   /// - Returns: return value
   @discardableResult
-  func send(method: PseudoMethod, args: [Any] = []) -> Any? {
+  func send(method: KhalaMethod, args: [Any] = []) -> Any? {
     
     let sig = instance.methodSignature(method.selector)
     let inv = Invocation(methodSignature: sig)
@@ -152,14 +152,14 @@ extension PseudoClass {
 }
 
 // MARK: - find
-extension PseudoClass {
+extension KhalaClass {
   
   /// Search matching function
   ///
   /// - Parameter name: Function name (excluding parameter name)
   /// - Returns: Return matching function
-  func findMethod(name: String) -> [PseudoMethod]? {
-    let methods = methodLists.compactMap({ (item) -> PseudoMethod? in
+  func findMethod(name: String) -> [KhalaMethod]? {
+    let methods = methodLists.compactMap({ (item) -> KhalaMethod? in
       if let function = item.key.split(separator: ":").first, function == name {
         return item.value
       }
