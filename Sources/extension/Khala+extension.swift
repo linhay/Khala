@@ -25,8 +25,10 @@ import Foundation
 // MARK: - extension
 public extension Khala {
   
+  #if os(iOS)
   public static let appDelegate = KhalaAppDelegate()
-  
+  #endif
+
   /// Unified registration of classes that follow the `Protocol` protocol.
   public static func regist(protocol: Protocol) -> [String] {
     let typeCount = Int(objc_getClassList(nil, 0))
