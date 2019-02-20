@@ -44,6 +44,11 @@ class AModule: NSObject,UIApplicationDelegate {
     success(["success": #function])
     failure(["failure": #function])
   }
+  
+  func forClosures(_ info: KhalaInfo, success: KhalaClosure, failure: KhalaClosure) {
+    success(["success": #function])
+    failure(["failure": #function])
+  }
 
 }
 

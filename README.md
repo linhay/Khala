@@ -222,7 +222,44 @@ pod 'Khala'
       /// Print: <BModule: 0x6000026e2800>
       ```
 
-7. **日志模块:** [**KhalaHistory**](https://linhay.github.io/Khala/Protocols/KhalaHistory.html)
+7.  **UIApplicationDelegate 生命周期分发**
+
+   部分组件往往依赖于主工程中的`AppDelegate`中部分函数.
+
+   1. 在`Khala`中,需要显式的在主工程中的`AppDelegate`调用与处理相关逻辑.
+   2. 服务类需要遵守`UIApplicationDelegate`协议.
+
+   主工程`AppDelegate`:
+
+   ```swift
+   @UIApplicationMain
+   class AppDelegate: UIResponder,UIApplicationDelegate {
+   
+     var window: UIWindow?
+   
+     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+       let list = Khala.appDelegate.application(application, didFinishLaunchingWithOptions: launchOptions)
+       return true
+     }
+       
+   }
+   ```
+
+   组件中服务类:
+
+   ```swift
+   @objc(AModule) @objcMembers
+   class AModule: NSObject,UIApplicationDelegate {
+     
+     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+       print("AModule.didFinishLaunchingWithOptions")
+       return true
+     }
+     
+   }
+   ```
+
+8. **日志模块:** [**KhalaHistory**](https://linhay.github.io/Khala/Protocols/KhalaHistory.html)
 
    每一份url请求都将记录至日志文件中, 可以在适当的时候提供开发者便利.
 
@@ -243,7 +280,7 @@ pod 'Khala'
       2018-12-01 02:06:54  kl://SwiftClass/double  {"test":"666"}
       ```
 
-8. **扩展机制:**  [**KhalaStore**](https://linhay.github.io/Khala/Classes.html#/c:@M@Khala@objc(cs)KhalaStore)
+9. **扩展机制:**  [**KhalaStore**](https://linhay.github.io/Khala/Classes.html#/c:@M@Khala@objc(cs)KhalaStore)
 
    ***khala*** 库中提供了一个空置的类[***KhalaStore***]用于盛放**路由函数**对应的本地函数.来简化本地调用复杂度的问题.
 
@@ -266,7 +303,7 @@ pod 'Khala'
 
    > ps: KhalaStore 扩展文件建议统一放置.
 
-9. **断言机制**
+10. **断言机制**
 
    为方便开发者使用,添加了部分场景下断言机制,示例:
 
@@ -283,7 +320,7 @@ pod 'Khala'
    Khala.isEnabledAssert = false
    ```
 
-10. **缓存机制:** [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache)
+11. **缓存机制:** [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache)
 
    - 当路由第一次调用/注册路由类时,该路由类将被缓存至 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中, 以提高二次查找性能.
    - 当路由类实例化时,该路由类中的函数列表将被缓存至 [**PseudoClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.

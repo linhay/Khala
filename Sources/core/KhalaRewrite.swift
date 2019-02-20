@@ -28,6 +28,8 @@ public protocol KhalaRewrite {
   var filters: [KhalaRewriteFilter] { get set }
   func redirect(_ value: KhalaNode) -> KhalaNode
   static func separate(_ value: KhalaNode) -> KhalaNode
+  func add(filter: KhalaRewriteFilter)
+  func add(filters: [KhalaRewriteFilter])
 }
 
 /// Rewrite 规则单元
@@ -48,6 +50,15 @@ public class KhalaRewriteFilter: NSObject {
 
 @objcMembers
 class Rewrite: NSObject, KhalaRewrite {
+  
+  func add(filter: KhalaRewriteFilter) {
+    Rewrite.shared.filters.append(filter)
+  }
+  
+  func add(filters: [KhalaRewriteFilter]) {
+    Rewrite.shared.filters += filters
+  }
+  
   
   static let shared = Rewrite()
   var filters = [KhalaRewriteFilter]()

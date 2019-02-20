@@ -68,7 +68,7 @@ class ViewController: UIViewController {
       }
       return $0
     }
-    Khala.rewrite.filters.append(filter)
+    Khala.rewrite.add(filter: filter)
     
     let value = Khala(str: "kl://AModule/doSomething")?.call()
     print(value ?? "nil")
