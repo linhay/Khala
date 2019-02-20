@@ -34,7 +34,7 @@ public class Khala: NSObject {
   /// Logs module
   public static var history: KhalaHistory = History()
   /// url and params
-  public var urlValue: KhalaNode
+  public var node: KhalaNode
   
   /// init
   ///
@@ -42,8 +42,8 @@ public class Khala: NSObject {
   ///   - url: URL
   ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
-    urlValue = Rewrite.separate(KhalaNodeValue(url: url,params: params))
-    urlValue = Khala.rewrite.redirect(urlValue)
+    node = Rewrite.separate(KhalaNodeValue(url: url,params: params))
+    node = Khala.rewrite.redirect(node)
     super.init()
   }
   
@@ -54,8 +54,8 @@ public class Khala: NSObject {
   ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init?(str: String, params: [AnyHashable: Any] = [:]) {
     guard let tempURL = URL(string: str) else { return nil }
-    urlValue = Rewrite.separate(KhalaNodeValue(url: tempURL, params: params))
-    urlValue = Khala.rewrite.redirect(urlValue)
+    node = Rewrite.separate(KhalaNodeValue(url: tempURL, params: params))
+    node = Khala.rewrite.redirect(node)
     super.init()
   }
   
@@ -105,7 +105,7 @@ extension Khala {
     Khala.history.write(value)
     
     guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
-      KhalaFailure.notURL(urlValue.url)
+      KhalaFailure.notURL(node.url)
       return nil
     }
     
@@ -146,7 +146,7 @@ extension Khala {
     var args: [Any] = args
     
     if let index = method.paramsTypes.dropFirst(2).enumerated().first(where: { $0.element == ObjectType.object })?.offset {
-      args.insert(self.urlValue.params, at: index)
+      args.insert(self.node.params, at: index)
     }
     
     let value = insten.send(method: method, args: args)
@@ -167,8 +167,8 @@ public extension Khala {
   /// - Returns: whether registration is successful
   @discardableResult
   public func register() -> Bool {
-    guard let host = urlValue.url.host else {
-      KhalaFailure.notURL(urlValue.url)
+    guard let host = node.url.host else {
+      KhalaFailure.notURL(node.url)
       return false
     }
     
@@ -188,8 +188,8 @@ public extension Khala {
   @discardableResult
   public func unregister() -> Bool {
     
-    guard let host = urlValue.url.host else {
-      KhalaFailure.notURL(urlValue.url)
+    guard let host = node.url.host else {
+      KhalaFailure.notURL(node.url)
       return false
     }
     
@@ -219,7 +219,7 @@ public extension Khala {
    */
   @discardableResult
   public func call() -> Any? {
-    guard let ir = self.findInstenAndMethod(value: self.urlValue) else { return nil }
+    guard let ir = self.findInstenAndMethod(value: self.node) else { return nil }
     let closures: [KhalaClosure] = ir.method.paramsTypes.dropFirst(2).compactMap { (item) -> KhalaClosure? in
       if item == ObjectType.block { return { (useInfo) in  } }
       else { return nil }
@@ -240,7 +240,7 @@ public extension Khala {
    */
   @discardableResult
   public func call(block: @escaping KhalaClosure) -> Any? {
-    guard let ir = self.findInstenAndMethod(value: self.urlValue) else { return nil }
+    guard let ir = self.findInstenAndMethod(value: self.node) else { return nil }
     return perform(insten: ir.insten, method: ir.method, args: [block])
   }
   
@@ -261,7 +261,7 @@ public extension Khala {
    */
   @discardableResult
   public func call(blocks: [KhalaClosure]) -> Any? {
-    guard let ir = self.findInstenAndMethod(value: self.urlValue) else { return nil }
+    guard let ir = self.findInstenAndMethod(value: self.node) else { return nil }
     return perform(insten: ir.insten, method: ir.method, args: blocks)
   }
   
@@ -281,7 +281,7 @@ public extension Khala {
    - Returns: Any?
    */
   public func call(blocks: KhalaClosure...) -> Any? {
-    guard let ir = self.findInstenAndMethod(value: self.urlValue) else { return nil }
+    guard let ir = self.findInstenAndMethod(value: self.node) else { return nil }
     return perform(insten: ir.insten, method: ir.method, args: blocks)
   }
 }
