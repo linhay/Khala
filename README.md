@@ -174,7 +174,7 @@ pod 'Khala'
 
 5. **路由注册**
 
-   在 [**Khala**](https://linhay.github.io/Khala/Classes/Khala.html#/c:@CM@Khala@objc(cs)Khala(im)register)中我提供了以下接口来抽象  [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache):
+   在 [**Khala**](https://linhay.github.io/Khala/Classes/Khala.html#/c:@CM@Khala@objc(cs)Khala(im)register)中我提供了以下接口来抽象  [**KhalaClass.cache**](https://linhay.github.io/Khala/Classes/KhalaClass.html#/c:@M@Khala@objc(cs)KhalaClass(cpy)cache):
 
    ```swift
    /// 注册路由类, 等同于Khala(str: "kl://AModule/doSomething")
@@ -320,10 +320,10 @@ pod 'Khala'
    Khala.isEnabledAssert = false
    ```
 
-11. **缓存机制:** [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache)
+11. **缓存机制:** [**KhalaClass.cache**](https://linhay.github.io/Khala/Classes/KhalaClass.html#/c:@M@Khala@objc(cs)KhalaClass(cpy)cache)
 
-   - 当路由第一次调用/注册路由类时,该路由类将被缓存至 [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache) 中, 以提高二次查找性能.
-   - 当路由类实例化时,该路由类中的函数列表将被缓存至 [**PseudoClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.
+   - 当路由第一次调用/注册路由类时,该路由类将被缓存至 [**KhalaClass.cache**](https://linhay.github.io/Khala/Classes/KhalaClass.html#/c:@M@Khala@objc(cs)KhalaClass(cpy)cache) 中, 以提高二次查找性能.
+   - 当路由类实例化时,该路由类中的函数列表将被缓存至 [**KhalaClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.
 
 ## 注意事项
 
@@ -451,7 +451,7 @@ pod 'Khala'
 ## 文档
 
 - [**API Reference**](https://linhay.github.io/Khala/) - 更详细的参考api文档.
-- [**iOS路由(Khala)设计**](https://www.linhey.com/2018/12/10/[2018%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93]iOS%20%E8%B7%AF%E7%94%B1%E8%AE%BE%E8%AE%A1/) - khala的选型与模组化中的角色担当.
+- [**iOS路由(Khala)设计**](https://www.linhey.com/2019/02/20/[iOS]Khala%E8%B7%AF%E7%94%B1%E7%BB%84%E4%BB%B6%E8%A7%A3%E6%9E%84/) - khala的选型与模组化中的角色担当.
 
 ## 参考与致谢
 
