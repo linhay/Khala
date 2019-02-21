@@ -154,7 +154,7 @@ pod 'Khala'
      let vc = Khala(str: "kl://BModule/vc?style=0")?.viewController
      ```
 
-4. **路由通知 **[**KhalaNotify**](https://linhay.github.io/Khala/Classes/KhalaNotify.html)
+4. **路由通知  [KhalaNotify](https://linhay.github.io/Khala/Classes/KhalaNotify.html)**
 
    可以使用该类型来执行多个已缓存路由类中的同名函数.
 
@@ -170,7 +170,7 @@ pod 'Khala'
    // Print: [<BModule: 0x60000242f230>, <AModule: 0x600002419d10>]
    ```
 
-   > 通知只能发送至已被缓存的路由类中. 缓存路径: [**PseudoClass.cache**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(cpy)cache)
+   > 通知只能发送至已被缓存的路由类中. 缓存路径:  [**KhalaClass.cache**](https://linhay.github.io/Khala/Classes/KhalaClass.html#/c:@M@Khala@objc(cs)KhalaClass(cpy)cache)
 
 5. **路由注册**
 
@@ -179,17 +179,13 @@ pod 'Khala'
    ```swift
    /// 注册路由类, 等同于Khala(str: "kl://AModule/doSomething")
    func register() -> Bool
-   // 取消注册路由类, 等同于 PseudoClass.cache["AModule"] = nil
+   // 取消注册路由类, 等同于 KhalaClass.cache["AModule"] = nil
    func unregister() -> Bool
-   // 取消全部注册路由类, 等同于 PseudoClass.cache.removeAll()
+   // 取消全部注册路由类, 等同于 KhalaClass.cache.removeAll()
    func unregisterAll() -> Bool
-   // 批量注册遵守KhalaProtocol协议的路由类:
-   Khala.registWithKhalaProtocol()
+   // 批量注册遵守Protocol协议的路由类:
+   Khala.regist(protocol: Protocol)
    ```
-
-   > 作者个人建议, 请尽量避免使用.
-   >
-   > [**KhalaProtocol协议**](https://linhay.github.io/Khala/Protocols.html#/c:@M@Khala@objc(pl)KhalaProtocol)
 
 6. **URL重定向:** [**KhalaRewrite**](https://linhay.github.io/Khala/Protocols/KhalaRewrite.html)
 
@@ -323,7 +319,7 @@ pod 'Khala'
 11. **缓存机制:** [**KhalaClass.cache**](https://linhay.github.io/Khala/Classes/KhalaClass.html#/c:@M@Khala@objc(cs)KhalaClass(cpy)cache)
 
    - 当路由第一次调用/注册路由类时,该路由类将被缓存至 [**KhalaClass.cache**](https://linhay.github.io/Khala/Classes/KhalaClass.html#/c:@M@Khala@objc(cs)KhalaClass(cpy)cache) 中, 以提高二次查找性能.
-   - 当路由类实例化时,该路由类中的函数列表将被缓存至 [**KhalaClass().methodLists**](https://linhay.github.io/Khala/Classes/PseudoClass.html#/c:@M@Khala@objc(cs)PseudoClass(py)methodLists)中, 以提高查找性能.
+   - 当路由类实例化时,该路由类中的函数列表将被缓存至 [**KhalaClass().methodLists**](https://linhay.github.io/Khala/Classes/KhalaClass.html#/c:@M@Khala@objc(cs)KhalaClass(py)methodLists)中, 以提高查找性能.
 
 ## 注意事项
 
