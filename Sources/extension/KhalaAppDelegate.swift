@@ -33,6 +33,7 @@ public class KhalaAppDelegate: NSObject {
     classNames.forEach({ _ = KhalaClass(name: $0) })
   }
   
+  public weak var window: UIWindow? = nil
   
   public func applicationDidFinishLaunching(_ application: UIApplication) {
     classNames
