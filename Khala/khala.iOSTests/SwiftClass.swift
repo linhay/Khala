@@ -10,7 +10,7 @@ import UIKit
 import Khala
 
 @objc(SwiftClass) @objcMembers
-class SwiftClass: NSObject,KhalaProtocol {
+class SwiftClass: NSObject {
   
   // MARK: - 测试返回值类型
   var string = "test.test.ios"

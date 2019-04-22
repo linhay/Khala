@@ -25,21 +25,21 @@ import UIKit
 
 // MARK: - shortcut function for UIKit
 public extension Khala {
-  
-  
-  /// get viewController
-  ///
-  /// - Returns: viewController
-  @objc var viewController: UIViewController? {
-    return call() as? UIViewController
-  }
-  
-  /// get view
-  ///
-  /// - Returns: view
-  @objc var view: UIView? {
-    return call() as? UIView
-  }
-  
+    
+    
+    /// get viewController
+    ///
+    /// - Returns: viewController
+    @objc var viewController: UIViewController? {
+        return call() as? UIViewController
+    }
+    
+    /// get view
+    ///
+    /// - Returns: view
+    @objc var view: UIView? {
+        return call() as? UIView
+    }
+    
 }
 #endif

@@ -209,10 +209,12 @@
 				TargetAttributes = {
 					CDD4F7E321D226E500FCD6A4 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = CDE4ECEC21C1120C00AEED27;
 					};
 					CDE4ECEC21C1120C00AEED27 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -423,7 +425,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linhey.www.khala-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/khala.iOS.app/khala.iOS";
 			};
@@ -447,7 +449,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linhey.www.khala-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/khala.iOS.app/khala.iOS";
 				VALIDATE_PRODUCT = YES;
@@ -471,7 +473,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linhey.www.khala-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -493,7 +495,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linhey.www.khala-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
