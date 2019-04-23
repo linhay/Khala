@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name    = 'Khala'
-  s.version = '0.0.8'
+  s.version = '0.1.0'
   s.license = 'MIT'
   s.summary = 'For we are bound by the Khala.(神圣的卡拉连接着我们.)'
   
@@ -40,6 +40,6 @@ Pod::Spec.new do |s|
     ss.tvos.exclude_files = ['Sources/extension/Khala+AppKit.swift']
   end
 
-  s.dependency 'DarkTemplar', '0.0.5'
+  s.dependency 'DarkTemplar', '0.0.6'
   s.requires_arc = true
 end

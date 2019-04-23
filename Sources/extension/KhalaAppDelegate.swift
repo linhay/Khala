@@ -127,7 +127,8 @@ public class KhalaAppDelegate: NSObject {
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
             .forEach({ $0.application?(application, didChangeStatusBarFrame: oldStatusBarFrame) })
     }
-    
+
+    @available(iOS, introduced: 8.0, deprecated: 10.0, message: "'UIUserNotificationSettings' is deprecated: first deprecated in iOS 10.0")
     public func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
@@ -151,13 +152,15 @@ public class KhalaAppDelegate: NSObject {
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
             .forEach({ $0.application?(application, didReceiveRemoteNotification: userInfo) })
     }
-    
+
+    @available(iOS, introduced: 8.0, deprecated: 10.0, message: "'UILocalNotification' is deprecated: first deprecated in iOS 10.0")
     public func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
             .forEach({ $0.application?(application, didReceive: notification) })
     }
-    
+
+    @available(iOS, introduced: 8.0, deprecated: 10.0, message: "'UILocalNotification' is deprecated: first deprecated in iOS 10.0")
     public func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, completionHandler: @escaping () -> Void) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
@@ -188,7 +191,7 @@ public class KhalaAppDelegate: NSObject {
             })
     }
     
-    @available(iOS 9.0, *)
+    @available(iOS, introduced: 9.0, deprecated: 10.0, message: "'UILocalNotification' is deprecated: first deprecated in iOS 10.0")
     public func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, withResponseInfo responseInfo: [AnyHashable : Any], completionHandler: @escaping () -> Void){
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
