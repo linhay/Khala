@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D28F9CF332950B74029E10E /* Pods_khala_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4D476C696C33F0055C1129E /* Pods_khala_iOSTests.framework */; };
-		A6C4F780399D4EC3B55E2157 /* Pods_khala_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80C15A207FF6F64E47357CB /* Pods_khala_iOS.framework */; };
+		38404ED44825D0A32C647ECC /* Pods_khala_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAB58AFFCC7E55F9520A5CF /* Pods_khala_iOS.framework */; };
 		CDD4F7E721D226E500FCD6A4 /* khala_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD4F7E621D226E500FCD6A4 /* khala_iOSTests.swift */; };
 		CDD4F7EF21D2270800FCD6A4 /* SwiftClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD4F7EE21D2270800FCD6A4 /* SwiftClass.swift */; };
 		CDE4ECF021C1120C00AEED27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE4ECEF21C1120C00AEED27 /* AppDelegate.swift */; };
@@ -16,6 +15,12 @@
 		CDE4ECF521C1120C00AEED27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDE4ECF321C1120C00AEED27 /* Main.storyboard */; };
 		CDE4ECF721C1120E00AEED27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDE4ECF621C1120E00AEED27 /* Assets.xcassets */; };
 		CDE4ECFA21C1120E00AEED27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDE4ECF821C1120E00AEED27 /* LaunchScreen.storyboard */; };
+		CDE698B82321151000D5CBFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE698B72321151000D5CBFD /* AppDelegate.swift */; };
+		CDE698BA2321151000D5CBFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE698B92321151000D5CBFD /* ViewController.swift */; };
+		CDE698BC2321151200D5CBFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDE698BB2321151200D5CBFD /* Assets.xcassets */; };
+		CDE698BF2321151200D5CBFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDE698BD2321151200D5CBFD /* Main.storyboard */; };
+		CDE698CB2321151300D5CBFD /* khalaMacOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE698CA2321151300D5CBFD /* khalaMacOSTests.swift */; };
+		CE5B26B7EEC199DD8A71033A /* Pods_khala_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B943F67F82E86CC24A26E9B9 /* Pods_khala_iOSTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,20 +31,32 @@
 			remoteGlobalIDString = CDE4ECEC21C1120C00AEED27;
 			remoteInfo = khala.iOS;
 		};
+		CDE698C72321151300D5CBFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CDF4058C21A29ABD003758C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CDE698B42321151000D5CBFD;
+			remoteInfo = khalaMacOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		092B6B3ECDD578530A4759E4 /* Pods_khala_mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		16E8E62BBF3F4C9343A13812 /* Pods-khala.mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.mac/Pods-khala.mac.debug.xcconfig"; sourceTree = "<group>"; };
 		282C98EEC8605A0C148ACD5A /* Pods-khala.swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.swift/Pods-khala.swift.release.xcconfig"; sourceTree = "<group>"; };
-		34D1F90C49537E99CDFC5683 /* Pods-khala.iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		36AB1F43A0F16742CB94301F /* Pods-khala.iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		485C404C7F7135058936AA56 /* Pods-khala.iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOS/Pods-khala.iOS.release.xcconfig"; sourceTree = "<group>"; };
+		2EA1668C78D71D82485DE7EB /* Pods-khala.mac.test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.mac.test.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.mac.test/Pods-khala.mac.test.release.xcconfig"; sourceTree = "<group>"; };
+		3C51D8418817B0974571BC21 /* Pods-khala.iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4AD9A0EE62176AA82873B80A /* Pods-khala.iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOS/Pods-khala.iOS.release.xcconfig"; sourceTree = "<group>"; };
 		53771BB5D84A6BA243061641 /* Pods-khala.swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.swift/Pods-khala.swift.debug.xcconfig"; sourceTree = "<group>"; };
 		6562C60932AEBF47611E4F67 /* Pods_khala_objc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_objc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65F6F321BE424BDBD6DB06A5 /* Pods-khala.swift.tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.swift.tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.swift.tests/Pods-khala.swift.tests.debug.xcconfig"; sourceTree = "<group>"; };
+		684742483BDE464375B1FBBA /* Pods-khala.mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.mac.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.mac/Pods-khala.mac.release.xcconfig"; sourceTree = "<group>"; };
+		8FAF0C2ECB5F9FEE6FAC00F5 /* Pods_khala_mac_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_mac_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EAB58AFFCC7E55F9520A5CF /* Pods_khala_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD10636BB176A4F0CADCDE45 /* Pods-khala.iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		B1E2DE5396537E2E553E0858 /* Pods-khala.objc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.objc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.objc/Pods-khala.objc.debug.xcconfig"; sourceTree = "<group>"; };
-		B4D476C696C33F0055C1129E /* Pods_khala_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B943F67F82E86CC24A26E9B9 /* Pods_khala_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BECBB315437BF3DC6281983B /* Pods_khala_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C86B70342F24B3DB2586AD56 /* Pods-khala.iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOS/Pods-khala.iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CD15FA0E21C9E37400CDA15E /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
 		CDD21E6221AE41C60008020F /* Khala.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Khala.podspec; path = ../Khala.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CDD21E7F21AFDFBE0008020F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -54,9 +71,20 @@
 		CDE4ECF621C1120E00AEED27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CDE4ECF921C1120E00AEED27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CDE4ECFB21C1120E00AEED27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDE698B52321151000D5CBFD /* khalaMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = khalaMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDE698B72321151000D5CBFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CDE698B92321151000D5CBFD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CDE698BB2321151200D5CBFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CDE698BE2321151200D5CBFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CDE698C02321151200D5CBFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDE698C12321151200D5CBFD /* khalaMacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = khalaMacOS.entitlements; sourceTree = "<group>"; };
+		CDE698C62321151200D5CBFD /* khalaMacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = khalaMacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDE698CA2321151300D5CBFD /* khalaMacOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = khalaMacOSTests.swift; sourceTree = "<group>"; };
+		CDE698CC2321151300D5CBFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D691EE50F2CB78EBDD0BEF4D /* Pods_khala_swift_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_swift_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E65994C388C1BE468C2127E9 /* Pods-khala.mac.test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.mac.test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.mac.test/Pods-khala.mac.test.debug.xcconfig"; sourceTree = "<group>"; };
 		ED259429A9D762E9FD1326A0 /* Pods-khala.swift.tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.swift.tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.swift.tests/Pods-khala.swift.tests.release.xcconfig"; sourceTree = "<group>"; };
-		F80C15A207FF6F64E47357CB /* Pods_khala_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_khala_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2E764D208204E5820725FEC /* Pods-khala.iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-khala.iOS/Pods-khala.iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		FB1FAA92BD948173BD425589 /* Pods-khala.objc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-khala.objc.release.xcconfig"; path = "Pods/Target Support Files/Pods-khala.objc/Pods-khala.objc.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D28F9CF332950B74029E10E /* Pods_khala_iOSTests.framework in Frameworks */,
+				CE5B26B7EEC199DD8A71033A /* Pods_khala_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +101,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6C4F780399D4EC3B55E2157 /* Pods_khala_iOS.framework in Frameworks */,
+				38404ED44825D0A32C647ECC /* Pods_khala_iOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDE698B22321151000D5CBFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDE698C32321151200D5CBFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,8 +128,10 @@
 				6562C60932AEBF47611E4F67 /* Pods_khala_objc.framework */,
 				BECBB315437BF3DC6281983B /* Pods_khala_swift.framework */,
 				D691EE50F2CB78EBDD0BEF4D /* Pods_khala_swift_tests.framework */,
-				F80C15A207FF6F64E47357CB /* Pods_khala_iOS.framework */,
-				B4D476C696C33F0055C1129E /* Pods_khala_iOSTests.framework */,
+				8FAF0C2ECB5F9FEE6FAC00F5 /* Pods_khala_mac_test.framework */,
+				092B6B3ECDD578530A4759E4 /* Pods_khala_mac.framework */,
+				9EAB58AFFCC7E55F9520A5CF /* Pods_khala_iOS.framework */,
+				B943F67F82E86CC24A26E9B9 /* Pods_khala_iOSTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,12 +143,16 @@
 				FB1FAA92BD948173BD425589 /* Pods-khala.objc.release.xcconfig */,
 				53771BB5D84A6BA243061641 /* Pods-khala.swift.debug.xcconfig */,
 				282C98EEC8605A0C148ACD5A /* Pods-khala.swift.release.xcconfig */,
-				C86B70342F24B3DB2586AD56 /* Pods-khala.iOS.debug.xcconfig */,
-				485C404C7F7135058936AA56 /* Pods-khala.iOS.release.xcconfig */,
 				65F6F321BE424BDBD6DB06A5 /* Pods-khala.swift.tests.debug.xcconfig */,
 				ED259429A9D762E9FD1326A0 /* Pods-khala.swift.tests.release.xcconfig */,
-				34D1F90C49537E99CDFC5683 /* Pods-khala.iOSTests.debug.xcconfig */,
-				36AB1F43A0F16742CB94301F /* Pods-khala.iOSTests.release.xcconfig */,
+				E65994C388C1BE468C2127E9 /* Pods-khala.mac.test.debug.xcconfig */,
+				2EA1668C78D71D82485DE7EB /* Pods-khala.mac.test.release.xcconfig */,
+				16E8E62BBF3F4C9343A13812 /* Pods-khala.mac.debug.xcconfig */,
+				684742483BDE464375B1FBBA /* Pods-khala.mac.release.xcconfig */,
+				F2E764D208204E5820725FEC /* Pods-khala.iOS.debug.xcconfig */,
+				4AD9A0EE62176AA82873B80A /* Pods-khala.iOS.release.xcconfig */,
+				3C51D8418817B0974571BC21 /* Pods-khala.iOSTests.debug.xcconfig */,
+				AD10636BB176A4F0CADCDE45 /* Pods-khala.iOSTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -132,6 +180,28 @@
 			path = khala.iOS;
 			sourceTree = "<group>";
 		};
+		CDE698B62321151000D5CBFD /* khalaMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				CDE698B72321151000D5CBFD /* AppDelegate.swift */,
+				CDE698B92321151000D5CBFD /* ViewController.swift */,
+				CDE698BB2321151200D5CBFD /* Assets.xcassets */,
+				CDE698BD2321151200D5CBFD /* Main.storyboard */,
+				CDE698C02321151200D5CBFD /* Info.plist */,
+				CDE698C12321151200D5CBFD /* khalaMacOS.entitlements */,
+			);
+			path = khalaMacOS;
+			sourceTree = "<group>";
+		};
+		CDE698C92321151300D5CBFD /* khalaMacOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				CDE698CA2321151300D5CBFD /* khalaMacOSTests.swift */,
+				CDE698CC2321151300D5CBFD /* Info.plist */,
+			);
+			path = khalaMacOSTests;
+			sourceTree = "<group>";
+		};
 		CDF4058B21A29ABD003758C2 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +210,8 @@
 				CDD21E6221AE41C60008020F /* Khala.podspec */,
 				CDE4ECEE21C1120C00AEED27 /* khala.iOS */,
 				CDD4F7E521D226E500FCD6A4 /* khala.iOSTests */,
+				CDE698B62321151000D5CBFD /* khalaMacOS */,
+				CDE698C92321151300D5CBFD /* khalaMacOSTests */,
 				CDF4059521A29ABD003758C2 /* Products */,
 				409EFFC9FC8C8221AB0936E6 /* Pods */,
 				00C39290012BA3BDB51E0980 /* Frameworks */,
@@ -151,6 +223,8 @@
 			children = (
 				CDE4ECED21C1120C00AEED27 /* khala.iOS.app */,
 				CDD4F7E421D226E500FCD6A4 /* khala.iOSTests.xctest */,
+				CDE698B52321151000D5CBFD /* khalaMacOS.app */,
+				CDE698C62321151200D5CBFD /* khalaMacOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -162,11 +236,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CDD4F7EB21D226E500FCD6A4 /* Build configuration list for PBXNativeTarget "khala.iOSTests" */;
 			buildPhases = (
-				A4FDB925D3BB91141BB421A0 /* [CP] Check Pods Manifest.lock */,
+				6964472DCCB58E6C3260699D /* [CP] Check Pods Manifest.lock */,
 				CDD4F7E021D226E500FCD6A4 /* Sources */,
 				CDD4F7E121D226E500FCD6A4 /* Frameworks */,
 				CDD4F7E221D226E500FCD6A4 /* Resources */,
-				A1CC50289CDA416E3412973F /* [CP] Embed Pods Frameworks */,
+				2876E3259177E2B829B663FA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -182,11 +256,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CDE4ECFE21C1120E00AEED27 /* Build configuration list for PBXNativeTarget "khala.iOS" */;
 			buildPhases = (
-				0ADCCC309FCB5DD25239BC19 /* [CP] Check Pods Manifest.lock */,
+				7F8A3F4B7D4B85B24C94D060 /* [CP] Check Pods Manifest.lock */,
 				CDE4ECE921C1120C00AEED27 /* Sources */,
 				CDE4ECEA21C1120C00AEED27 /* Frameworks */,
 				CDE4ECEB21C1120C00AEED27 /* Resources */,
-				703B1023EEF5FBA7B60217C7 /* [CP] Embed Pods Frameworks */,
+				F443D8D346DAADD3E4025A43 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,13 +271,48 @@
 			productReference = CDE4ECED21C1120C00AEED27 /* khala.iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CDE698B42321151000D5CBFD /* khalaMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDE698CD2321151300D5CBFD /* Build configuration list for PBXNativeTarget "khalaMacOS" */;
+			buildPhases = (
+				CDE698B12321151000D5CBFD /* Sources */,
+				CDE698B22321151000D5CBFD /* Frameworks */,
+				CDE698B32321151000D5CBFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = khalaMacOS;
+			productName = khalaMacOS;
+			productReference = CDE698B52321151000D5CBFD /* khalaMacOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CDE698C52321151200D5CBFD /* khalaMacOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDE698D02321151300D5CBFD /* Build configuration list for PBXNativeTarget "khalaMacOSTests" */;
+			buildPhases = (
+				CDE698C22321151200D5CBFD /* Sources */,
+				CDE698C32321151200D5CBFD /* Frameworks */,
+				CDE698C42321151200D5CBFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CDE698C82321151300D5CBFD /* PBXTargetDependency */,
+			);
+			name = khalaMacOSTests;
+			productName = khalaMacOSTests;
+			productReference = CDE698C62321151200D5CBFD /* khalaMacOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		CDF4058C21A29ABD003758C2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = www.linhey.com;
 				TargetAttributes = {
@@ -215,6 +324,13 @@
 					CDE4ECEC21C1120C00AEED27 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+					};
+					CDE698B42321151000D5CBFD = {
+						CreatedOnToolsVersion = 10.3;
+					};
+					CDE698C52321151200D5CBFD = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = CDE698B42321151000D5CBFD;
 					};
 				};
 			};
@@ -233,6 +349,8 @@
 			targets = (
 				CDE4ECEC21C1120C00AEED27 /* khala.iOS */,
 				CDD4F7E321D226E500FCD6A4 /* khala.iOSTests */,
+				CDE698B42321151000D5CBFD /* khalaMacOS */,
+				CDE698C52321151200D5CBFD /* khalaMacOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -255,10 +373,65 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDE698B32321151000D5CBFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDE698BC2321151200D5CBFD /* Assets.xcassets in Resources */,
+				CDE698BF2321151200D5CBFD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDE698C42321151200D5CBFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0ADCCC309FCB5DD25239BC19 /* [CP] Check Pods Manifest.lock */ = {
+		2876E3259177E2B829B663FA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6964472DCCB58E6C3260699D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-khala.iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F8A3F4B7D4B85B24C94D060 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -280,80 +453,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		703B1023EEF5FBA7B60217C7 /* [CP] Embed Pods Frameworks */ = {
+		F443D8D346DAADD3E4025A43 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AModule/AModule.framework",
-				"${BUILT_PRODUCTS_DIR}/BModule/BModule.framework",
-				"${BUILT_PRODUCTS_DIR}/DarkTemplar/DarkTemplar.framework",
-				"${BUILT_PRODUCTS_DIR}/Khala/Khala.framework",
-				"${BUILT_PRODUCTS_DIR}/KhalaStore/KhalaStore.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AModule.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BModule.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DarkTemplar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Khala.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KhalaStore.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-khala.iOS/Pods-khala.iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1CC50289CDA416E3412973F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DarkTemplar/DarkTemplar.framework",
-				"${BUILT_PRODUCTS_DIR}/Khala/Khala.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DarkTemplar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Khala.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-khala.iOSTests/Pods-khala.iOSTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A4FDB925D3BB91141BB421A0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-khala.iOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -377,6 +491,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDE698B12321151000D5CBFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDE698BA2321151000D5CBFD /* ViewController.swift in Sources */,
+				CDE698B82321151000D5CBFD /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDE698C22321151200D5CBFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDE698CB2321151300D5CBFD /* khalaMacOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -384,6 +515,11 @@
 			isa = PBXTargetDependency;
 			target = CDE4ECEC21C1120C00AEED27 /* khala.iOS */;
 			targetProxy = CDD4F7E921D226E500FCD6A4 /* PBXContainerItemProxy */;
+		};
+		CDE698C82321151300D5CBFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CDE698B42321151000D5CBFD /* khalaMacOS */;
+			targetProxy = CDE698C72321151300D5CBFD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -404,12 +540,20 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		CDE698BD2321151200D5CBFD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDE698BE2321151200D5CBFD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CDD4F7EC21D226E500FCD6A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34D1F90C49537E99CDFC5683 /* Pods-khala.iOSTests.debug.xcconfig */;
+			baseConfigurationReference = 3C51D8418817B0974571BC21 /* Pods-khala.iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -433,7 +577,7 @@
 		};
 		CDD4F7ED21D226E500FCD6A4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36AB1F43A0F16742CB94301F /* Pods-khala.iOSTests.release.xcconfig */;
+			baseConfigurationReference = AD10636BB176A4F0CADCDE45 /* Pods-khala.iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -458,7 +602,7 @@
 		};
 		CDE4ECFC21C1120E00AEED27 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C86B70342F24B3DB2586AD56 /* Pods-khala.iOS.debug.xcconfig */;
+			baseConfigurationReference = F2E764D208204E5820725FEC /* Pods-khala.iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -480,7 +624,7 @@
 		};
 		CDE4ECFD21C1120E00AEED27 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 485C404C7F7135058936AA56 /* Pods-khala.iOS.release.xcconfig */;
+			baseConfigurationReference = 4AD9A0EE62176AA82873B80A /* Pods-khala.iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -498,6 +642,86 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CDE698CE2321151300D5CBFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = khalaMacOS/khalaMacOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U2HU62KF5U;
+				INFOPLIST_FILE = khalaMacOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = linhey.khala.khalaMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CDE698CF2321151300D5CBFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = khalaMacOS/khalaMacOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U2HU62KF5U;
+				INFOPLIST_FILE = khalaMacOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = linhey.khala.khalaMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		CDE698D12321151300D5CBFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U2HU62KF5U;
+				INFOPLIST_FILE = khalaMacOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = linhey.khala.khalaMacOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/khalaMacOS.app/Contents/MacOS/khalaMacOS";
+			};
+			name = Debug;
+		};
+		CDE698D22321151300D5CBFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U2HU62KF5U;
+				INFOPLIST_FILE = khalaMacOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = linhey.khala.khalaMacOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/khalaMacOS.app/Contents/MacOS/khalaMacOS";
 			};
 			name = Release;
 		};
@@ -633,6 +857,24 @@
 			buildConfigurations = (
 				CDE4ECFC21C1120E00AEED27 /* Debug */,
 				CDE4ECFD21C1120E00AEED27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CDE698CD2321151300D5CBFD /* Build configuration list for PBXNativeTarget "khalaMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDE698CE2321151300D5CBFD /* Debug */,
+				CDE698CF2321151300D5CBFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CDE698D02321151300D5CBFD /* Build configuration list for PBXNativeTarget "khalaMacOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDE698D12321151300D5CBFD /* Debug */,
+				CDE698D22321151300D5CBFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
