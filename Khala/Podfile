@@ -9,6 +9,7 @@ def buildiOS
   for item in targets do
 
     target item do
+      pod 'SwiftLint'
       pod 'Khala', :path => '../'
       pod 'AModule', :path => './Compents/AModule/'
       pod 'BModule', :path => './Compents/BModule/'
@@ -21,14 +22,3 @@ end
 
 
 buildiOS
-
-
-#platform :osx, '10.10'
-#
-#target 'khalaMacOS' do
-#  pod 'Khala', :path => '../'
-#end
-#
-#target 'khalaMacOSTests' do
-#  pod 'Khala', :path => '../'
-#end

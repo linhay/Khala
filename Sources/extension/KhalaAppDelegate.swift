@@ -33,14 +33,13 @@ public class KhalaAppDelegate: NSObject {
         classNames.forEach({ _ = KhalaClass(name: $0) })
     }
     
-    public weak var window: UIWindow? = nil
+    public weak var window: UIWindow?
     
     public func applicationDidFinishLaunching(_ application: UIApplication) {
         classNames
-            .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
-            .forEach ({ $0.applicationDidFinishLaunching?(application) })
+            .compactMap { KhalaClass.cache[$0]?.instance as? UIApplicationDelegate }
+            .forEach { $0.applicationDidFinishLaunching?(application) }
     }
-    
     
     public func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> [Bool] {
         return classNames
@@ -54,25 +53,24 @@ public class KhalaAppDelegate: NSObject {
             .compactMap({ $0.application?(application, didFinishLaunchingWithOptions: launchOptions) })
     }
     
-    public func applicationDidBecomeActive(_ application: UIApplication){
+    public func applicationDidBecomeActive(_ application: UIApplication) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
-            .forEach ({ $0.applicationDidBecomeActive?(application) })
+            .forEach { $0.applicationDidBecomeActive?(application) }
     }
     
-    public func applicationWillResignActive(_ application: UIApplication){
+    public func applicationWillResignActive(_ application: UIApplication) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
-            .forEach ({ $0.applicationWillResignActive?(application) })
+            .forEach { $0.applicationWillResignActive?(application) }
     }
     
-    public func application(_ application: UIApplication, handleOpen url: URL) -> [Bool]{
+    public func application(_ application: UIApplication, handleOpen url: URL) -> [Bool] {
         return classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
             .compactMap({ $0.application?(application, handleOpen: url) })
     }
-    
-    
+
     public func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> [Bool] {
         return classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
@@ -204,14 +202,12 @@ public class KhalaAppDelegate: NSObject {
             })
     }
     
-    @available(iOS 7.0, *)
     public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
             .forEach({ $0.application?(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler) })
     }
     
-    @available(iOS 7.0, *)
     public func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
@@ -225,7 +221,6 @@ public class KhalaAppDelegate: NSObject {
             .forEach({ $0.application?(application, performActionFor: shortcutItem, completionHandler: completionHandler) })
     }
     
-    @available(iOS 7.0, *)
     public func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
@@ -253,28 +248,24 @@ public class KhalaAppDelegate: NSObject {
     //      .forEach({ $0.application?(application, handle: intent, completionHandler: completionHandler) })
     //  }
     
-    @available(iOS 4.0, *)
     public func applicationDidEnterBackground(_ application: UIApplication) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
             .forEach({ $0.applicationDidEnterBackground?(application) })
     }
     
-    @available(iOS 4.0, *)
     public func applicationWillEnterForeground(_ application: UIApplication) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
             .forEach({ $0.applicationWillEnterForeground?(application) })
     }
     
-    @available(iOS 4.0, *)
     public func applicationProtectedDataWillBecomeUnavailable(_ application: UIApplication) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })
             .forEach({ $0.applicationProtectedDataWillBecomeUnavailable?(application) })
     }
     
-    @available(iOS 4.0, *)
     public func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
         classNames
             .compactMap({ KhalaClass.cache[$0]?.instance as? UIApplicationDelegate })

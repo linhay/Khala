@@ -38,7 +38,7 @@ public class KhalaMethod: NSObject {
     
     if let typeEncoding = method_getTypeEncoding(method) {
       self.typeEncoding = String(cString: typeEncoding)
-    }else{
+    } else {
       self.typeEncoding = ""
     }
     

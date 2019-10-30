@@ -49,7 +49,7 @@ public class KhalaClass: NSObject {
     if let value = KhalaClass.cache[self.name] {
       self.type = value.type
       self.instance = value.instance
-    }else if let type = NSClassFromString(name) as? NSObject.Type {
+    } else if let type = NSClassFromString(name) as? NSObject.Type {
       let instance = type.init()
       self.type = type
       self.instance = instance
@@ -57,7 +57,7 @@ public class KhalaClass: NSObject {
       let instance = type.init()
       self.type = type
       self.instance = instance
-    }else {
+    } else {
       return nil
     }
     super.init()
@@ -70,9 +70,9 @@ public class KhalaClass: NSObject {
   /// - Returns: [String: PseudoMethod]
   func getMethods() -> [String: KhalaMethod] {
     var list = [String: KhalaMethod]()
-    findSuperClasses().forEach { (`class`) in
+    findSuperClasses().forEach { (item) in
       var methodNum: UInt32 = 0
-      let methods = class_copyMethodList(`class`, &methodNum)
+      let methods = class_copyMethodList(item, &methodNum)
       for index in (0..<numericCast(methodNum)) {
         guard let method = methods?[index] else { continue }
         let pseudoMethod = KhalaMethod(method: method)
@@ -121,7 +121,7 @@ extension KhalaClass {
       return nil
     case .object:
       return inv?.getReturnObject()
-    case .longlong,.point,.int:
+    case .longlong, .point, .int:
       var value: Int = 0
       inv?.getReturnValue(&value)
       return value

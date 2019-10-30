@@ -26,7 +26,6 @@ import AppKit
 // MARK: - shortcut function for AppKit
 public extension Khala {
   
-  
   /// get viewController
   ///
   /// - Returns: viewController

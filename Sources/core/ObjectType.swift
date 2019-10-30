@@ -22,7 +22,7 @@
 
 import Foundation
 
-enum ObjectType: String,Hashable {
+enum ObjectType: String, Hashable {
   case void     = "v"   //void类型   v
   case sel      = ":"   //selector  :
   case object   = "@"   //对象类型   "@"

@@ -34,7 +34,7 @@ public class KhalaNotify: NSObject {
   ///   - url: URL
   ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init(url: URL, params: [AnyHashable: Any] = [:]) {
-    urlValue = Rewrite.separate(KhalaNodeValue(url: url,params: params))
+    urlValue = Rewrite.separate(KhalaNodeValue(url: url, params: params))
     super.init()
   }
   
@@ -45,12 +45,11 @@ public class KhalaNotify: NSObject {
   ///   - params: Use it when you need to pass NSObject/UIImage, etc.
   public init?(str: String, params: [AnyHashable: Any] = [:]) {
     guard let tempURL = URL(string: str) else { return nil }
-    urlValue = Rewrite.separate(KhalaNodeValue(url: tempURL,params: params))
+    urlValue = Rewrite.separate(KhalaNodeValue(url: tempURL, params: params))
     super.init()
   }
   
 }
-
 
 extension KhalaNotify {
   

@@ -21,13 +21,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
 import Foundation
-import Darwin
-
 
 /// When you want to customize the Logs module, you need to inherit the protocol.
 @objc public
 protocol KhalaHistory: NSObjectProtocol {
-    var isEnabled: Bool { set get }
+    var isEnabled: Bool { get set }
     func write(_ value: KhalaNode)
 }
 
@@ -55,7 +53,7 @@ class History: NSObject, KhalaHistory {
         let date = dateFomtter.string(from: Date())
         let filePath = dirPath + date + ".log"
         if !fileManager.fileExists(atPath: filePath) {
-            fileManager.createFile(atPath:filePath, contents: nil, attributes: nil)
+            fileManager.createFile(atPath: filePath, contents: nil, attributes: nil)
         }
         return FileHandle(forWritingAtPath: filePath)
     }()
@@ -77,13 +75,13 @@ class History: NSObject, KhalaHistory {
         str += value.url.absoluteString
 
         if !value.params.isEmpty, JSONSerialization.isValidJSONObject(value.params) {
-            do{
+            do {
                 let data = try JSONSerialization.data(withJSONObject: value.params, options: [])
                 if let json = String(data: data, encoding: .utf8) {
                     str += " "
                     str += json
                 }
-            }catch{
+            } catch {
                 str += value.params.description
             }
         }
@@ -97,7 +95,7 @@ class History: NSObject, KhalaHistory {
         filehandle?.seekToEndOfFile()
         if let data = str.data(using: String.Encoding.utf8, allowLossyConversion: true) {
             filehandle?.write(data)
-        }else{
+        } else {
             KhalaFailure.logWrite(message: str)
         }
     }

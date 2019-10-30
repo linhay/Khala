@@ -42,7 +42,7 @@ public class Khala: NSObject {
     ///   - url: URL
     ///   - params: Use it when you need to pass NSObject/UIImage, etc.
     public init(url: URL, params: [AnyHashable: Any] = [:]) {
-        node = Rewrite.separate(KhalaNodeValue(url: url,params: params))
+        node = Rewrite.separate(KhalaNodeValue(url: url, params: params))
         node = Khala.rewrite.redirect(node)
         super.init()
     }
@@ -75,19 +75,19 @@ extension Khala {
     
     /// Whether to enable assertions, the default is enabled
     public static var isEnabledAssert: Bool {
-        set{ KhalaFailure.isEnabled = newValue }
-        get{ return KhalaFailure.isEnabled }
+        set { KhalaFailure.isEnabled = newValue }
+        get { return KhalaFailure.isEnabled }
     }
     /// Whether to enable the log, the default is not enabled
-    public static var isEnabledLog: Bool{
-        set{ history.isEnabled = newValue }
-        get{ return history.isEnabled }
+    public static var isEnabledLog: Bool {
+        set { history.isEnabled = newValue }
+        get { return history.isEnabled }
     }
     
     /// assertions language
-    public static var language: Language{
-        set{ KhalaFailure.language = newValue }
-        get{ return KhalaFailure.language }
+    public static var language: Language {
+        set { KhalaFailure.language = newValue }
+        get { return KhalaFailure.language }
     }
     
 }
@@ -101,7 +101,7 @@ extension Khala {
     ///   - value: `KhalaURLValue`
     ///   - blockCount: The number of blocks used to exactly match the function of the same name
     /// - Returns: routing class instances and routing functions or nil
-    private func findInstenAndMethod(value: KhalaNode) -> (insten: KhalaClass,method: KhalaMethod)? {
+    private func findInstenAndMethod(value: KhalaNode) -> (insten: KhalaClass, method: KhalaMethod)? {
         Khala.history.write(value)
         
         guard let host = value.url.host, let firstPath = value.url.pathComponents.last else {
@@ -117,12 +117,12 @@ extension Khala {
         guard let methods = insten.findMethod(name: firstPath) else {
             KhalaFailure.notFoundFunc(className: insten.name,
                                       funcName: firstPath,
-                                      methods: insten.methodLists.keys.map{ $0 })
+                                      methods: insten.methodLists.keys.map { $0 })
             return nil
         }
         
         guard !methods.isEmpty else {
-            KhalaFailure.notFoundFunc(className: host, funcName: firstPath, methods: insten.methodLists.map{ $0.key })
+            KhalaFailure.notFoundFunc(className: host, funcName: firstPath, methods: insten.methodLists.map { $0.key })
             return nil
         }
         
@@ -132,7 +132,7 @@ extension Khala {
         }
         
         guard let method = methods.first else { return nil }
-        return (insten: insten,method: method)
+        return (insten: insten, method: method)
     }
     
     /// Call routing function
@@ -154,8 +154,6 @@ extension Khala {
     }
     
 }
-
-
 
 // MARK: - Method about regist `PseudoClass.cache`
 public extension Khala {
@@ -221,8 +219,13 @@ public extension Khala {
     func call() -> Any? {
         guard let ir = self.findInstenAndMethod(value: self.node) else { return nil }
         let closures: [KhalaClosure] = ir.method.paramsTypes.dropFirst(2).compactMap { (item) -> KhalaClosure? in
-            if item == ObjectType.block { return { (useInfo) in  } }
-            else { return nil }
+            if item == ObjectType.block {
+                return {
+                    (useInfo) in
+                }
+            } else {
+                return nil
+            }
         }
         return perform(insten: ir.insten, method: ir.method, args: closures)
     }

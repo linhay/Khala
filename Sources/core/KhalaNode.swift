@@ -25,8 +25,8 @@ import Foundation
 /// When you want to customize the URLValue, you need to inherit the protocol.
 @objc
 public protocol KhalaNode {
-  var url: URL { set get }
-  var params: [AnyHashable: Any] { set get }
+  var url: URL { get set }
+  var params: [AnyHashable: Any] { get set }
 }
 
 @objcMembers

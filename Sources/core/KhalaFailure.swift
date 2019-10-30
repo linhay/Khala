@@ -20,7 +20,6 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
-
 struct KhalaFailure {
   
   static var isEnabled = true
@@ -34,7 +33,7 @@ struct KhalaFailure {
     case .en:
       value += "[Khala] log write fail: \(message)"
     }
-    failure(value,file:file,line: line)
+    failure(value, file: file, line: line)
   }
   
   static func notFoundClass(name: String, file: StaticString = #file, line: UInt = #line) {
@@ -45,13 +44,13 @@ struct KhalaFailure {
     case .en:
       value += "[Khala] Did not match this route class:\(name)"
     }
-    failure(value,file:file,line: line)
+    failure(value, file: file, line: line)
   }
   
-  static func notFoundFunc(className: String,funcName: String, methods: [String], file: StaticString = #file, line: UInt = #line) {
+  static func notFoundFunc(className: String, funcName: String, methods: [String], file: StaticString = #file, line: UInt = #line) {
     var value = methods
       .enumerated()
-      .map{ $0.offset.description + ": " + $0.element }
+      .map { $0.offset.description + ": " + $0.element }
       .joined(separator: "\n") 
     
     switch language {
@@ -60,7 +59,7 @@ struct KhalaFailure {
     case .en:
       value = "[Khala] If there is no match to the route function [\(funcName)] in the route class[\(className)], please refer to the list of functions of this class: \n" + value
     }
-    failure(value,file:file,line: line)
+    failure(value, file: file, line: line)
   }
   
   static func inconsistentNumberInSendMessage(file: StaticString = #file, line: UInt = #line) {
@@ -71,7 +70,7 @@ struct KhalaFailure {
     case .en:
       value += "[Khala] Inconsistent number"
     }
-    failure(value,file:file,line: line)
+    failure(value, file: file, line: line)
   }
   
   static func notURL(_ url: URL, file: StaticString = #file, line: UInt = #line) {
@@ -82,12 +81,12 @@ struct KhalaFailure {
     case .en:
       value += "[Khala] There is an error in the url composition: \(url)"
     }
-    failure(value,file:file,line: line)
+    failure(value, file: file, line: line)
   }
   
   static func multipleFunc(methods: [KhalaMethod], file: StaticString = #file, line: UInt = #line) {
     var value = methods
-      .map{ $0.selector.description }
+      .map { $0.selector.description }
       .joined(separator: "\n")
     
     switch language {
@@ -96,12 +95,12 @@ struct KhalaFailure {
     case .en:
       value = "[Khala] We match multiple functions, please modify the function name in the routing class: \n" + value
     }
-    failure(value,file:file,line: line)
+    failure(value, file: file, line: line)
   }
   
   static func failure(_ message: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
     guard isEnabled else { return }
-    assertionFailure("\n" + message() + "\n",file: file,line: line)
+    assertionFailure("\n" + message() + "\n", file: file, line: line)
   }
   
 }

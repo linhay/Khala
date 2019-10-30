@@ -59,7 +59,6 @@ class Rewrite: NSObject, KhalaRewrite {
     Rewrite.shared.filters += filters
   }
   
-  
   static let shared = Rewrite()
   var filters = [KhalaRewriteFilter]()
 
@@ -80,7 +79,6 @@ class Rewrite: NSObject, KhalaRewrite {
     
     return value
   }
-  
   
   func redirect(_ value: KhalaNode) -> KhalaNode {
     return filters.reduce(value) { (result, filter) -> KhalaNode in
